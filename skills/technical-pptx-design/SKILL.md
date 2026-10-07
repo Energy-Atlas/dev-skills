@@ -1,6 +1,7 @@
 ---
 name: technical-pptx-design
-description: Design and produce an editable PowerPoint (.pptx) deck for a technical research presentation with models, data analysis, maps, charts, tables, figures, and limited mathematical notation, in a restrained academic style centred on the evidence. Use when someone asks to build, lay out, restyle, or clean up slides for a research talk, thesis defence, conference, seminar, or lab meeting from their content, figures, data, or an existing deck, or wants a deck that does not look AI-generated. Design only; it never changes research claims, values, units, equations, or sources.
+description: Design and produce an editable PowerPoint (.pptx) deck for a technical research presentation with models, data analysis, maps, charts, tables, figures, and limited mathematical notation, in a restrained academic style centred on the evidence, in an optional font family (default Calibri). Use when someone asks to build, lay out, restyle, or clean up slides for a research talk, thesis defence, conference, seminar, or lab meeting from their content, figures, data, or an existing deck, or wants a deck that does not look AI-generated. Design only; it never changes research claims, values, units, equations, or sources.
+argument-hint: "[font family, default Calibri]"
 ---
 
 # Technical PPTX design
@@ -23,7 +24,11 @@ no decoration that carries no analytical meaning.
 
 ## Inputs
 
-Collect before designing; ask for what is missing rather than inventing it:
+**Font family (optional, default Calibri).** Take it from the skill's argument (for example `technical-pptx-design Arial`)
+or from the request ("use Arial", "set it in Aptos"). Use the family as named, even if it is not a sans-serif: it is the
+owner's choice. Without one, use **Calibri**. See *Typography* for how to apply and check it.
+
+Collect the rest before designing; ask for what is missing rather than inventing it:
 
 - the content: an outline, speaker notes, or a draft deck;
 - figures as originals: vector files (SVG, PDF, EMF) or high-resolution rasters, not screenshots;
@@ -38,8 +43,9 @@ Collect before designing; ask for what is missing rather than inventing it:
 1. **Inventory.** For each slide, list its evidence and its message, and assign one layout from
    `references/layouts.md`. Flag gaps: low-resolution images, missing units or sample sizes, uncited figures, slides
    that try to show too much (propose a split rather than shrinking).
-2. **Design system.** Define it once and apply it everywhere: grid and margins, type scale, the neutral background, the
-   single accent colour, one data colour per variable or category across the whole deck, caption and citation styles.
+2. **Design system.** Define it once and apply it everywhere: the font family, grid and margins, type scale, the neutral
+   background, the single accent colour, one data colour per variable or category across the whole deck, caption and
+   citation styles.
    Write it down (a short style sheet in the report) before building.
 3. **Master.** Build or clean the slide master: only the layouts the deck uses, no logos, footers, page furniture, or
    section labels repeated on every slide, no leftover placeholders.
@@ -71,8 +77,16 @@ These read as AI-generated presentation aesthetics. Do not use them:
 
 ### Typography
 
-- One professional sans-serif family that the presenting machine has (or embed it); a second family only for code or
-  mathematics.
+- **One family for the whole deck:** the requested family, or Calibri by default. Set it as both the heading (major) and
+  the body (minor) font of the theme, so titles, body text, charts, tables, and captions all inherit it; with Calibri,
+  titles are in Calibri, not Calibri Light. Do not set a font on individual text runs, except Cambria Math for equations
+  (PowerPoint's equation font) and one monospace family for code, if the deck shows code. The snippet is in
+  `references/qa-checklist.md`, *Font family*.
+- **Availability:** check that the family is installed on the machine that renders the slides (an uninstalled family is
+  silently substituted, and the check images lie). If it is not common on presenting machines (Calibri and Arial ship
+  with Office and Windows; many others do not), say so in the report and recommend embedding fonts when saving in
+  PowerPoint (*File > Options > Save > Embed fonts in the file*); `python-pptx` cannot embed fonts.
+- Hierarchy comes from size and weight within the one family, not from a second family.
 - Deck title 36–44 pt; slide titles 27–32 pt; body 18–22 pt; figure labels, captions, and citations at least 11–14 pt,
   never smaller.
 - Left-aligned text; consistent line spacing; no full justification, no all-caps paragraphs, no text effects.
