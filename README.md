@@ -21,23 +21,36 @@ skills/
 
 ## Install
 
-Copy a skill folder into a skills directory that Claude Code reads.
+Install with the [`skills`](https://github.com/vercel-labs/skills) CLI through `npx`; it needs Node.js and reads the
+skills straight from this repository.
 
-For every project on a machine (user level), in Windows PowerShell:
-
-```powershell
-New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null
-Copy-Item -Recurse -Force skills\wiki-ui-alignment "$HOME\.claude\skills\"
-```
-
-On macOS or Linux:
+See which skills the repository offers:
 
 ```bash
-mkdir -p ~/.claude/skills && cp -R skills/wiki-ui-alignment ~/.claude/skills/
+npx skills add energy-atlas/dev-skills --list
 ```
 
-For one project only, copy it into that project's `.claude/skills/` instead. Copy again after pulling a new version of
-this repository; a copied skill does not update itself.
+Install a skill for every project on the machine (`-g`), for Claude Code (`-a claude-code`):
+
+```bash
+npx skills add energy-atlas/dev-skills --skill wiki-ui-alignment -g -a claude-code
+```
+
+Leave out `-g` to install it into the current project's `.claude/skills/` instead, so it is committed with the project.
+Leave out `-a claude-code` to choose the agents interactively.
+
+On Windows, add `--copy`: the CLI links installed skills by default, and Windows refuses symbolic links unless developer
+mode is on.
+
+```bash
+npx skills add energy-atlas/dev-skills --skill wiki-ui-alignment -g -a claude-code --copy
+```
+
+Update installed skills after this repository changes:
+
+```bash
+npx skills update -g
+```
 
 ## Adding a skill
 
