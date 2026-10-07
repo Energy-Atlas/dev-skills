@@ -9,6 +9,7 @@ Reusable agent skills for the development work of the Energy Atlas organisation.
 | Skill | Use it to |
 | --- | --- |
 | [`wiki-ui-alignment`](skills/wiki-ui-alignment/SKILL.md) | Restyle an MkDocs (Material for MkDocs) documentation site to a reference UI and a brand palette: intake questions, a recorded design spec, tokens and contrast, self-hosted fonts, Material CSS recipes, browser verification, and merging. |
+| [`technical-pptx-design`](skills/technical-pptx-design/SKILL.md) | Design an editable `.pptx` for a technical research presentation (models, data analysis, maps, charts, tables, equations) in a restrained academic style, without changing any research content: layouts on a grid, element rules, rendering every slide, and an automated audit. |
 
 ## Layout
 
