@@ -1,36 +1,34 @@
-# BEMGen documentation site — UI Design Specification
+# EnergyAtlas dev-skills site — UI Design Specification
 
-This specification restyles the BEMGen documentation site into the visual family of the EnergyAtlas Wiki. It began as the EnergyAtlas Wiki UI design specification; section 0 records the decisions taken for BEMGen. **Where section 0 and a later section disagree, section 0 wins.**
+This specification styles the dev-skills site, the skills repository of the EnergyAtlas organisation, in the visual family of the BEMGen documentation site and the EnergyAtlas Wiki. It began as the EnergyAtlas Wiki UI design specification and came to this repository from the BEMGen documentation site; section 0 records the decisions taken for dev-skills. **Where section 0 and a later section disagree, section 0 wins.**
 
 ---
 
-## 0. BEMGen Implementation Decisions
+## 0. dev-skills Implementation Decisions
 
-Decided by the owner on 2026-10-07. These are implementation rules, not one-off clarifications.
+Decided by the owner on 2026-10-11. These are implementation rules, not one-off clarifications.
 
 ### 0.1 Brand
 
-- The site stays **BEMGen**. This is a visual-family alignment with EnergyAtlas, not a rename.
-- Keep the site title, the BEMGen identity, and the existing logo and favicon. Do not add "EnergyAtlas" branding to the header, title, footer, or pages.
+- The site is **EnergyAtlas dev-skills**. Unlike the BEMGen site, it carries the EnergyAtlas name: it is the organisation's own repository.
+- There is no logo or favicon of its own; the header uses Material's default icon. Do not invent a logo.
 - The family resemblance comes from typography, palette, and UI structure.
 
 ### 0.2 Sources of truth
 
-- **Reference UI:** a screenshot of the ArtCraft website, supplied by the owner. It is the visual source for grid framing, borders, card construction, typography hierarchy, spacing, and navigation character. The image is not kept in this repository; section 0.11 describes it.
-- **Palette:** the live EnergyAtlas Wiki implementation, `assets/css/main.css` of <https://chengxuan-li.github.io/EnergyAtlasWiki/>. If it diverges from the hex values in this document, the wiki's CSS is authoritative, except where section 0.6 adjusts a value for contrast. The values here match the wiki as of 2026-10-07.
+- **Reference UI:** the BEMGen documentation site (<https://energy-atlas.github.io/BEMGen-docs/>): its specification (this document's body), its stylesheet, its fonts, and its template override, which dev-skills takes over unchanged except where this section says otherwise. BEMGen's own reference, a screenshot of the ArtCraft website, is not kept here either; section 0.11 describes it.
+- **Palette:** the live EnergyAtlas Wiki implementation, `assets/css/main.css` of <https://chengxuan-li.github.io/EnergyAtlasWiki/>. If it diverges from the hex values in this document, the wiki's CSS is authoritative, except where section 0.6 adjusts a value for contrast. The values here match the wiki as of 2026-10-07, as recorded by the BEMGen site.
 
 ### 0.3 Theme behaviour
 
-- The default theme follows the system preference (`prefers-color-scheme`), and the existing light/dark toggle stays.
+- The default theme follows the system preference (`prefers-color-scheme`), and the light/dark toggle stays.
 - Never force dark mode. A visitor whose system prefers light gets light first.
 - Dark mode receives the strongest version of the reference visual language; light mode keeps the same grid, typography, and framing.
 
 ### 0.4 Fonts
 
 - Families: **Geist** (primary sans), **Geist Mono** (technical and monospace UI), **Cormorant Garamond** (sparse editorial serif accent, italic).
-- Self-host them. The browser must not contact Google Fonts or any other font host when the site is viewed.
-- Prefer Material for MkDocs' `privacy` plugin, which downloads external fonts at build time and serves them from the site. If it cannot cover a family, vendor the webfont files under `docs/assets/fonts/` with their licences and declare them with `@font-face`.
-- **Outcome:** the fonts are vendored. The `privacy` plugin creates symbolic links for the extensionless Google Fonts style-sheet URL; Windows refuses them without developer mode, and the plugin's warning fails `mkdocs build --strict` on the Windows machines that build this site. The Latin and Latin Extended subsets (variable Geist and Geist Mono, Cormorant Garamond italic 500) are in `docs/assets/fonts/` with their OFL licences, declared in `docs/assets/stylesheets/fonts.css`; `theme.font` is `false`, so Material loads no font itself. Builds need no network.
+- Self-hosted: the Latin and Latin Extended subsets (variable Geist and Geist Mono, Cormorant Garamond italic 500) are in `docs/assets/fonts/` with their OFL licences, copied from the BEMGen site, and declared in `docs/assets/stylesheets/fonts.css`; `theme.font` is `false`, so Material loads no font itself. The browser contacts no font host, and builds need no network.
 
 ### 0.5 Colour roles
 
@@ -42,7 +40,7 @@ Decided by the owner on 2026-10-07. These are implementation rules, not one-off 
 | Error | `#f44336` | `#c5221f` | errors, destructive actions, failures |
 | Primary (brand) | `#003978` | `#003978` | deep branded **fill or background** only |
 
-- Red is restricted to error, destructive, and failure states. Do not use red (`#f1392a`, `#c92d22`) as a decorative secondary brand accent anywhere in the documentation UI.
+- Red is restricted to error, destructive, and failure states. Do not use red (`#f1392a`, `#c92d22`) as a decorative secondary brand accent anywhere on the site.
 - Amber/yellow means warning, green means success, blue means links, navigation, information, and active/selected states.
 - `#003978` is never text or a meaningful border on a dark background (1.86:1 on black). Text on a `#003978` fill is white or `#e5e5e5`.
 - Admonition mapping: `note`, `info`, `abstract`, `tip` use the info blue; `success` green; `warning` amber; `danger`, `failure`, `bug`, `error` red.
@@ -56,7 +54,7 @@ The hex values of this document are not immutable where they fail contrast. Targ
 - borders and edges that convey state or mark an interactive control (inputs, buttons, focus, the active item): at least 3:1;
 - decorative grid rules that convey no state may stay lighter.
 
-Adjusted and added tokens:
+Adjusted and added tokens (unchanged from the BEMGen site):
 
 | Token | Theme | Spec value | Used value | Contrast of used value |
 | --- | --- | --- | --- | --- |
@@ -78,41 +76,35 @@ A real but restrained hero, followed immediately by the shared-border grid. Not 
 - Headline, on two lines:
 
   ```text
-  Generate building energy models
-  at urban scale.
+  EnergyAtlas
+  dev-skills
   ```
 
-  `Generate building energy models` in Geist; `at urban scale.` in Cormorant Garamond italic.
-- Supporting copy is short: one or two sentences.
-- Below the hero, the existing landing-page cards (User guide, Developer documentation) become one continuous shared-border grid (section 6), not separate cards.
-- The landing page hides both sidebars but keeps their widths as empty margins, without their vertical rules, so its text starts where the text of every other page starts. Only the content moves: strips and the top and bottom rules of grids still run from frame to frame. Any page that hides a sidebar behaves the same way.
-- The hero headline is sized to the hero's width, so `Generate building energy models` stays on one line on desktop.
+  `EnergyAtlas` in Geist; `dev-skills` in Cormorant Garamond italic.
+- Supporting copy is short: one or two sentences on what the repository is.
+- Below the hero: `01 / SKILLS`, one shared-border grid with a cell per skill (section 6); `02 / INSTALL` and `03 / UPDATE`, the commands of the `skills` CLI.
+- The landing page hides both sidebars but keeps their widths as empty margins, without their vertical rules, so its text starts where the text of every other page starts. Only the content moves: strips and the top and bottom rules of grids still run from frame to frame.
+- The hero headline is sized to the hero's width, so each line stays on one line on desktop.
 - No oversized CTAs, imagery, or animation.
 
 ### 0.8 Numbered section strips
 
-Section strips (`01 / USER GUIDE`, section 7) appear only on:
-
-- the landing page;
-- major section index pages;
-- other deliberately designed overview or navigation pages.
-
-Do not number `##` headings automatically on ordinary documentation pages; they keep normal typographic hierarchy.
+Section strips (`01 / SKILLS`, section 7) appear only on the landing page. Skill pages never number their `##` headings; they keep normal typographic hierarchy.
 
 ### 0.9 Content width
 
 - The 760–900px prose width (section 11) is for readable long-form content, not a universal container.
-- Exempt: API and component-reference pages, large diagrams, data and reference matrices, and wide tables.
-- Wide tables sit in a bounded horizontal-scrolling container; the page viewport itself must never overflow horizontally.
+- Exempt: wide tables and code blocks, including the copy of each `SKILL.md` (section 0.14); they scroll horizontally inside their own container.
+- The page viewport itself must never overflow horizontally.
 
 ### 0.10 Breadcrumbs
 
-- Turn breadcrumbs on (`navigation.path` in Material for MkDocs).
-- Restrained technical style: small Geist or Geist Mono, muted colour, separators in the same muted colour, no bar, background, or border of their own.
+- Breadcrumbs are on (`navigation.path` in Material for MkDocs).
+- Restrained technical style: small Geist Mono, muted colour, separators in the same muted colour, no bar, background, or border of their own.
 
 ### 0.11 The reference screenshot, described
 
-What to take from the ArtCraft reference:
+What the BEMGen site took from the ArtCraft reference, and dev-skills inherits:
 
 - **Surface:** near-black page background; content in off-white, secondary text in mid-grey.
 - **Page frame:** the content column is bounded by two full-height vertical rules, with empty margins outside them. Horizontal rules run between sections and meet the frame; small `+` registration marks sit at the intersections, like a drawing sheet.
@@ -135,6 +127,12 @@ Moving between pages must not flicker or shift the layout:
 - A cell whose title is a link is clickable as a whole and goes to the title's address; hovering it shifts the surface and turns the title blue. Other links in the cell (its button, a link in its description) keep their own targets.
 - A cell's text is padded by the same gutter as the prose, so cell text, strip labels, and paragraphs share one left edge.
 - Every cell is closed on all four sides. Where an empty sidebar margin (section 0.7) moves a grid in from the frame, the grid draws its own outer left and right rules at the margin; elsewhere the frame lines close it.
+
+### 0.14 Skill pages
+
+- One page per skill, `docs/skills/<skill-name>.md`, written by hand in the shared format of `design/skill-page-template.md`: a summary, the skill at a glance, its arguments as a table, when to use it, what it does, its files, how to install it, and a copy of its `SKILL.md`.
+- The copy is not pasted: the page includes `skills/<skill-name>/SKILL.md` at build time (`pymdownx.snippets`, with missing files failing the build), inside a fenced `markdown` code block, so it always shows the current file, front matter included.
+- A new skill gets its page, a cell in the landing grid, and an entry in the navigation in the same change that adds the skill.
 
 ---
 
@@ -321,14 +319,14 @@ Prefer the Google Fonts version when available.
 
 Use it only for selective phrases in large display headings.
 
-Example (the BEMGen landing headline, section 0.7):
+Example (the dev-skills landing headline, section 0.7):
 
 ```text
-Generate building energy models
-at urban scale.
+EnergyAtlas
+dev-skills
 ```
 
-The phrase *at urban scale.* uses Cormorant italic while the rest remains Geist.
+The word *dev-skills* uses Cormorant italic while the rest remains Geist.
 
 Do not use Cormorant for:
 
@@ -864,17 +862,17 @@ letter-spacing: -0.03em;
 
 Use Cormorant italic selectively within the heading if editorial emphasis is desirable.
 
-BEMGen's headline (section 0.7):
+The dev-skills headline (section 0.7):
 
 ```text
-Generate building energy models
-at urban scale.
+EnergyAtlas
+dev-skills
 ```
 
 Treatment:
 
-- `Generate building energy models` — Geist
-- `at urban scale.` — Cormorant Garamond italic
+- `EnergyAtlas` — Geist
+- `dev-skills` — Cormorant Garamond italic
 
 Use sparingly. The hero stays restrained and is followed immediately by the shared-border grid.
 
