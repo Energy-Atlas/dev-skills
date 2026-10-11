@@ -9,7 +9,7 @@ Reusable agent skills for the development work of the Energy Atlas organisation.
 | Skill | Use it to |
 | --- | --- |
 | [`wiki-ui-alignment`](skills/wiki-ui-alignment/SKILL.md) | Restyle an MkDocs (Material for MkDocs) documentation site to a reference UI and a brand palette: intake questions, a recorded design spec, tokens and contrast, self-hosted fonts, Material CSS recipes, browser verification, and merging. |
-| [`technical-pptx-design`](skills/technical-pptx-design/SKILL.md) | Design an editable `.pptx` for a technical research presentation (models, data analysis, maps, charts, tables, equations) in a restrained academic style and an optional font family (default Calibri), without changing any research content: layouts on a grid, element rules, rendering every slide, and an automated audit. |
+| [`technical-pptx-design`](skills/technical-pptx-design/SKILL.md) | Design an editable `.pptx` for a technical research presentation (models, data analysis, maps, charts, tables, equations) in a restrained academic style and an optional font family (default Calibri), without changing any research content: layouts on a grid, element rules, rendering every slide, `python-pptx` helpers, and an automated audit. |
 
 ## Layout
 
@@ -17,7 +17,10 @@ Reusable agent skills for the development work of the Energy Atlas organisation.
 skills/
   <skill-name>/
     SKILL.md          when to use the skill and its workflow
-    references/       details loaded on demand: templates, recipes, scripts, checklists
+    references/       details loaded on demand: templates, recipes, checklists
+    scripts/          code the skill runs or imports (optional)
+tests/
+  <skill-name>/       regression tests for a skill's scripts (not installed with the skill)
 ```
 
 ## Install
@@ -58,7 +61,8 @@ npx skills update -g
 - One folder per skill under `skills/`, named in kebab case; the folder name equals the `name` in its front matter.
 - Write the `description` for the agent that decides whether to load the skill: what it does and the requests that should
   trigger it.
-- Keep `SKILL.md` to the workflow and the rules; move long recipes, templates, and scripts to `references/`.
+- Keep `SKILL.md` to the workflow and the rules; move long recipes and templates to `references/` and code to
+  `scripts/`, with tests for that code under `tests/<skill-name>/` (run them with `python -m pytest tests`).
 - Keep skills free of credentials, personal paths, and private repository links.
 - Commits: `type(scope): imperative summary in lower case`, with the types `feature`, `fix`, `refactor`, `test`, `docs`,
   `build`, `chore`, `perf` and the skill name as the scope, for example `feature(wiki-ui-alignment): ...`.

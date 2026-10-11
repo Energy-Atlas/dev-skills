@@ -46,29 +46,7 @@ PowerPoint, do the final visual check with PowerPoint's rendering if at all poss
 ## Font family
 
 The deck's family is the one the skill was given, or Calibri. Set it as the theme's heading and body font with
-`python-pptx` (tested; PowerPoint reads the result as the theme fonts):
-
-```python
-from lxml import etree
-from pptx import Presentation
-from pptx.opc.constants import RELATIONSHIP_TYPE as RT
-
-NS_A = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
-
-
-def set_theme_font(deck, family):
-    """Set the heading and body Latin fonts of every slide master's theme, so all text inherits the family."""
-    for master in deck.slide_masters:
-        part = master.part.part_related_by(RT.THEME)
-        theme = etree.fromstring(part.blob)
-        for latin in theme.findall(".//a:majorFont/a:latin", NS_A) + theme.findall(".//a:minorFont/a:latin", NS_A):
-            latin.set("typeface", family)
-        part._blob = etree.tostring(theme, xml_declaration=True, encoding="UTF-8", standalone=True)
-
-
-# deck = Presentation("deck.pptx"); set_theme_font(deck, "Calibri"); deck.save("deck.pptx")
-```
-
+`set_theme_font(deck, family)` from `scripts/pptx_helpers.py` (tested; PowerPoint reads the result as the theme fonts).
 Text then inherits the family everywhere, including native charts and tables; leave fonts unset on text runs. Only
 equations (Cambria Math) and code (one monospace family) set their own.
 
@@ -84,149 +62,21 @@ On macOS or Linux: `fc-list : family | grep -i "calibri"`.
 
 ## Automated audit
 
-Needs `python-pptx`. Run `python audit_pptx.py deck.pptx --font <family>` (the deck's family; Calibri when omitted); it
-reports, per slide, shapes outside the slide, overlapping shapes, text below 11 pt, text set in another font than the
-family (Cambria Math, the equation font, is allowed), raster images below 200 dpi as displayed, empty placeholders,
-animations, and transitions, and for the deck the theme's heading and body fonts, the fonts set on text, unused slide
-layouts, and the number of native charts and tables. Intended overlaps
-(a label placed on a map) are reported too: confirm them on the rendered slide. It cannot see text overflow: that needs
-the rendered slides.
+Needs `python-pptx`. Run `python scripts/audit_pptx.py deck.pptx --font <family>` (the deck's family; Calibri when
+omitted), adding `--code-font <monospace family>` if the deck shows code. It reports, per slide:
 
-```python
-"""Audit a .pptx for the technical-pptx-design checks that can be automated.
+- shapes outside the slide and overlapping shapes;
+- text below 11 pt as displayed: sizes inherited from the layout, master, or deck defaults, and shrinking by autofit,
+  are taken into account;
+- text set in another font than the family, the equation font (Cambria Math), or the code font;
+- raster images below 200 dpi as displayed, cropping and pictures in placeholders included (SVG pictures are vector and
+  pass);
+- empty placeholders, animations, and transitions.
 
-Usage: python audit_pptx.py deck.pptx [--font Calibri] [--min-pt 11] [--min-dpi 200]
-Reports, per slide: shapes outside the slide, overlapping shapes, text below the minimum size, text set in a font other
-than the deck's family (or the equation font), raster images below the minimum effective resolution, empty
-placeholders, animations and transitions; and, for the deck: the theme fonts, fonts in use, slide layouts no slide
-uses, and how many charts and tables are native. Text overflow is not detectable here: check the rendered slides.
-"""
-import argparse
-import collections
-import itertools
-
-from lxml import etree
-from pptx import Presentation
-from pptx.enum.shapes import MSO_SHAPE_TYPE
-from pptx.opc.constants import RELATIONSHIP_TYPE as RT
-from pptx.util import Emu
-
-EMU_PER_INCH = 914400
-NS_P = "{http://schemas.openxmlformats.org/presentationml/2006/main}"
-NS_A = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
-THEME_REFERENCES = {"+mj-lt", "+mn-lt"}  # "use the theme's heading or body font"
-
-
-def theme_fonts(deck):
-    """The Latin heading (major) and body (minor) fonts of each slide master's theme."""
-    fonts = []
-    for master in deck.slide_masters:
-        theme = etree.fromstring(master.part.part_related_by(RT.THEME).blob)
-        fonts.append((theme.find(".//a:majorFont/a:latin", NS_A).get("typeface"),
-                      theme.find(".//a:minorFont/a:latin", NS_A).get("typeface")))
-    return fonts
-
-
-def box(shape):
-    return shape.left or 0, shape.top or 0, (shape.left or 0) + (shape.width or 0), (shape.top or 0) + (shape.height or 0)
-
-
-def overlap_area(a, b):
-    width = min(a[2], b[2]) - max(a[0], b[0])
-    height = min(a[3], b[3]) - max(a[1], b[1])
-    return width * height if width > 0 and height > 0 else 0
-
-
-def runs(shape):
-    if shape.has_text_frame:
-        for paragraph in shape.text_frame.paragraphs:
-            yield from paragraph.runs
-    if getattr(shape, "has_table", False) and shape.has_table:
-        for row in shape.table.rows:
-            for cell in row.cells:
-                for paragraph in cell.text_frame.paragraphs:
-                    yield from paragraph.runs
-
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("deck")
-    parser.add_argument("--font", default="Calibri", help="the deck's font family (default: Calibri)")
-    parser.add_argument("--math-font", default="Cambria Math", help="the font PowerPoint equations use")
-    parser.add_argument("--min-pt", type=float, default=11)
-    parser.add_argument("--min-dpi", type=float, default=200)
-    args = parser.parse_args()
-
-    deck = Presentation(args.deck)
-    allowed_fonts = {args.font, args.math_font} | THEME_REFERENCES
-    slide_w, slide_h = deck.slide_width, deck.slide_height
-    fonts = collections.Counter()
-    used_layouts = set()
-    counts = collections.Counter()
-    problems = 0
-
-    for number, slide in enumerate(deck.slides, start=1):
-        used_layouts.add(id(slide.slide_layout))
-        notes = []
-        shapes = list(slide.shapes)
-        for shape in shapes:
-            left, top, right, bottom = box(shape)
-            if left < 0 or top < 0 or right > slide_w or bottom > slide_h:
-                notes.append(f"outside the slide: {shape.name}")
-            for run in runs(shape):
-                if run.font.name:
-                    fonts[run.font.name] += 1
-                    if run.font.name not in allowed_fonts:
-                        notes.append(f"font {run.font.name!r} instead of {args.font!r} in {shape.name}: {run.text[:40]!r}")
-                if run.font.size is not None and run.font.size.pt < args.min_pt:
-                    notes.append(f"text at {run.font.size.pt:g} pt in {shape.name}: {run.text[:40]!r}")
-            if shape.shape_type == MSO_SHAPE_TYPE.PICTURE:
-                counts["pictures"] += 1
-                image = shape.image
-                if image.content_type in ("image/png", "image/jpeg", "image/tiff", "image/bmp", "image/gif"):
-                    px_w, px_h = image.size
-                    dpi = min(px_w / (shape.width / EMU_PER_INCH), px_h / (shape.height / EMU_PER_INCH))
-                    if dpi < args.min_dpi:
-                        notes.append(f"image at {dpi:.0f} dpi as displayed: {shape.name}")
-            if getattr(shape, "has_chart", False) and shape.has_chart:
-                counts["native charts"] += 1
-            if getattr(shape, "has_table", False) and shape.has_table:
-                counts["native tables"] += 1
-            if shape.is_placeholder and shape.has_text_frame and not shape.text_frame.text.strip():
-                notes.append(f"empty placeholder: {shape.name}")
-        for a, b in itertools.combinations(shapes, 2):
-            area = overlap_area(box(a), box(b))
-            smaller = min((a.width or 0) * (a.height or 0), (b.width or 0) * (b.height or 0)) or 1
-            if area / smaller > 0.02:
-                notes.append(f"overlap {area / smaller:.0%} of the smaller: {a.name} / {b.name}")
-        xml = slide._element
-        if xml.find(f"{NS_P}timing") is not None:
-            notes.append("has animations (p:timing)")
-        if xml.find(f"{NS_P}transition") is not None:
-            notes.append("has a transition")
-        if notes:
-            problems += len(notes)
-            print(f"slide {number}:")
-            for note in notes:
-                print(f"  - {note}")
-
-    unused = [layout.name for master in deck.slide_masters for layout in master.slide_layouts if id(layout) not in used_layouts]
-    print(f"slide size: {Emu(slide_w).inches:.3f} x {Emu(slide_h).inches:.3f} in")
-    for heading, body in theme_fonts(deck):
-        print(f"theme fonts: heading {heading!r}, body {body!r}")
-        for role, name in (("heading", heading), ("body", body)):
-            if name != args.font:
-                print(f"  - the theme's {role} font is {name!r}, not {args.font!r}: set it, so all text inherits the family")
-                problems += 1
-    print("fonts set on runs:", dict(fonts) or "none (inherited from the theme)")
-    print("counts:", dict(counts))
-    print("layouts no slide uses:", unused or "none")
-    print(f"{problems} problem(s)")
-
-
-if __name__ == "__main__":
-    main()
-```
+For the deck it reports the theme's heading and body fonts, the fonts set on text, unused slide layouts, and the number
+of native charts, native tables, and vector and raster pictures. Intended overlaps (a label placed on a map) are
+reported too: confirm them on the rendered slide. It cannot see text overflow or the text inside charts: those need the
+rendered slides.
 
 ## Checklist
 
@@ -271,5 +121,6 @@ if __name__ == "__main__":
 ### File
 
 - [ ] No animations or transitions unless asked for.
-- [ ] No unused layouts, empty placeholders, hidden leftover shapes, or template artefacts; speaker notes kept.
+- [ ] No unused layouts (`remove_unused_layouts(deck)`), empty placeholders, hidden leftover shapes, or template
+      artefacts; speaker notes kept.
 - [ ] The file opens in PowerPoint without a repair prompt; everything that should be editable is.

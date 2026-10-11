@@ -20,7 +20,9 @@ no decoration that carries no analytical meaning.
 - **Titles:** you may turn a topic title into a direct subject title or a conclusion title, but only with a claim the
   slide's own evidence supports. When unsure, use the plain subject.
 - **File mechanics:** if a skill or library for `.pptx` files is available (a pptx skill, `python-pptx`), use it to read
-  and write the file; this skill decides how the slides look.
+  and write the file; this skill decides how the slides look. With `python-pptx`, use the helpers in
+  `scripts/pptx_helpers.py`: start from a required template or `new_widescreen_deck()`, never from `Presentation()`
+  alone (it is 4:3, and resizing the slide leaves every layout laid out for 10 in).
 
 ## Inputs
 
@@ -47,8 +49,9 @@ Collect the rest before designing; ask for what is missing rather than inventing
    background, the single accent colour, one data colour per variable or category across the whole deck, caption and
    citation styles.
    Write it down (a short style sheet in the report) before building.
-3. **Master.** Build or clean the slide master: only the layouts the deck uses, no logos, footers, page furniture, or
-   section labels repeated on every slide, no leftover placeholders.
+3. **Master.** Build or clean the slide master: only the layouts the deck uses (`remove_unused_layouts(deck)` once the
+   slides exist), no logos, footers, page furniture, or section labels repeated on every slide, no leftover
+   placeholders.
 4. **Compose.** Build each slide from its layout, following the element rules below.
 5. **Verify.** Run every check in `references/qa-checklist.md`, including a rendered image of every slide that you look
    at, and fix before delivering.
@@ -80,8 +83,8 @@ These read as AI-generated presentation aesthetics. Do not use them:
 - **One family for the whole deck:** the requested family, or Calibri by default. Set it as both the heading (major) and
   the body (minor) font of the theme, so titles, body text, charts, tables, and captions all inherit it; with Calibri,
   titles are in Calibri, not Calibri Light. Do not set a font on individual text runs, except Cambria Math for equations
-  (PowerPoint's equation font) and one monospace family for code, if the deck shows code. The snippet is in
-  `references/qa-checklist.md`, *Font family*.
+  (PowerPoint's equation font) and one monospace family for code, if the deck shows code. With `python-pptx`, use
+  `set_theme_font(deck, family)` from `scripts/pptx_helpers.py`.
 - **Availability:** check that the family is installed on the machine that renders the slides (an uninstalled family is
   silently substituted, and the check images lie). If it is not common on presenting machines (Calibri and Arial ship
   with Office and Windows; many others do not), say so in the report and recommend embedding fonts when saving in
@@ -107,7 +110,8 @@ These read as AI-generated presentation aesthetics. Do not use them:
 
 - Keep charts editable (native PowerPoint charts with their data) when practical; when a chart must be an image (a
   complex plot from analysis code), use a vector format or a raster at the displayed size and at least 200 dpi, and say
-  so in the report.
+  so in the report. `python-pptx` cannot insert SVG: export the plot to both `.svg` and `.png` and insert it with
+  `add_svg_picture()` from `scripts/pptx_helpers.py` (PowerPoint shows the SVG; older applications show the PNG).
 - Preserve axes, units, uncertainty (intervals, bands, error bars), sample sizes, baselines, and statistical meaning.
   Do not truncate an axis in a way that changes the reading, and do not drop error bars to declutter.
 - Remove heavy borders, shadows, 3D effects, redundant legends (label lines directly), and unnecessary gridlines.
@@ -134,7 +138,7 @@ These read as AI-generated presentation aesthetics. Do not use them:
 
 - Proper mathematical notation: italic variables, upright units and operators, correct sub- and superscripts.
 - Prefer native PowerPoint equations (editable). When they cannot be produced reliably, insert a vector render of the
-  exact source and keep the LaTeX in the speaker notes; say so in the report.
+  exact source (an SVG with `add_svg_picture()`) and keep the LaTeX in the speaker notes; say so in the report.
 - Align related expressions on the relation sign; define every symbol nearby, with units; keep the mathematical
   definition separate from its interpretation in words.
 - No decorative boxes around equations.
@@ -173,3 +177,6 @@ These read as AI-generated presentation aesthetics. Do not use them:
 
 - `references/layouts.md`: the grid and the seven layouts, with geometry for a 16:9 slide.
 - `references/qa-checklist.md`: rendering every slide, automated checks, and the delivery checklist.
+- `scripts/pptx_helpers.py`: `python-pptx` helpers: a 16:9 starting deck, the theme font, SVG pictures, and removing
+  unused layouts.
+- `scripts/audit_pptx.py`: the automated audit (`python scripts/audit_pptx.py deck.pptx --font <family>`).
