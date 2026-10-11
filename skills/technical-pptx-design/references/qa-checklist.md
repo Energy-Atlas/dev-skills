@@ -8,17 +8,29 @@ checklist. Fix and re-check; report anything left as it is and why.
 Look at every slide as an image, at full size: overlaps, overflowing text, clipped labels, misalignment, and legibility
 only show there.
 
-On Windows with PowerPoint (tested), in PowerShell:
+On Windows with PowerPoint (tested), in PowerShell. It renders a copy of the deck, so a deck the owner has open in
+PowerPoint is never touched, and it quits PowerPoint only if it started it. The copy stays in `slides\` with the images;
+the folder is scratch output, not part of the delivery:
 
 ```powershell
 $deck = (Resolve-Path deck.pptx).Path
 $out = Join-Path (Split-Path $deck) "slides"
-$app = New-Object -ComObject PowerPoint.Application
+[void](New-Item -ItemType Directory -Force $out)
+$copy = Join-Path $out "render-copy.pptx"
+Copy-Item $deck $copy -Force                           # render a copy: never touch a deck the owner has open
+$running = [bool](Get-Process POWERPNT -ErrorAction SilentlyContinue)
+$app = New-Object -ComObject PowerPoint.Application   # joins the owner's PowerPoint if it is already running
+$pres = $null
 try {
-  $pres = $app.Presentations.Open($deck, -1, 0, 0)   # read-only, untitled off, no window
-  $pres.Export($out, "PNG", 1600, 900)               # slides\Slide1.PNG, Slide2.PNG, ...
-  $pres.Close()
-} finally { $app.Quit(); [void][Runtime.InteropServices.Marshal]::ReleaseComObject($app) }
+  $pres = $app.Presentations.Open($copy, -1, 0, 0)   # read-only, untitled off, no window
+  $width = 1600
+  $height = [int]($width * $pres.PageSetup.SlideHeight / $pres.PageSetup.SlideWidth)
+  $pres.Export($out, "PNG", $width, $height)          # slides\Slide1.PNG, Slide2.PNG, ...
+} finally {
+  if ($pres) { $pres.Close() }
+  if (-not $running) { $app.Quit() }                  # leave the owner's PowerPoint and presentations open
+  [void][Runtime.InteropServices.Marshal]::ReleaseComObject($app)
+}
 ```
 
 Elsewhere, with LibreOffice and Poppler:
