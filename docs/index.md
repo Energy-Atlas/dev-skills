@@ -8,8 +8,7 @@ hide:
 
 # EnergyAtlas<br>*dev-skills*
 
-Reusable agent skills for the development work of the EnergyAtlas organisation. Each skill is a folder of Markdown that
-tells a coding agent such as Claude Code how to carry out one kind of task, and installs with one command.
+Skills for the development across the EnergyAtlas ecosystem.
 
 </div>
 
