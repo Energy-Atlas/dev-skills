@@ -12,13 +12,14 @@ Skills for the development across the EnergyAtlas ecosystem.
 
 </div>
 
-To install:
+## Installation
 
 ```bash
 npx skills add energy-atlas/dev-skills
 ```
 
-To update:
+
+## Updating
 
 ```bash
 npx skills update -g
