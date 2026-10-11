@@ -64,5 +64,24 @@ npx skills update -g
 - Keep `SKILL.md` to the workflow and the rules; move long recipes and templates to `references/` and code to
   `scripts/`, with tests for that code under `tests/<skill-name>/` (run them with `python -m pytest tests`).
 - Keep skills free of credentials, personal paths, and private repository links.
+- Give the skill its page on the site in the same change (see *Site*).
 - Commits: `type(scope): imperative summary in lower case`, with the types `feature`, `fix`, `refactor`, `test`, `docs`,
-  `build`, `chore`, `perf` and the skill name as the scope, for example `feature(wiki-ui-alignment): ...`.
+  `build`, `chore`, `perf` and the skill name as the scope, for example `feature(wiki-ui-alignment): ...`; `site` is
+  the scope for the site.
+
+## Site
+
+[energy-atlas.github.io/dev-skills](https://energy-atlas.github.io/dev-skills/) has a landing page with the install and
+update commands, and one page per skill. Its sources are `mkdocs.yml`, `docs/`, and `overrides/`; `design/` holds its UI
+specification and the skill-page template and is not published.
+
+- UI and styling changes follow [`design/ui-design-spec.md`](design/ui-design-spec.md); its section 0 wins over the
+  rest.
+- Each skill page follows [`design/skill-page-template.md`](design/skill-page-template.md) and includes the skill's
+  current `SKILL.md` at build time. A new skill gets its page, a cell in the landing page's grid, and an entry in the
+  `nav` of `mkdocs.yml`.
+- Build it with `mkdocs build --strict`, or serve it with `mkdocs serve`, from the repository root, with the packages of
+  `requirements-docs.txt` in a virtual environment outside the repository.
+- `.github/workflows/pages.yml` builds every push to `feature/mkdocs-site` and `gh-pages` and every pull request, and
+  deploys only pushes to `gh-pages`; the `github-pages` environment accepts no other branch. Site work happens on
+  `feature/mkdocs-site` and reaches `gh-pages` only by a merge the owner has approved.

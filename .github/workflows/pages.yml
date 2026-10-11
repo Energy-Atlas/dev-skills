@@ -1,0 +1,44 @@
+# Builds the site with `mkdocs build --strict` on pushes to feature/mkdocs-site and gh-pages, on pull requests, and on
+# manual runs, and deploys to GitHub Pages (Settings -> Pages -> Source: GitHub Actions) only from gh-pages. The
+# github-pages environment also allows deployments from gh-pages alone, so no other branch can deploy even if this file
+# changes. Changes reach gh-pages only by a merge the owner has approved. Never use `mkdocs gh-deploy`: gh-pages holds
+# the site's sources, not a built site.
+name: Pages
+on:
+  push:
+    branches: [feature/mkdocs-site, gh-pages]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: requirements-docs.txt
+      - run: pip install -r requirements-docs.txt
+      - run: mkdocs build --strict
+      - uses: actions/upload-pages-artifact@v5
+        if: github.ref == 'refs/heads/gh-pages' && github.event_name != 'pull_request'
+        with:
+          path: site
+  deploy:
+    if: github.ref == 'refs/heads/gh-pages' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
