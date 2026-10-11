@@ -14,10 +14,14 @@ Defaults; adapt them once per deck (for example to a required template) and then
 | Content | 0.6 | 1.6 | 12.13 | 5.2 |
 | Caption and citation | inside the content zone, directly under the element they describe | | | 0.3–0.5 |
 
-- 12 columns of 0.78 in with 0.25 in gutters across the 12.13 in content width.
+- 12 columns of 0.782 in with 0.25 in gutters across the 12.13 in content width; column *n* (1–12) starts at
+  0.6 + (n − 1) × 1.032 in.
+- The content zone ends at 6.8 in; the 0.25 in strip below it, above the bottom margin, holds only the optional slide
+  number.
 - Align every element's edges to column edges and to the content zone's top; align text baselines across columns.
 - Leave space empty rather than filling it; nothing within the margins.
-- Slide numbers are optional; if used, small, muted, and in the same corner on every slide. No other repeated furniture.
+- Slide numbers are optional; if used, small, muted, and in the same corner of the strip under the content zone on every
+  slide. No other repeated furniture.
 
 ## 1. Full-width figure
 
