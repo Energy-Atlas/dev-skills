@@ -71,7 +71,7 @@ Adjusted and added tokens (unchanged from the BEMGen site):
 
 ### 0.7 Landing page
 
-A real but restrained hero, followed immediately by the install and update strips. Not a marketing page.
+A real but restrained hero, followed immediately by the install and update commands. Not a marketing page.
 
 - Headline, on two lines:
 
@@ -82,14 +82,14 @@ A real but restrained hero, followed immediately by the install and update strip
 
   `EnergyAtlas` in Geist; `dev-skills` in Cormorant Garamond italic.
 - Supporting copy is short: one or two sentences on what the repository is.
-- Below the hero: `01 / INSTALL` and `02 / UPDATE`, the commands of the `skills` CLI. The landing page has no grid of skills; the skills are reached through the navigation.
+- Below the hero: the install and update commands of the `skills` CLI, as plain paragraphs and code blocks without section headings. The landing page has no grid of skills; the skills are reached through the navigation.
 - The landing page hides both sidebars but keeps their widths as empty margins, without their vertical rules, so its text starts where the text of every other page starts. Only the content moves: strips and the top and bottom rules of grids still run from frame to frame.
 - The hero headline is sized to the hero's width, so each line stays on one line on desktop.
 - No oversized CTAs, imagery, or animation.
 
 ### 0.8 Numbered section strips
 
-Section strips (`01 / INSTALL`, section 7) appear only on the landing page. Skill pages never number their `##` headings; they keep normal typographic hierarchy.
+The site uses no section strips (section 7) for now. If an overview page needs them later, they go there only; skill pages never number their `##` headings and keep normal typographic hierarchy.
 
 ### 0.9 Content width
 

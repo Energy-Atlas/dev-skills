@@ -12,8 +12,6 @@ Skills for the development across the EnergyAtlas ecosystem.
 
 </div>
 
-## Install { .ea-strip data-index="01" data-note="npx skills" }
-
 Install with the [`skills`](https://github.com/vercel-labs/skills) CLI; it needs Node.js.
 
 List the skills:
@@ -35,8 +33,6 @@ On Windows, add `--copy`, since symbolic links need developer mode:
 ```bash
 npx skills add energy-atlas/dev-skills --skill wiki-ui-alignment -g -a claude-code --copy
 ```
-
-## Update { .ea-strip data-index="02" data-note="After each change" }
 
 Update installed skills after the repository changes:
 
