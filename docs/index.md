@@ -14,26 +14,23 @@ Skills for the development across the EnergyAtlas ecosystem.
 
 ## Install { .ea-strip data-index="01" data-note="npx skills" }
 
-Skills install with the [`skills`](https://github.com/vercel-labs/skills) command-line tool through `npx`. It needs
-Node.js and reads the skills straight from the [repository](https://github.com/Energy-Atlas/dev-skills).
+Install with the [`skills`](https://github.com/vercel-labs/skills) CLI; it needs Node.js.
 
-See which skills the repository offers:
+List the skills:
 
 ```bash
 npx skills add energy-atlas/dev-skills --list
 ```
 
-Install a skill for every project on the machine (`-g`), for Claude Code (`-a claude-code`):
+Install one for all projects (`-g`) in Claude Code (`-a claude-code`):
 
 ```bash
 npx skills add energy-atlas/dev-skills --skill wiki-ui-alignment -g -a claude-code
 ```
 
-Leave out `-g` to install it into the current project's `.claude/skills/` instead, so that it is committed with the
-project. Leave out `-a claude-code` to choose the agents interactively.
+Without `-g`, it installs into the current project only; without `-a`, it asks which agents.
 
-On Windows, add `--copy`: the tool links installed skills by default, and Windows refuses symbolic links unless developer
-mode is on.
+On Windows, add `--copy`, since symbolic links need developer mode:
 
 ```bash
 npx skills add energy-atlas/dev-skills --skill wiki-ui-alignment -g -a claude-code --copy
