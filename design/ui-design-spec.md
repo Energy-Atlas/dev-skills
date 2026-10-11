@@ -85,7 +85,8 @@ A real but restrained hero, followed immediately by the install and update comma
 - Below the hero: the install and update commands of the `skills` CLI, as plain paragraphs and code blocks without section headings. The landing page has no grid of skills; the skills are reached through the navigation.
 - The landing page hides both sidebars but keeps their widths as empty margins, without their vertical rules, so its text starts where the text of every other page starts. Only the content moves: strips and the top and bottom rules of grids still run from frame to frame.
 - The hero headline is sized to the hero's width, so each line stays on one line on desktop.
-- The landing page's frame ends at its content, closed by a bottom rule, instead of filling the window; pages with the navigation sidebar keep the full-height frame.
+- On every page the frame reaches the footer, and the footer stays at the bottom of the window until the content is taller than the window.
+- The install command is the bare `npx skills add energy-atlas/dev-skills`; the CLI asks for the skills, the agents, and the scope.
 - No oversized CTAs, imagery, or animation.
 
 ### 0.8 Numbered section strips

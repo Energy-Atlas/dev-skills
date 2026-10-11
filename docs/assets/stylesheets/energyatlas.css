@@ -123,8 +123,22 @@ html {
   max-width: 76rem;
 }
 
+/*
+ * The main area grows to fill the window, and the content column grows with it, so the frame always reaches the
+ * footer: the footer stays at the bottom of the window until the content is taller than it. Material's height: 100%
+ * on .md-main__inner cannot resolve, since .md-main has no definite height, so the main area becomes a flex column.
+ */
+.md-main {
+  display: flex;
+  flex-direction: column;
+}
+
+/* In a flex column, auto side margins would shrink the grid to its content; it keeps the full width up to its maximum. */
 .md-main__inner {
+  flex-grow: 1;
+  height: auto;
   margin-top: 0;
+  width: 100%;
 }
 
 /* The content column is bounded by two thin vertical rules, like the frame of a drawing sheet. */
@@ -132,13 +146,6 @@ html {
   .md-content {
     border-left: 1px solid var(--ea-border-subtle);
     border-right: 1px solid var(--ea-border-subtle);
-    min-height: calc(100vh - 4.8rem);
-  }
-
-  /* A page without the navigation sidebar (the landing page) ends its frame at its content and closes it with a rule. */
-  .md-sidebar--primary[hidden] ~ .md-content {
-    border-bottom: 1px solid var(--ea-border-subtle);
-    min-height: 0;
   }
 }
 

@@ -15,7 +15,7 @@ Skills for the development across the EnergyAtlas ecosystem.
 To install:
 
 ```bash
-npx skills add energy-atlas/dev-skills --skill wiki-ui-alignment -g -a claude-code
+npx skills add energy-atlas/dev-skills
 ```
 
 To update:
