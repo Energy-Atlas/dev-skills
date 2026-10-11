@@ -59,19 +59,3 @@ Aptos").
 | [`references/qa-checklist.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/references/qa-checklist.md) | Rendering every slide, checking the font family, the automated audit, and the delivery checklist |
 | [`scripts/pptx_helpers.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/scripts/pptx_helpers.py) | `python-pptx` helpers: a 16:9 starting deck, the theme font, SVG pictures, and removing unused layouts |
 | [`scripts/audit_pptx.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/scripts/audit_pptx.py) | The automated audit: shapes outside the slide, overlaps, small text, stray fonts, low-resolution images, empty placeholders, animations, and transitions |
-
-## Install
-
-```bash
-npx skills add energy-atlas/dev-skills --skill technical-pptx-design -g -a claude-code
-```
-
-On Windows, add `--copy`. See [Install](../index.md#install) for the other options and for updating.
-
-## SKILL.md
-
-The current file, included from the repository when the site is built.
-
-````` { .markdown .ea-source }
---8<-- "skills/technical-pptx-design/SKILL.md"
-`````

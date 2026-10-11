@@ -64,19 +64,3 @@ asking.
 | [`references/material-recipes.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/material-recipes.md) | Configuration, the template override, CSS recipes, and Markdown markup |
 | [`references/verification.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/verification.md) | The contrast script, the font vendoring script, and the browser checks |
 | [`references/pitfalls.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/pitfalls.md) | Failures met in practice and their fixes |
-
-## Install
-
-```bash
-npx skills add energy-atlas/dev-skills --skill wiki-ui-alignment -g -a claude-code
-```
-
-On Windows, add `--copy`. See [Install](../index.md#install) for the other options and for updating.
-
-## SKILL.md
-
-The current file, included from the repository when the site is built.
-
-````` { .markdown .ea-source }
---8<-- "skills/wiki-ui-alignment/SKILL.md"
-`````

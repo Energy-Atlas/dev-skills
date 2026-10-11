@@ -1,7 +1,6 @@
 # The dev-skills site: a landing page and one page per skill. Build it with `mkdocs build --strict` and serve it with
 # `mkdocs serve`, both from the repository root (requirements-docs.txt). Its styling follows design/ui-design-spec.md,
-# whose section 0 wins. Each skill page includes its skills/<name>/SKILL.md at build time (pymdownx.snippets below).
-# .github/workflows/pages.yml deploys it to GitHub Pages from the gh-pages branch only.
+# whose section 0 wins. .github/workflows/pages.yml deploys it to GitHub Pages from the gh-pages branch only.
 site_name: EnergyAtlas dev-skills
 site_description: Reusable agent skills for the development work of the EnergyAtlas organisation
 site_url: https://energy-atlas.github.io/dev-skills/
@@ -72,10 +71,6 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.highlight
   - pymdownx.inlinehilite
-  # Skill pages include skills/<name>/SKILL.md from the repository root; a missing file fails the build.
-  - pymdownx.snippets:
-      base_path: [.]
-      check_paths: true
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
@@ -92,7 +87,7 @@ validation:
     unrecognized_links: warn
     anchors: warn
 
-# One page per skill, in the order of the landing page's grid (design/ui-design-spec.md, 0.14).
+# One page per skill (design/ui-design-spec.md, 0.14).
 nav:
   - Home: index.md
   - Skills:

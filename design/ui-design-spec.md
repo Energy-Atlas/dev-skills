@@ -71,7 +71,7 @@ Adjusted and added tokens (unchanged from the BEMGen site):
 
 ### 0.7 Landing page
 
-A real but restrained hero, followed immediately by the shared-border grid. Not a marketing page.
+A real but restrained hero, followed immediately by the install and update strips. Not a marketing page.
 
 - Headline, on two lines:
 
@@ -82,19 +82,19 @@ A real but restrained hero, followed immediately by the shared-border grid. Not 
 
   `EnergyAtlas` in Geist; `dev-skills` in Cormorant Garamond italic.
 - Supporting copy is short: one or two sentences on what the repository is.
-- Below the hero: `01 / SKILLS`, one shared-border grid with a cell per skill (section 6); `02 / INSTALL` and `03 / UPDATE`, the commands of the `skills` CLI.
+- Below the hero: `01 / INSTALL` and `02 / UPDATE`, the commands of the `skills` CLI. The landing page has no grid of skills; the skills are reached through the navigation.
 - The landing page hides both sidebars but keeps their widths as empty margins, without their vertical rules, so its text starts where the text of every other page starts. Only the content moves: strips and the top and bottom rules of grids still run from frame to frame.
 - The hero headline is sized to the hero's width, so each line stays on one line on desktop.
 - No oversized CTAs, imagery, or animation.
 
 ### 0.8 Numbered section strips
 
-Section strips (`01 / SKILLS`, section 7) appear only on the landing page. Skill pages never number their `##` headings; they keep normal typographic hierarchy.
+Section strips (`01 / INSTALL`, section 7) appear only on the landing page. Skill pages never number their `##` headings; they keep normal typographic hierarchy.
 
 ### 0.9 Content width
 
 - The 760–900px prose width (section 11) is for readable long-form content, not a universal container.
-- Exempt: wide tables and code blocks; they scroll horizontally inside their own container. The copy of each `SKILL.md` (section 0.14) wraps its long lines instead, since its front matter holds the description on one line of several hundred characters.
+- Exempt: wide tables and code blocks; they scroll horizontally inside their own container.
 - The page viewport itself must never overflow horizontally.
 
 ### 0.10 Breadcrumbs
@@ -130,9 +130,8 @@ Moving between pages must not flicker or shift the layout:
 
 ### 0.14 Skill pages
 
-- One page per skill, `docs/skills/<skill-name>.md`, written by hand in the shared format of `design/skill-page-template.md`: a summary, the skill at a glance, its arguments as a table, when to use it, what it does, its files, how to install it, and a copy of its `SKILL.md`.
-- The copy is not pasted: the page includes `skills/<skill-name>/SKILL.md` at build time (`pymdownx.snippets`, with missing files failing the build), inside a fenced `markdown` code block with the `ea-source` class (the fence's info string is `{ .markdown .ea-source }`), so it always shows the current file, front matter included.
-- A new skill gets its page, a cell in the landing grid, and an entry in the navigation in the same change that adds the skill.
+- One page per skill, `docs/skills/<skill-name>.md`, written by hand in the shared format of `design/skill-page-template.md`: a summary, the skill at a glance, its arguments as a table, when to use it, what it does, and its files. Skill pages show neither the install commands (the landing page has them) nor a copy of the `SKILL.md` (the Files table links to it).
+- A new skill gets its page and an entry in the navigation in the same change that adds the skill.
 
 ---
 

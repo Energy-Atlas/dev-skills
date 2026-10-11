@@ -539,15 +539,6 @@ html {
   border-radius: 0;
 }
 
-/*
- * The copy of a skill's SKILL.md (spec section 0.14) wraps its long lines instead of scrolling: its front matter holds
- * the description on one line of several hundred characters. The copy button still copies the file as it is.
- */
-.md-typeset .ea-source code {
-  overflow-wrap: anywhere;
-  white-space: pre-wrap;
-}
-
 .md-clipboard {
   color: var(--ea-text-muted);
 }
