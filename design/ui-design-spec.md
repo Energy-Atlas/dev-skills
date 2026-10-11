@@ -94,7 +94,7 @@ Section strips (`01 / SKILLS`, section 7) appear only on the landing page. Skill
 ### 0.9 Content width
 
 - The 760–900px prose width (section 11) is for readable long-form content, not a universal container.
-- Exempt: wide tables and code blocks, including the copy of each `SKILL.md` (section 0.14); they scroll horizontally inside their own container.
+- Exempt: wide tables and code blocks; they scroll horizontally inside their own container. The copy of each `SKILL.md` (section 0.14) wraps its long lines instead, since its front matter holds the description on one line of several hundred characters.
 - The page viewport itself must never overflow horizontally.
 
 ### 0.10 Breadcrumbs
@@ -131,7 +131,7 @@ Moving between pages must not flicker or shift the layout:
 ### 0.14 Skill pages
 
 - One page per skill, `docs/skills/<skill-name>.md`, written by hand in the shared format of `design/skill-page-template.md`: a summary, the skill at a glance, its arguments as a table, when to use it, what it does, its files, how to install it, and a copy of its `SKILL.md`.
-- The copy is not pasted: the page includes `skills/<skill-name>/SKILL.md` at build time (`pymdownx.snippets`, with missing files failing the build), inside a fenced `markdown` code block, so it always shows the current file, front matter included.
+- The copy is not pasted: the page includes `skills/<skill-name>/SKILL.md` at build time (`pymdownx.snippets`, with missing files failing the build), inside a fenced `markdown` code block with the `ea-source` class (the fence's info string is `{ .markdown .ea-source }`), so it always shows the current file, front matter included.
 - A new skill gets its page, a cell in the landing grid, and an entry in the navigation in the same change that adds the skill.
 
 ---
