@@ -61,8 +61,8 @@ asking.
 | File | Contents |
 | --- | --- |
 | [`SKILL.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/SKILL.md) | The inputs, hard rules, and the eight phases |
-| [`references/intake-questions.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/intake-questions.md) | The decision questions, with recommended defaults |
+| [`references/intake-questions.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/intake-questions.md) | The decision questions, with recommended defaults (including whether to use icon cards) |
 | [`references/spec-decisions-template.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/spec-decisions-template.md) | The template for the spec's section of decisions |
-| [`references/material-recipes.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/material-recipes.md) | Configuration, the template override, CSS recipes, and Markdown markup |
+| [`references/material-recipes.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/material-recipes.md) | Configuration, the template override, CSS recipes (including the optional icon cards), and Markdown markup |
 | [`references/verification.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/verification.md) | The contrast script, the font vendoring script, and the browser checks |
 | [`references/pitfalls.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/pitfalls.md) | Failures met in practice and their fixes |
