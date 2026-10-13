@@ -1,12 +1,11 @@
-# Builds the site with `mkdocs build --strict` on pushes to feature/mkdocs-site and gh-pages, on pull requests, and on
-# manual runs, and deploys to GitHub Pages (Settings -> Pages -> Source: GitHub Actions) only from gh-pages. The
-# github-pages environment also allows deployments from gh-pages alone, so no other branch can deploy even if this file
-# changes. Changes reach gh-pages only by a merge the owner has approved. Never use `mkdocs gh-deploy`: gh-pages holds
-# the site's sources, not a built site.
+# Builds the site with `mkdocs build --strict` on pushes to feature/mkdocs-site and main, on pull requests, and on manual
+# runs, and deploys to GitHub Pages (Settings -> Pages -> Source: GitHub Actions) only from main. The github-pages
+# environment also allows deployments from main alone, so no other branch can deploy even if this file changes. Changes
+# reach main only by a merge the owner has approved. Never use `mkdocs gh-deploy`: the site is built here, not committed.
 name: Pages
 on:
   push:
-    branches: [feature/mkdocs-site, gh-pages]
+    branches: [feature/mkdocs-site, main]
   pull_request:
   workflow_dispatch:
 permissions:
@@ -29,11 +28,11 @@ jobs:
       - run: pip install -r requirements-docs.txt
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v5
-        if: github.ref == 'refs/heads/gh-pages' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
           path: site
   deploy:
-    if: github.ref == 'refs/heads/gh-pages' && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:

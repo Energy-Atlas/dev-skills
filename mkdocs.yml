@@ -1,6 +1,6 @@
 # The dev-skills site: a landing page and one page per skill. Build it with `mkdocs build --strict` and serve it with
 # `mkdocs serve`, both from the repository root (requirements-docs.txt). Its styling follows design/ui-design-spec.md,
-# whose section 0 wins. .github/workflows/pages.yml deploys it to GitHub Pages from the gh-pages branch only.
+# whose section 0 wins. .github/workflows/pages.yml deploys it to GitHub Pages from the main branch only.
 site_name: EnergyAtlas dev-skills
 site_description: Reusable agent skills for the development work of the EnergyAtlas organisation
 site_url: https://energy-atlas.github.io/dev-skills/

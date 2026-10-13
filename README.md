@@ -82,6 +82,6 @@ specification and the skill-page template and is not published.
   and an entry in the `nav` of `mkdocs.yml`.
 - Build it with `mkdocs build --strict`, or serve it with `mkdocs serve`, from the repository root, with the packages of
   `requirements-docs.txt` in a virtual environment outside the repository.
-- `.github/workflows/pages.yml` builds every push to `feature/mkdocs-site` and `gh-pages` and every pull request, and
-  deploys only pushes to `gh-pages`; the `github-pages` environment accepts no other branch. Site work happens on
-  `feature/mkdocs-site` and reaches `gh-pages` only by a merge the owner has approved.
+- `.github/workflows/pages.yml` builds every push to `feature/mkdocs-site` and `main` and every pull request, and
+  deploys only pushes to `main`; the `github-pages` environment accepts no other branch. Site work happens on
+  `feature/mkdocs-site` and reaches `main` only by a merge the owner has approved.
