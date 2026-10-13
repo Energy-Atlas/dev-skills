@@ -1018,28 +1018,23 @@ html {
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------
- * Icon samples (spec section 0.14): a skill page's optional Example, shown as delivered on a light paper tile in both
- * schemes, so standalone files with dark ink stay visible on the dark theme.
+ * Icon samples (spec section 0.14): a skill page's optional Example. hooks/icons.py inlines the icons, so their ink takes
+ * the theme's text colour and their accent the theme's accent, in both schemes.
  * ------------------------------------------------------------------------------------------------------------------ */
 
 .md-typeset .ea-icon-sample {
-  background: #f4f7fb;
   border: 1px solid var(--ea-border-subtle);
   margin: 1.2rem 0;
   padding: 0.4rem 1.2rem;
 }
 
 .md-typeset .ea-icon-sample-row {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
   margin: 0;
   padding: 0.8rem 0;
 }
 
 .md-typeset .ea-icon-sample-row + .ea-icon-sample-row {
-  border-top: 1px solid #cfd8e5;
+  border-top: 1px solid var(--ea-border-subtle);
 }
 
 .md-typeset .ea-icon-sample-row > p {
@@ -1050,12 +1045,37 @@ html {
   margin: 0;
 }
 
-.md-typeset .ea-icon-sample-row img {
+.md-typeset .ea-icon {
+  display: inline-flex;
+  flex: none;
+}
+
+.md-typeset .ea-icon svg {
   display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.md-typeset .ea-icon-sample-regular .ea-icon {
+  height: 40px;
+  width: 40px;
+}
+
+.md-typeset .ea-icon-sample-bold .ea-icon {
+  height: 24px;
+  width: 24px;
+}
+
+.md-typeset .ea-icon .ink {
+  fill: var(--ea-text-primary);
+}
+
+.md-typeset .ea-icon .accent {
+  fill: var(--ea-accent);
 }
 
 .md-typeset .ea-icon-sample-label {
-  color: #5f6b7a;
+  color: var(--ea-text-muted);
   flex: 0 0 7.5rem;
   font-family: var(--font-mono);
   font-size: 0.55rem;

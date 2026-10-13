@@ -48,6 +48,10 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
 
+# Inlines the example icons of skill pages so their colours follow the theme (design/ui-design-spec.md, 0.14).
+hooks:
+  - hooks/icons.py
+
 extra_css:
   - assets/stylesheets/fonts.css
   - assets/stylesheets/energyatlas.css
@@ -92,5 +96,5 @@ nav:
   - Home: index.md
   - Skills:
       - wiki-ui-alignment: skills/wiki-ui-alignment.md
-      - technical-pptx-design: skills/technical-pptx-design.md
       - editorial-icons: skills/editorial-icons.md
+      - technical-pptx-design: skills/technical-pptx-design.md
