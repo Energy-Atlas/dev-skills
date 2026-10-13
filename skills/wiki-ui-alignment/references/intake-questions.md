@@ -44,3 +44,6 @@ others have a sensible default: state it and go ahead unless the owner objects.
   own outer edges at the margins.*
 - **Clickable cells.** Should a cell whose title is a link be clickable as a whole? *Default: yes, with inner links keeping
   their own targets.*
+- **Icon cards (optional).** Should the overview grids show an icon above each cell's title, with a hover wash and a faint
+  oversized icon backdrop? Only offer it when the site has, or wants, an icon per section (for example a hand-drawn family
+  from the `editorial-icons` skill). *Default: no; plain cells with a letter index.*

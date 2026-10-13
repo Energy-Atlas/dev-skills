@@ -48,7 +48,9 @@ asking.
 4. **Tokens and contrast:** one set of tokens for the light and the dark scheme, split decorative and interactive
    borders, and text that meets WCAG AA on every surface.
 5. **Implement:** self-hosted fonts, the framed page, chrome, content styles, numbered section strips, shared-border
-   grids of clickable cells, a restrained hero, instant navigation, and reduced motion.
+   grids of clickable cells, a restrained hero, instant navigation, and reduced motion. Optionally, when the owner
+   wants them, icon cards: an icon above each cell's title and, on hover, a faint oversized icon backdrop (icons can
+   come from the `editorial-icons` skill).
 6. **Build:** `mkdocs build --strict` after every step that changes the configuration or templates.
 7. **Verify in a browser:** light and dark, desktop and phone, fonts from the site's own origin only, no horizontal
    overflow, one left edge for all text, clickable cells, and page changes without reloads.

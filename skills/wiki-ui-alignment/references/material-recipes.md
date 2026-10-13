@@ -1003,27 +1003,27 @@ Restyles Material's `grid cards` Markdown. The outer `div` draws the top and bot
  * A cell whose title is a link is a link as a whole: the title link stretches over the cell. Other links in the cell
  * (a button, a link in the description) stay above it and keep their own targets.
  */
-.md-typeset .grid.cards > :is(ul, ol) > li > p:first-of-type > a:only-child::after {
+.md-typeset .grid.cards > :is(ul, ol) > li > p:first-of-type > a:only-of-type::after {
   content: "";
   inset: 0;
   position: absolute;
 }
 
-.md-typeset .grid.cards > :is(ul, ol) > li a:not(p:first-of-type > a:only-child) {
+.md-typeset .grid.cards > :is(ul, ol) > li a:not(p:first-of-type > a:only-of-type) {
   position: relative;
   z-index: 1;
 }
 
-.md-typeset .grid.cards > :is(ul, ol) > li:has(> p:first-of-type > a:only-child):hover > p:first-of-type > a {
+.md-typeset .grid.cards > :is(ul, ol) > li:has(> p:first-of-type > a:only-of-type):hover > p:first-of-type > a {
   color: var(--ui-accent);
 }
 
 /* The stretched link gives the cell its focus ring, so a keyboard user sees the whole cell selected. */
-.md-typeset .grid.cards > :is(ul, ol) > li > p:first-of-type > a:only-child:focus-visible {
+.md-typeset .grid.cards > :is(ul, ol) > li > p:first-of-type > a:only-of-type:focus-visible {
   outline: none;
 }
 
-.md-typeset .grid.cards > :is(ul, ol) > li > p:first-of-type > a:only-child:focus-visible::after {
+.md-typeset .grid.cards > :is(ul, ol) > li > p:first-of-type > a:only-of-type:focus-visible::after {
   outline: 1px solid var(--ui-accent);
   outline-offset: -2px;
 }
@@ -1097,6 +1097,130 @@ Restyles Material's `grid cards` Markdown. The outer `div` draws the top and bot
   margin-bottom: 0;
 }
 ```
+
+### Icon cards (optional)
+
+An option, not part of the default style: ask the owner (`intake-questions.md`, "Icon cards"). On an overview grid of
+clickable cells, each cell shows its section's icon above the title and drops the letter index; on hover the cell fills
+with a soft accent gradient and shows a faint, oversized copy of its icon, centred towards the lower right and cropped by
+the cell. The icons come from a family with `.ink` and `.accent` groups, such as one made with the `editorial-icons`
+skill; use its regular weight here.
+
+Markup: add `icon-cards` to the grid and start each item with an icon placeholder.
+
+```markdown
+<div class="grid cards icon-cards" markdown>
+
+-   <span class="ui-icon" data-icon="user-guide"></span>[User guide](user/index.md)
+
+    One short line on what the section holds.
+
+</div>
+```
+
+A hook replaces each placeholder with the inline SVG and a second copy for the backdrop, so the icons stay single-source
+and CSS can colour them (`hooks/icons.py`, listed under `hooks:` in `mkdocs.yml`; icons in `overrides/icons/`):
+
+```python
+import re
+from functools import lru_cache
+from pathlib import Path
+
+ICON_DIR = Path(__file__).resolve().parents[1] / "overrides" / "icons"
+PLACEHOLDER = re.compile(r'<span class="ui-icon" data-icon="([a-z0-9-]+)"></span>')
+
+
+@lru_cache(maxsize=None)
+def icon_svg(name):
+    return (ICON_DIR / f"{name}.svg").read_text(encoding="utf-8").strip()
+
+
+def on_page_content(html, page, config, files):
+    def render(match):
+        svg = icon_svg(match.group(1))
+        return (f'<span class="ui-icon" aria-hidden="true">{svg}</span>'
+                f'<span class="ui-card-backdrop" aria-hidden="true">{svg}</span>')
+    return PLACEHOLDER.sub(render, html)
+```
+
+The title link stays the cell's stretched link because the grid recipe selects it with `a:only-of-type` (the icon span is
+its sibling). The gradient is the one deliberate exception to "no decorative gradients": record it in the spec.
+
+```css
+.md-typeset .ui-icon,
+.md-typeset .ui-card-backdrop {
+  display: none;
+}
+
+.md-typeset .grid.cards.icon-cards > :is(ul, ol) > li {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* No letter index: the icon identifies the cell. The pseudo-element becomes the hover wash. */
+.md-typeset .grid.cards.icon-cards > :is(ul, ol) > li::before {
+  background: linear-gradient(140deg, transparent 30%, color-mix(in srgb, var(--ui-accent) 16%, transparent) 100%);
+  content: "";
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 180ms ease;
+  z-index: -1;
+}
+
+.md-typeset .grid.cards.icon-cards > :is(ul, ol) > li:is(:hover, :focus-within) {
+  background-color: transparent;
+}
+
+.md-typeset .grid.cards.icon-cards > :is(ul, ol) > li:is(:hover, :focus-within)::before {
+  opacity: 1;
+}
+
+.md-typeset .grid.cards.icon-cards .ui-icon {
+  display: block;
+  height: 2rem;
+  margin-bottom: 0.8rem;
+  width: 2rem;
+}
+
+.md-typeset .grid.cards.icon-cards :is(.ui-icon, .ui-card-backdrop) svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.md-typeset .grid.cards.icon-cards .ui-icon .ink {
+  fill: var(--ui-text-primary);
+}
+
+.md-typeset .grid.cards.icon-cards .ui-icon .accent,
+.md-typeset .grid.cards.icon-cards .ui-card-backdrop :is(.ink, .accent) {
+  fill: var(--ui-accent);
+}
+
+/* The faint, oversized icon: tune width (100-175% of the cell) and centre (about 70-80% / 72-85%) with the owner. */
+.md-typeset .grid.cards.icon-cards .ui-card-backdrop {
+  aspect-ratio: 1;
+  display: block;
+  left: 70%;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 72%;
+  transform: translate(-50%, -50%);
+  transition: opacity 180ms ease;
+  width: 105%;
+  z-index: -1;
+}
+
+.md-typeset .grid.cards.icon-cards > :is(ul, ol) > li:is(:hover, :focus-within) .ui-card-backdrop {
+  opacity: 0.14;
+}
+```
+
+Keep the description to one short line per cell: the icon and the title carry the cell. Verify the hover in both schemes;
+the backdrop should be recognisable but quiet.
 
 ### Landing hero
 

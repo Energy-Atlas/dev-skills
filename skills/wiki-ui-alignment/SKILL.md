@@ -100,6 +100,9 @@ Follow `references/material-recipes.md` section by section. In order:
    tables, admonitions (semantic edge colours), buttons, content tabs.
 6. **Overview components**: numbered section strips on `##` headings via `attr_list`; Material's `grid cards` markup
    restyled as one shared-border grid with clickable cells; a restrained hero with a container-query-sized headline.
+   Optionally, if the owner wants them, icon cards: each cell shows its section's icon above the title, and on hover a
+   soft accent gradient and a faint, oversized, cropped copy of the icon (`references/material-recipes.md`, "Icon cards";
+   the icons can be drawn with the `editorial-icons` skill). Not part of the default style.
 7. **Stable navigation**: `navigation.instant` and `navigation.instant.progress`, so page changes do not reload fonts,
    sidebars, and scrollbars.
 8. **Reduced motion**: drop transitions under `prefers-reduced-motion: reduce`.

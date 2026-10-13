@@ -109,6 +109,10 @@ tables scroll inside a bounded container; the page never overflows horizontally.
 - Cell text is padded by the article gutter, so it lines up with strips and prose.
 - Every cell is closed on all four sides; where an empty sidebar margin moves a grid in from the frame, the grid draws its
   own outer rules.
+- *(Optional, only if chosen)* **Icon cards:** <which grids>. Each cell shows its icon (<size>, regular weight) above the
+  title, without the letter index, and one short line of description. On hover: an accent gradient wash and a faint
+  (<opacity>) copy of the icon, <width> of the cell, centred at <x> / <y>, cropped by the cell. The gradient is a
+  deliberate exception to "no decorative gradients".
 ```
 
 Also update the body of the spec where it would otherwise contradict section 0: the colour token blocks (adjusted values,
