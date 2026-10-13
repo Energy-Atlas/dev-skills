@@ -372,8 +372,14 @@ def write_preview(out: Path, names: Sequence[str], weights: Dict[str, float], ti
         sizes = "".join(row(s) for s in (120, 48, 24, 18))
         sections.append(f'<section class="{ground}"><h2>{ground}</h2>{sizes}</section>')
     path = out / "preview.html"
-    path.write_text(PREVIEW.format(title=title, sections="\n".join(sections)), encoding="utf-8")
+    _write(path, PREVIEW.format(title=title, sections="\n".join(sections)))
     return path
+
+
+def _write(path: Path, text: str) -> None:
+    """Write with LF line endings on every platform, so a set renders to identical bytes everywhere."""
+    with open(path, "w", encoding="utf-8", newline="\n") as handle:
+        handle.write(text)
 
 
 def load_icon_module(path: Path):
@@ -402,7 +408,7 @@ def render_set(module, out: Path, names: Sequence[str] | None = None) -> List[Pa
         fn, seed = icons[name]
         for weight, width in weights.items():
             path = out / file_name(name, weight, weights)
-            path.write_text(build_svg(fn, seed, width, ink, accent), encoding="utf-8")
+            _write(path, build_svg(fn, seed, width, ink, accent))
             written.append(path)
     # The preview shows every icon of the set that has been rendered into this folder, in the module's order.
     shown = [n for n in icons if all((out / file_name(n, w, weights)).is_file() for w in weights)]

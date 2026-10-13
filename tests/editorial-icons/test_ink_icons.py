@@ -80,7 +80,7 @@ def test_worked_example_matches_its_committed_svgs(tmp_path):
     committed = sorted((EXAMPLE / "svg").glob("*.svg"))
     assert [p.name for p in committed] == sorted(p.name for p in written)
     for path in committed:
-        assert (tmp_path / path.name).read_text(encoding="utf-8") == path.read_text(encoding="utf-8"), path.name
+        assert (tmp_path / path.name).read_bytes() == path.read_bytes(), path.name
 
 
 def test_unknown_icon_names_are_rejected(tmp_path):
