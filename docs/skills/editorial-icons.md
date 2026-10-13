@@ -51,6 +51,43 @@ skill settles the rest (subjects, display sizes, colours, destinations) by inspe
 7. **Iterate and deliver:** redraws on the owner's feedback, then delivers the module, the icons, and a note in the
    project's design spec.
 
+## Example
+
+The worked example in the skill: the eight subspace icons of the EnergyAtlas Wiki, as delivered (charcoal ink, accent
+in the wiki's blue), regular at 40 px and bold at 24 px. On the wiki the ink follows the theme's text colour.
+
+<div class="ea-icon-sample" markdown>
+
+<div class="ea-icon-sample-row" markdown>
+
+<span class="ea-icon-sample-label">Regular, 40 px</span>
+![Quick Start](../assets/examples/editorial-icons/quick-start.svg){ width="40" height="40" }
+![Workflows](../assets/examples/editorial-icons/workflows.svg){ width="40" height="40" }
+![Architecture](../assets/examples/editorial-icons/architecture.svg){ width="40" height="40" }
+![Python](../assets/examples/editorial-icons/python.svg){ width="40" height="40" }
+![Web API](../assets/examples/editorial-icons/web-api.svg){ width="40" height="40" }
+![Library](../assets/examples/editorial-icons/library.svg){ width="40" height="40" }
+![User stories](../assets/examples/editorial-icons/user-stories.svg){ width="40" height="40" }
+![Wiki guide](../assets/examples/editorial-icons/wiki-guide.svg){ width="40" height="40" }
+
+</div>
+
+<div class="ea-icon-sample-row" markdown>
+
+<span class="ea-icon-sample-label">Bold, 24 px</span>
+![Quick Start](../assets/examples/editorial-icons/quick-start-bold.svg){ width="24" height="24" }
+![Workflows](../assets/examples/editorial-icons/workflows-bold.svg){ width="24" height="24" }
+![Architecture](../assets/examples/editorial-icons/architecture-bold.svg){ width="24" height="24" }
+![Python](../assets/examples/editorial-icons/python-bold.svg){ width="24" height="24" }
+![Web API](../assets/examples/editorial-icons/web-api-bold.svg){ width="24" height="24" }
+![Library](../assets/examples/editorial-icons/library-bold.svg){ width="24" height="24" }
+![User stories](../assets/examples/editorial-icons/user-stories-bold.svg){ width="24" height="24" }
+![Wiki guide](../assets/examples/editorial-icons/wiki-guide-bold.svg){ width="24" height="24" }
+
+</div>
+
+</div>
+
 ## Files
 
 | File | Contents |

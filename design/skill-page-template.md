@@ -40,6 +40,13 @@ not extend it. Add the page to the `nav` of `mkdocs.yml` in the same change that
 
 1. <the workflow, one short step per phase>
 
+## Example
+
+<Optional, only for a skill whose output is visual (icons, layouts): one sentence on what the example is, then a
+`<div class="ea-icon-sample" markdown>` tile with the example's files as Markdown images from
+`docs/assets/examples/<skill-name>/`, copies of the files in the skill's own example folder. Leave the section out
+otherwise.>
+
 ## Files
 
 | File | Contents |

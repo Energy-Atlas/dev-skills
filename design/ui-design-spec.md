@@ -134,6 +134,7 @@ Moving between pages must not flicker or shift the layout:
 
 - One page per skill, `docs/skills/<skill-name>.md`, written by hand in the shared format of `design/skill-page-template.md`: a summary, the skill at a glance, its arguments as a table, when to use it, what it does, and its files. Skill pages show neither the install commands (the landing page has them) nor a copy of the `SKILL.md` (the Files table links to it).
 - A new skill gets its page and an entry in the navigation in the same change that adds the skill.
+- A skill whose output is visual may add an **Example** section before Files (decided 2026-10-13, first for `editorial-icons`): its example files shown as delivered on a light paper tile (`.ea-icon-sample`, `#f4f7fb` with subtle rules in both schemes), so files with dark ink stay visible on the dark theme. The files are copies under `docs/assets/examples/<skill-name>/` of the skill's own example; a test keeps them identical.
 
 ---
 

@@ -1018,6 +1018,60 @@ html {
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------
+ * Icon samples (spec section 0.14): a skill page's optional Example, shown as delivered on a light paper tile in both
+ * schemes, so standalone files with dark ink stay visible on the dark theme.
+ * ------------------------------------------------------------------------------------------------------------------ */
+
+.md-typeset .ea-icon-sample {
+  background: #f4f7fb;
+  border: 1px solid var(--ea-border-subtle);
+  margin: 1.2rem 0;
+  padding: 0.4rem 1.2rem;
+}
+
+.md-typeset .ea-icon-sample-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0.8rem 0;
+}
+
+.md-typeset .ea-icon-sample-row + .ea-icon-sample-row {
+  border-top: 1px solid #cfd8e5;
+}
+
+.md-typeset .ea-icon-sample-row > p {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin: 0;
+}
+
+.md-typeset .ea-icon-sample-row img {
+  display: block;
+}
+
+.md-typeset .ea-icon-sample-label {
+  color: #5f6b7a;
+  flex: 0 0 7.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* On a phone the label takes its own line above the icons. */
+@media screen and (max-width: 44.984375em) {
+  .md-typeset .ea-icon-sample-label {
+    flex-basis: 100%;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
  * Motion: none for visitors who ask for less
  * ------------------------------------------------------------------------------------------------------------------ */
 
