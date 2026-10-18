@@ -1,7 +1,7 @@
 # technical-pptx-design
 
 Designs an editable PowerPoint (`.pptx`) deck for a technical research presentation (models, data analysis, maps,
-charts, tables, code, and limited mathematical notation) in a restrained academic style centred on the evidence. It handles
+charts, tables, code, pseudocode, and limited mathematical notation) in a restrained academic style centred on the evidence. It handles
 layout, typography, colour, and the treatment of every figure, and checks the file by rendering every slide and running
 an automated audit. It never changes research claims, values, units, equations, code, or sources: issues it finds go into its
 report.
@@ -36,19 +36,20 @@ Aptos").
   seminar, or a lab meeting.
 - Starting from an outline, speaker notes, figures, data, code, or an existing deck.
 - Showing code: a listing with marked lines, two versions compared git-diff style, or code from two sources side by
-  side.
+  side; or an algorithm as pseudocode.
 - Wanting a deck that does not look AI-generated: no card grids, KPI tiles, gradients, or decorative icons.
 
 ## What it does
 
-1. **Inventory:** lists each slide's evidence and message, assigns one of eight layouts, and flags gaps such as
+1. **Inventory:** lists each slide's evidence and message, assigns one of nine layouts, and flags gaps such as
    low-resolution images, missing units, uncited figures, and slides that try to show too much.
 2. **Design system:** defines the font family, grid and margins, type scale, neutral background, one accent colour,
    one colour per variable across the deck, and the caption and citation styles, and writes them down.
 3. **Master:** keeps only the layouts the deck uses, with no logos, footers, or furniture repeated on every slide.
 4. **Compose:** builds each slide from its layout, following rules for charts, maps, modelling diagrams, equations,
    code, tables, imagery, and citations. Code goes in styled blocks with a grey backdrop, line numbers, syntax
-   highlighting, and a monospace font chosen by availability, whatever the deck's family.
+   highlighting, and a monospace font chosen by availability, whatever the deck's family; pseudocode goes in the
+   frame of a paper's algorithm listing, in the deck's font with bold keywords and italic maths.
 5. **Verify:** renders every slide to an image and looks at it, runs the automated audit, and works through the
    delivery checklist.
 6. **Deliver:** the `.pptx` and the report.
@@ -58,8 +59,9 @@ Aptos").
 | File | Contents |
 | --- | --- |
 | [`SKILL.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/SKILL.md) | The scope, inputs, workflow, style, and the rules for each kind of element |
-| [`references/layouts.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/references/layouts.md) | The grid and the eight layouts, with geometry for a 16:9 slide |
+| [`references/layouts.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/references/layouts.md) | The grid and the nine layouts, with geometry for a 16:9 slide |
 | [`references/qa-checklist.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/references/qa-checklist.md) | Rendering every slide, checking the font family, the automated audit, and the delivery checklist |
 | [`scripts/pptx_helpers.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/scripts/pptx_helpers.py) | `python-pptx` helpers: a 16:9 starting deck, the theme font, SVG pictures, and removing unused layouts |
 | [`scripts/code_blocks.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/scripts/code_blocks.py) | Code blocks as native tables: syntax highlighting, line numbers, yellow and blue line marks, git-diff comparisons in green and red, unified or side by side, and the monospace font choice |
+| [`scripts/pseudocode.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/scripts/pseudocode.py) | Pseudocode blocks in an algorithm frame: caption and rules, Input/Output, numbered steps, indent guides, bold keywords, italic maths, and comments |
 | [`scripts/audit_pptx.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/technical-pptx-design/scripts/audit_pptx.py) | The automated audit: shapes outside the slide, overlaps, small text, stray fonts, low-resolution images, empty placeholders, animations, and transitions |
