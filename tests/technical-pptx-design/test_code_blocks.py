@@ -45,7 +45,7 @@ def ratio(a, b):
 @pytest.mark.parametrize("palette", [LIGHT, DARK])
 def test_every_code_colour_reads_on_every_backdrop(palette):
     texts = ["text", "muted", "comment", "keyword", "string", "number", "function", "added", "removed"]
-    for backdrop in ("backdrop", "label", "green", "red"):
+    for backdrop in ("backdrop", "label", "green", "red", "yellow", "blue"):
         for text in texts:
             assert ratio(palette[text], palette[backdrop]) >= 4.5, (text, backdrop)
 
@@ -72,18 +72,25 @@ def test_diff_hunks_pair_changes():
 def test_code_block_is_a_native_table_with_numbers_marks_and_the_code_font():
     deck = new_widescreen_deck()
     shape = add_code_block(slide_of(deck), NEW, "python", Inches(0.6), Inches(1.6), Inches(8), first_line=40,
-                           marks={41: "green"}, label="geometry.py", font="Consolas")
+                           marks={41: "yellow"}, label="geometry.py", font="Consolas")
     table = shape.table
     assert shape._element.graphic.graphicData.tbl.tblPr.find(qn("a:tableStyleId")).text == NO_STYLE_NO_GRID
     assert len(table.rows) == 4  # label and three lines
     assert cell_text(table, 0, 0) == "geometry.py"
     assert [cell_text(table, row, 0) for row in (1, 2, 3)] == ["40", "41", "42"]
     assert cell_text(table, 3, 1) == "    return w * h"
-    assert fill(table, 2, 0) == fill(table, 2, 1) == LIGHT["green"]  # the whole line
+    assert fill(table, 2, 0) == fill(table, 2, 1) == LIGHT["yellow"]  # the whole line
     assert fill(table, 1, 1) == LIGHT["backdrop"]
     runs = [run for row in table.rows for cell in row.cells for p in cell.text_frame.paragraphs for run in p.runs]
     assert {run.font.name for run in runs} == {"Consolas"}
     assert min(run.font.size.pt for run in runs) >= 12
+
+
+def test_single_listing_refuses_the_diff_colours():
+    deck = new_widescreen_deck()
+    with pytest.raises(ValueError, match="add_code_diff"):
+        add_code_block(slide_of(deck), NEW, "python", Inches(0.6), Inches(1.6), Inches(8), marks={1: "green"},
+                       font="Consolas")
 
 
 def test_unified_diff_marks_removed_and_added_lines():

@@ -8,7 +8,7 @@ Needs python-pptx and Pygments. Import from this folder:
 
 - monospace_font(): the first installed family of MONOSPACE_FAMILIES (Cascadia Mono, Consolas, ...).
 - add_code_block(slide, code, language, ...): one listing, with line numbers, syntax highlighting, a grey backdrop, an
-  optional label row, and optional green or red line marks.
+  optional label row, and optional yellow or blue line marks (green and red mean added and removed, in diffs only).
 - add_code_diff(slide, old, new, language, ...): two versions of the same code compared git-diff style, in one unified
   block or as two aligned blocks side by side; removed lines red with "-", added lines green with "+".
 
@@ -32,18 +32,19 @@ from pygments.token import Comment, Keyword, Name, Number, String
 MONOSPACE_FAMILIES = ("Cascadia Mono", "Consolas", "JetBrains Mono", "SF Mono", "Menlo", "DejaVu Sans Mono",
                       "Liberation Mono", "Courier New")
 NO_STYLE_NO_GRID = "{2D5ABB26-0587-4C30-8999-92F81FD0307C}"  # PowerPoint's table style without fills or borders
+LISTING_MARKS = ("yellow", "blue")  # marks of a single listing; green and red belong to diffs
 CHAR_WIDTH = 0.6  # width of a monospace character, in ems
 LINE_HEIGHT = 1.35  # row height, in ems
 
-# GitHub's Primer colours: every text colour reaches 4.5:1 on every backdrop of its theme, line marks included. Syntax
-# colours avoid green and red, which mean added and removed.
+# GitHub's Primer colours: every text colour reaches 4.5:1 on every backdrop of its theme, line marks included. Green and
+# red mean added and removed lines of a diff, so neither syntax colours nor the marks of a single listing use them.
 LIGHT = {
-    "backdrop": "F6F8FA", "label": "EAEEF2", "green": "DAFBE1", "red": "FFEBE9",
+    "backdrop": "F6F8FA", "label": "EAEEF2", "green": "DAFBE1", "red": "FFEBE9", "yellow": "FFF8C5", "blue": "DDF4FF",
     "text": "1F2328", "muted": "59636E", "comment": "59636E", "keyword": "6639BA", "string": "0A3069",
     "number": "0550AE", "function": "953800", "added": "116329", "removed": "82071E",
 }
 DARK = {
-    "backdrop": "161B22", "label": "21262D", "green": "12261E", "red": "25171C",
+    "backdrop": "161B22", "label": "21262D", "green": "12261E", "red": "25171C", "yellow": "2E2A1A", "blue": "152338",
     "text": "E6EDF3", "muted": "9198A1", "comment": "9198A1", "keyword": "D2A8FF", "string": "A5D6FF",
     "number": "79C0FF", "function": "FFA657", "added": "56D364", "removed": "FF7B72",
 }
@@ -155,7 +156,7 @@ def _fit(rows, number_columns, width, size, min_size):
 
 
 def _table(slide, rows, number_columns, left, top, width, font, size, palette, label, min_size):
-    """A code table. Each row: {"numbers": [...], "pieces": [...], "fill": None | "green" | "red" | "label"}."""
+    """A code table. Each row: {"numbers": [...], "pieces": [...], "fill": None or a palette key such as "green"}."""
     size, number_width, code_width = _fit(rows, number_columns, width, size, min_size)
 
     count = len(rows) + (1 if label else 0)
@@ -192,9 +193,13 @@ def _table(slide, rows, number_columns, left, top, width, font, size, palette, l
 
 def add_code_block(slide, code, language, left, top, width, *, font=None, size=Pt(14), first_line=1, marks=None,
                    label=None, dark=False, min_size=Pt(12)):
-    """One listing. marks maps source line numbers (counted from first_line) to "green" or "red"."""
+    """One listing. marks maps source line numbers (counted from first_line) to "yellow" or "blue"."""
     palette = DARK if dark else LIGHT
     marks = marks or {}
+    wrong = sorted({colour for colour in marks.values()} - set(LISTING_MARKS))
+    if wrong:
+        raise ValueError(f"line marks of a single listing are {' or '.join(LISTING_MARKS)}, not {', '.join(wrong)}: "
+                         "green and red mean added and removed lines; compare versions with add_code_diff()")
     rows = [{"numbers": [number], "pieces": pieces, "fill": marks.get(number)}
             for number, pieces in enumerate(highlighted_lines(code, language), start=first_line)]
     return _table(slide, rows, 1, left, top, width, font or monospace_font(), size, palette, label, min_size)

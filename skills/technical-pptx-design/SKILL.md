@@ -160,8 +160,9 @@ A deck shows code only when the talk is about code; then it gets one or more cod
   embedding fonts when the presenting machine may lack it.
 - **Size:** 14–18 pt, never below 12 pt; about 20 lines per block at most. Show the source's real line numbers; for
   longer code show an excerpt or split it across slides. Never reflow, rename, or shorten lines to make them fit.
-- **One listing:** mark the lines the slide talks about with a fill across the whole line, light green for lines to
-  notice and light red for problem lines, and say in the caption or the text what each colour means.
+- **One listing:** mark the lines the slide talks about with a fill across the whole line, in any colour but green or
+  red, which belong to diffs: light yellow for lines to notice, light blue for a second group (`marks=`). Say in the
+  caption or the text what each colour means.
 - **Two versions of the same code:** compare them git-diff style with `add_code_diff()`: removed lines red with `-`,
   added lines green with `+`, so the markers carry the meaning without the colour. Show them either in one unified
   block across the content width (`layout="unified"`, old and new line numbers) or side by side, old left and new

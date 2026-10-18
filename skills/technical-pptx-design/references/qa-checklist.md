@@ -114,8 +114,9 @@ rendered slides.
 - [ ] Equations: proper notation, aligned, symbols defined nearby with units, interpretation separate, no boxes; native
       equations or a vector render with the source in the notes.
 - [ ] Code: styled blocks, never screenshots: grey backdrop, label row with the source, real line numbers, syntax
-      highlighting, monospace at 12 pt or more, code exactly as given; marked lines and diff colours explained, diff
-      lines carry `-` and `+`; side-by-side blocks share one size and no line wraps.
+      highlighting, monospace at 12 pt or more, code exactly as given; single listings marked in yellow or blue, never
+      green or red; diffs in green and red with `-` and `+`; colours explained; side-by-side blocks share one size and
+      no line wraps.
 - [ ] Tables: native, lightly ruled, units in headers, consistent precision, decimal-aligned numbers, only important
       values highlighted.
 - [ ] Images: authentic research material, no filler imagery, resolution preserved (vector, or at least 200 dpi as
