@@ -9,7 +9,7 @@ Reusable agent skills for the development work of the Energy Atlas organisation.
 | Skill | Use it to |
 | --- | --- |
 | [`wiki-ui-alignment`](skills/wiki-ui-alignment/SKILL.md) | Restyle an MkDocs (Material for MkDocs) documentation site to a reference UI and a brand palette: intake questions, a recorded design spec, tokens and contrast, self-hosted fonts, Material CSS recipes, browser verification, and merging. |
-| [`technical-pptx-design`](skills/technical-pptx-design/SKILL.md) | Design an editable `.pptx` for a technical research presentation (models, data analysis, maps, charts, tables, equations) in a restrained academic style and an optional font family (default Calibri), without changing any research content: layouts on a grid, element rules, rendering every slide, `python-pptx` helpers, and an automated audit. |
+| [`technical-pptx-design`](skills/technical-pptx-design/SKILL.md) | Design an editable `.pptx` for a technical research presentation (models, data analysis, maps, charts, tables, equations, code) in a restrained academic style and an optional font family (default Calibri), without changing any research content: layouts on a grid, element rules, rendering every slide, `python-pptx` helpers, and an automated audit. |
 | [`editorial-icons`](skills/editorial-icons/SKILL.md) | Design and generate a coherent family of hand-drawn, editorial SVG icons with a seeded ink-stroke script: a regular and a bold weight for large and small sizes, ink and accent groups a site can theme, a pilot approved by the owner, validation through the `custom-icons` skill, optional sketches with the `draw` plugin (both installed when missing), and inline site integration with optional icon cards. |
 
 ## Layout
