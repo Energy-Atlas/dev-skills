@@ -1,6 +1,6 @@
 ---
 name: technical-pptx-design
-description: Design and produce an editable PowerPoint (.pptx) deck for a technical research presentation with models, data analysis, maps, charts, tables, figures, and limited mathematical notation, in a restrained academic style centred on the evidence, in an optional font family (default Calibri). Use when someone asks to build, lay out, restyle, or clean up slides for a research talk, thesis defence, conference, seminar, or lab meeting from their content, figures, data, or an existing deck, or wants a deck that does not look AI-generated. Design only; it never changes research claims, values, units, equations, or sources.
+description: Design and produce an editable PowerPoint (.pptx) deck for a technical research presentation with models, data analysis, maps, charts, tables, figures, code listings and code comparisons, and limited mathematical notation, in a restrained academic style centred on the evidence, in an optional font family (default Calibri). Use when someone asks to build, lay out, restyle, or clean up slides for a research talk, thesis defence, conference, seminar, or lab meeting from their content, figures, data, or an existing deck, or wants a deck that does not look AI-generated. Design only; it never changes research claims, values, units, equations, or sources.
 argument-hint: "[font family, default Calibri]"
 ---
 
@@ -14,9 +14,9 @@ no decoration that carries no analytical meaning.
 
 - **You handle design:** layout, typography, colour, and the treatment of figures, charts, maps, diagrams, equations,
   tables, captions, and citations, and the quality of the file.
-- **You do not change content:** research claims, values, units, equations, data, sources, or conclusions stay exactly as
-  given. If something looks wrong or inconsistent (a unit mismatch, a value that differs between a chart and a table, an
-  uncited figure), list it in the report; never correct it silently.
+- **You do not change content:** research claims, values, units, equations, code, data, sources, or conclusions stay
+  exactly as given. If something looks wrong or inconsistent (a unit mismatch, a value that differs between a chart and
+  a table, an uncited figure), list it in the report; never correct it silently.
 - **Titles:** you may turn a topic title into a direct subject title or a conclusion title, but only with a claim the
   slide's own evidence supports. When unsure, use the plain subject.
 - **File mechanics:** if a skill or library for `.pptx` files is available (a pptx skill, `python-pptx`), use it to read
@@ -36,6 +36,8 @@ Collect the rest before designing; ask for what is missing rather than inventing
 - figures as originals: vector files (SVG, PDF, EMF) or high-resolution rasters, not screenshots;
 - the data behind charts that should stay editable, and table data as values, not images;
 - equations as LaTeX or another exact source;
+- code as source text, never as screenshots: its language, where it comes from (file, repository and commit, or
+  reference), its real line numbers, and for a comparison both versions and what each one is;
 - the citations, and the citation style if one is required;
 - constraints: slide size (default 16:9, 13.333 x 7.5 in), a required template, fonts available on the presenting
   machine, talk length, and audience.
@@ -83,8 +85,8 @@ These read as AI-generated presentation aesthetics. Do not use them:
 - **One family for the whole deck:** the requested family, or Calibri by default. Set it as both the heading (major) and
   the body (minor) font of the theme, so titles, body text, charts, tables, and captions all inherit it; with Calibri,
   titles are in Calibri, not Calibri Light. Do not set a font on individual text runs, except Cambria Math for equations
-  (PowerPoint's equation font) and one monospace family for code, if the deck shows code. With `python-pptx`, use
-  `set_theme_font(deck, family)` from `scripts/pptx_helpers.py`.
+  (PowerPoint's equation font) and the monospace family of code blocks (*Code*), which does not follow the deck's
+  family. With `python-pptx`, use `set_theme_font(deck, family)` from `scripts/pptx_helpers.py`.
 - **Availability:** check that the family is installed on the machine that renders the slides (an uninstalled family is
   silently substituted, and the check images lie). If it is not common on presenting machines (Calibri and Arial ship
   with Office and Windows; many others do not), say so in the report and recommend embedding fonts when saving in
@@ -143,6 +145,33 @@ These read as AI-generated presentation aesthetics. Do not use them:
   definition separate from its interpretation in words.
 - No decorative boxes around equations.
 
+### Code
+
+A deck shows code only when the talk is about code; then it gets one or more code slides (`references/layouts.md`,
+*8. Code*). With `python-pptx`, build every block with `scripts/code_blocks.py`.
+
+- **Block:** a styled code block, never a screenshot: a grey backdrop (light grey on a light deck, dark grey on a
+  dark-room deck), a label row with the source (file, version, or reference), line numbers, the code's own indentation,
+  and full syntax highlighting for its language. `add_code_block()` builds it as a native table, one row per line, so
+  it stays editable and a whole line can be marked.
+- **Font:** a monospace family whatever the deck's family, chosen by what is installed: Cascadia Mono, Consolas,
+  JetBrains Mono, SF Mono, Menlo, DejaVu Sans Mono, then Courier New (`monospace_font()`). Set it on the code only. Name
+  it in the report: Consolas ships with Office and Windows, Cascadia Mono only with recent Windows, so recommend
+  embedding fonts when the presenting machine may lack it.
+- **Size:** 14–18 pt, never below 12 pt; about 20 lines per block at most. Show the source's real line numbers; for
+  longer code show an excerpt or split it across slides. Never reflow, rename, or shorten lines to make them fit.
+- **One listing:** mark the lines the slide talks about with a fill across the whole line, light green for lines to
+  notice and light red for problem lines, and say in the caption or the text what each colour means.
+- **Two versions of the same code:** compare them git-diff style with `add_code_diff()`: removed lines red with `-`,
+  added lines green with `+`, so the markers carry the meaning without the colour. Show them either in one unified
+  block across the content width (`layout="unified"`, old and new line numbers) or side by side, old left and new
+  right, with their lines aligned (`layout="split"`). Use `context` to keep only the lines around each change.
+- **Two unrelated listings** (two sources, two languages, two implementations): two independent blocks side by side at
+  the same size, each labelled with its source, without diff colours.
+- **Side by side only when the lines fit:** at 12 pt a half-width block holds about 53 characters. The helpers warn when
+  lines would wrap; then use the unified diff, or stack the two blocks one above the other.
+- Cite code that is not the presenter's own like any other evidence.
+
 ### Tables
 
 - Native, editable tables; never images of tables and never card grids.
@@ -175,8 +204,11 @@ These read as AI-generated presentation aesthetics. Do not use them:
 
 ## References
 
-- `references/layouts.md`: the grid and the seven layouts, with geometry for a 16:9 slide.
+- `references/layouts.md`: the grid and the eight layouts, with geometry for a 16:9 slide.
 - `references/qa-checklist.md`: rendering every slide, automated checks, and the delivery checklist.
 - `scripts/pptx_helpers.py`: `python-pptx` helpers: a 16:9 starting deck, the theme font, SVG pictures, and removing
   unused layouts.
-- `scripts/audit_pptx.py`: the automated audit (`python scripts/audit_pptx.py deck.pptx --font <family>`).
+- `scripts/code_blocks.py`: code blocks and git-diff comparisons as native tables, and the monospace font choice
+  (needs Pygments).
+- `scripts/audit_pptx.py`: the automated audit (`python scripts/audit_pptx.py deck.pptx --font <family>`, adding
+  `--code-font <monospace family>` when the deck shows code).

@@ -48,10 +48,11 @@ PowerPoint, do the final visual check with PowerPoint's rendering if at all poss
 The deck's family is the one the skill was given, or Calibri. Set it as the theme's heading and body font with
 `set_theme_font(deck, family)` from `scripts/pptx_helpers.py` (tested; PowerPoint reads the result as the theme fonts).
 Text then inherits the family everywhere, including native charts and tables; leave fonts unset on text runs. Only
-equations (Cambria Math) and code (one monospace family) set their own.
+equations (Cambria Math) and code blocks (the monospace family `monospace_font()` in `scripts/code_blocks.py` picks
+from what is installed) set their own.
 
-Check that the family is installed where the slides are rendered, or the rendered images show a substitute. On Windows
-(tested):
+Check that the family, and the code font if the deck shows code, is installed where the slides are rendered, or the
+rendered images show a substitute. On Windows (tested):
 
 ```powershell
 Add-Type -AssemblyName System.Drawing
@@ -96,8 +97,8 @@ rendered slides.
 ### Type and colour
 
 - [ ] One family, the requested one or Calibri, set as the theme's heading and body font; no other font on text except
-      Cambria Math for equations and one monospace for code; installed where the slides were rendered, and available on
-      the presenting machine or embedded (say which in the report).
+      Cambria Math for equations and the monospace family of code blocks; all installed where the slides were rendered,
+      and available on the presenting machine or embedded (say which in the report).
 - [ ] Title slide 36–44 pt, slide titles 27–32 pt, body 18–22 pt, labels, captions, and citations at least 11–14 pt.
 - [ ] Neutral background, one accent, only the data colours needed; each variable and category keeps its colour across
       the deck; colourblind-conscious scales suited to the data; meaning never carried by colour alone.
@@ -112,6 +113,9 @@ rendered slides.
       connectors directional and meaningful.
 - [ ] Equations: proper notation, aligned, symbols defined nearby with units, interpretation separate, no boxes; native
       equations or a vector render with the source in the notes.
+- [ ] Code: styled blocks, never screenshots: grey backdrop, label row with the source, real line numbers, syntax
+      highlighting, monospace at 12 pt or more, code exactly as given; marked lines and diff colours explained, diff
+      lines carry `-` and `+`; side-by-side blocks share one size and no line wraps.
 - [ ] Tables: native, lightly ruled, units in headers, consistent precision, decimal-aligned numbers, only important
       values highlighted.
 - [ ] Images: authentic research material, no filler imagery, resolution preserved (vector, or at least 200 dpi as

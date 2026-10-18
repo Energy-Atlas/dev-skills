@@ -1,6 +1,6 @@
 # Layouts
 
-A small set of layouts on one grid. Every content slide uses one of the seven layouts below; the title slide, an optional
+A small set of layouts on one grid. Every content slide uses one of the eight layouts below; the title slide, an optional
 section divider, the references slide, and appendix slides follow the same grid.
 
 ## Grid (16:9, 13.333 x 7.5 in)
@@ -88,6 +88,22 @@ For the closing summary of findings.
 - Two to four findings as rows of text separated by light rules (not cards): each with the finding, its key number and
   unit, and a reference to the slide, figure, or citation that supports it.
 - Optionally one small, real figure from the deck that anchors the main finding.
+
+## 8. Code
+
+For code, only in a deck whose talk is about code (`SKILL.md`, *Code*). Blocks come from `scripts/code_blocks.py`; each
+has a label row naming its source.
+
+- **One listing:** the block on 8–12 columns, starting at the content zone's top. On 8 columns, up to four columns of
+  text beside it, each statement pointing at line numbers in the block; the marked lines (green or red) are the ones
+  the text discusses.
+- **Two versions, unified:** one diff block across all 12 columns, with old and new line numbers and `-`/`+` markers.
+  The choice when lines are long or the change is small.
+- **Two versions, side by side:** two diff blocks on 6 columns each, old left and new right, top edges aligned and rows
+  lined up, at one font size. Only when every line fits a half-width block (about 53 characters at 12 pt).
+- **Two unrelated listings:** two blocks on 6 columns each, at the same size, each labelled with its source; if their
+  lines do not fit, stack them across 12 columns instead.
+- One caption under the block or blocks: what the code is, its source, and what the green and red lines mean.
 
 ## Other slides
 
