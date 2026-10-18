@@ -117,6 +117,9 @@ rendered slides.
       highlighting, monospace at 12 pt or more, code exactly as given; single listings marked in yellow or blue, never
       green or red; diffs in green and red with `-` and `+`; colours explained; side-by-side blocks share one size and
       no line wraps.
+- [ ] Pseudocode: algorithm frame (bold caption between rules, Input/Output, numbered steps, bottom rule), no
+      backdrop, the deck's font with bold keywords and italic maths, indent guides and "end" lines, short comments
+      after ▷, marks in yellow or blue; one slide per algorithm.
 - [ ] Tables: native, lightly ruled, units in headers, consistent precision, decimal-aligned numbers, only important
       values highlighted.
 - [ ] Images: authentic research material, no filler imagery, resolution preserved (vector, or at least 200 dpi as

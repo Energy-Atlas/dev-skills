@@ -1,6 +1,6 @@
 ---
 name: technical-pptx-design
-description: Design and produce an editable PowerPoint (.pptx) deck for a technical research presentation with models, data analysis, maps, charts, tables, figures, code listings and code comparisons, and limited mathematical notation, in a restrained academic style centred on the evidence, in an optional font family (default Calibri). Use when someone asks to build, lay out, restyle, or clean up slides for a research talk, thesis defence, conference, seminar, or lab meeting from their content, figures, data, or an existing deck, or wants a deck that does not look AI-generated. Design only; it never changes research claims, values, units, equations, or sources.
+description: Design and produce an editable PowerPoint (.pptx) deck for a technical research presentation with models, data analysis, maps, charts, tables, figures, code listings and code comparisons, pseudocode, and limited mathematical notation, in a restrained academic style centred on the evidence, in an optional font family (default Calibri). Use when someone asks to build, lay out, restyle, or clean up slides for a research talk, thesis defence, conference, seminar, or lab meeting from their content, figures, data, or an existing deck, or wants a deck that does not look AI-generated. Design only; it never changes research claims, values, units, equations, or sources.
 argument-hint: "[font family, default Calibri]"
 ---
 
@@ -38,6 +38,7 @@ Collect the rest before designing; ask for what is missing rather than inventing
 - equations as LaTeX or another exact source;
 - code as source text, never as screenshots: its language, where it comes from (file, repository and commit, or
   reference), its real line numbers, and for a comparison both versions and what each one is;
+- pseudocode as text, one line per step, indented by four spaces per level, with its algorithm's name;
 - the citations, and the citation style if one is required;
 - constraints: slide size (default 16:9, 13.333 x 7.5 in), a required template, fonts available on the presenting
   machine, talk length, and audience.
@@ -173,6 +174,24 @@ A deck shows code only when the talk is about code; then it gets one or more cod
   lines would wrap; then use the unified diff, or stack the two blocks one above the other.
 - Cite code that is not the presenter's own like any other evidence.
 
+### Pseudocode
+
+For an algorithm stated abstractly rather than as runnable code, use a pseudocode block (`references/layouts.md`,
+*9. Pseudocode*), built with `add_pseudocode()` from `scripts/pseudocode.py`. It must never be mistaken for code.
+
+- **Frame:** the frame of a paper's algorithm listing, without a backdrop: a caption row in bold up to the colon
+  ("Algorithm 1: Peak load") between two thin rules, then the unnumbered Input and Output lines, then the numbered
+  steps, and a rule at the bottom.
+- **Type:** the deck's own family, not monospace: keywords (if, then, for, while, return, end, ...) in bold, variables
+  and maths in italic with real sub- and superscripts (write them between dollar signs: `$Q_{max} \gets 0$`), and
+  the prose of each step in upright text. Size as body text (16–20 pt), never below 12 pt.
+- **Structure:** indentation shows nesting, with a thin indent guide down each block, and every block closes with its
+  own "end" line. Comments sit right-aligned after a "▷", in muted italic; keep them short.
+- **Line marks:** as in a code listing, yellow or blue across the whole line, never green or red; say what each
+  colour means.
+- Keep it to one slide (about 15 steps); split a longer algorithm into named sub-procedures. Number algorithms in
+  order through the deck, and refer to steps by their line numbers.
+
 ### Tables
 
 - Native, editable tables; never images of tables and never card grids.
@@ -205,11 +224,12 @@ A deck shows code only when the talk is about code; then it gets one or more cod
 
 ## References
 
-- `references/layouts.md`: the grid and the eight layouts, with geometry for a 16:9 slide.
+- `references/layouts.md`: the grid and the nine layouts, with geometry for a 16:9 slide.
 - `references/qa-checklist.md`: rendering every slide, automated checks, and the delivery checklist.
 - `scripts/pptx_helpers.py`: `python-pptx` helpers: a 16:9 starting deck, the theme font, SVG pictures, and removing
   unused layouts.
 - `scripts/code_blocks.py`: code blocks and git-diff comparisons as native tables, and the monospace font choice
   (needs Pygments).
+- `scripts/pseudocode.py`: pseudocode blocks in an algorithm frame, as native tables in the deck's font.
 - `scripts/audit_pptx.py`: the automated audit (`python scripts/audit_pptx.py deck.pptx --font <family>`, adding
   `--code-font <monospace family>` when the deck shows code).

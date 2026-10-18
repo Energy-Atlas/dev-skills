@@ -1,6 +1,6 @@
 # Layouts
 
-A small set of layouts on one grid. Every content slide uses one of the eight layouts below; the title slide, an optional
+A small set of layouts on one grid. Every content slide uses one of the nine layouts below; the title slide, an optional
 section divider, the references slide, and appendix slides follow the same grid.
 
 ## Grid (16:9, 13.333 x 7.5 in)
@@ -104,6 +104,16 @@ has a label row naming its source.
 - **Two unrelated listings:** two blocks on 6 columns each, at the same size, each labelled with its source; if their
   lines do not fit, stack them across 12 columns instead.
 - One caption under the block or blocks: what the code is, its source, and what the line colours mean.
+
+## 9. Pseudocode
+
+For an algorithm (`SKILL.md`, *Pseudocode*), built with `scripts/pseudocode.py`.
+
+- The block on 7–8 columns at the left, starting at the content zone's top, with its caption row as the block's
+  heading; the slide title states what the algorithm does or finds.
+- Up to four columns of text beside it, each statement pointing at step numbers; the marked steps (yellow or blue) are
+  the ones the text discusses.
+- A wide algorithm with long steps or comments may take all 12 columns, with the text under it.
 
 ## Other slides
 
