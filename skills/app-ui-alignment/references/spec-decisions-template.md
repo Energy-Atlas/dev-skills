@@ -10,8 +10,9 @@ stable once other text refers to it.
 
 Date: <YYYY-MM-DD>
 
-Status: decided by <owner> on <date>. Where this record and the reference disagree, this record wins. Where it and the
-app's design guidelines disagree, section 1 says which wins.
+Status: decided by <owner> on <date>, before implementation; section 10 records what changed while building. Where this
+record and the reference disagree, this record wins. Where it and the app's design guidelines disagree, section 1 says
+which wins.
 
 ## Context
 
@@ -29,21 +30,24 @@ app's design guidelines disagree, section 1 says which wins.
 | Type sizes | <display and editorial sizes> | <N sizes> | <...> |
 | Monospace | <label font> | <code font> | <...> |
 | Theme set | <light and dark> | <the app's themes> | <...> |
+| Label case | <uppercase labels> | <sentence case> | <which kinds, per translation.md "Label case"> |
 | <...> | | | |
 
 ## 2. Brand
 
 - The app stays **<app name>**: name, logo, favicon, and wording unchanged.
 
-## 3. Themes
+## 3. Themes and surfaces
 
 - Themes that take the reference palette: <list>. Others: <keep palette, take structure / unchanged>.
-- Default: <system preference>; the switch stays; never forced.
+- Default: <system preference>; the switch stays; never forced. First frame: <inline script / CSS fallback>.
+- Surface mapping: panes <reference base>, background behind panes <...>, raised <...>, overlay <...>.
 
 ## 4. Fonts
 
 - Families: <sans> (interface), <mono> (code, identifiers, labels?), <serif?> (<where, or not used>).
-- Delivered by <package and version / vendored files with licences>; no font host at runtime.
+- Delivered by <package and version / vendored files with licences and their source>; no font host at runtime.
+  <Package-policy note if files are vendored rather than installed.>
 - Tabular numerals in <grids, meters, axes>.
 
 ## 5. Type scale
@@ -53,6 +57,7 @@ app's design guidelines disagree, section 1 says which wins.
 | `<--font-size-small>` | <12px> | metadata, labels, table headers |
 | `<--font-size-base>` | <13px> | content, controls |
 | `<--font-size-title>` | <15px> | page, panel, and dialog titles |
+| `<--font-size-label>` | <11px> | <mono labels, if the reference needs a smaller one> |
 
 ## 6. Colour roles and contrast
 
@@ -67,7 +72,15 @@ app's design guidelines disagree, section 1 says which wins.
 | `<--color-text-muted>` | <theme> | `<hex>` (<ratio>) | `<hex>` | <ratios on each surface> |
 | `<--color-border-interactive>` | <theme> | — | `<hex>` | <ratios> |
 
-The contrast test is `<path>`; it covers every theme.
+New tokens this alignment adds, defined in every theme (curated ones included, with contrast-fixed values):
+
+| Token | Role | Values |
+| --- | --- | --- |
+| `<--color-border-interactive>` | edges of controls, 3:1 on every surface | <per theme> |
+| `<--color-surface-overlay>` | menus, popovers, dialogs | <per theme> |
+| `<--rule>`, `<--transition>`, `<--label-tracking>` | <...> | <...> |
+
+The contrast test is `<path>`; it covers every theme, tone text on its tint, and any outline drawn on a fill.
 
 ## 7. Shapes, borders, and elevation
 
@@ -91,5 +104,11 @@ The contrast test is `<path>`; it covers every theme.
 
 ## 10. Deviations during implementation
 
-- <what differs from the above and why; library limits accepted>.
+- <what differs from the above and why; library overrides and limits accepted>. Filled by the last commit.
+
+## 11. Amendments the app's guidelines would need
+
+Only when the reference wins over owner-maintained guidelines. The owner decides whether to make them.
+
+- <section>: <current text, in short> → <proposed text>.
 ```

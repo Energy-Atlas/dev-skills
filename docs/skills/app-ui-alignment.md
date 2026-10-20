@@ -43,8 +43,8 @@ working rules) by reading the project and asking.
 
 1. **Read the app:** the stack and styling method, the token system and how themes switch, the third-party surfaces
    (docking, grids, charts, maps) and which of them draw to a canvas, fonts, and the app's checks.
-2. **Audit:** a scripted inventory of colour literals, font sizes and families, borders, radii, shadows, and font-host
-   URLs; baseline screenshots in every theme; a table translating each reference element into its app equivalent,
+2. **Audit:** a scripted inventory of colour literals, font sizes and families, borders, radii, shadows, uppercase
+   labels, and font-host URLs; baseline screenshots of a populated app in every theme; a table translating each reference element into its app equivalent,
    with every conflict with the app's own design rules marked.
 3. **Settle the decisions:** the owner rules on each conflict (or picks between variants built side by side), then the
    remaining intake questions, each with a recommendation.
@@ -65,10 +65,10 @@ working rules) by reading the project and asking.
 | [`SKILL.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/SKILL.md) | The inputs, hard rules, and the eight phases |
 | [`references/intake-questions.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/intake-questions.md) | The decision questions, precedence first, with recommended defaults |
 | [`references/spec-decisions-template.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/spec-decisions-template.md) | The template for the decision record or the spec's section of decisions |
-| [`references/translation.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/translation.md) | Reference elements and their app equivalents, with defaults for either precedence |
-| [`references/token-recipes.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/token-recipes.md) | Token layers, runtime themes, the contrast test, and the EnergyAtlas family palette |
+| [`references/translation.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/translation.md) | Reference elements and their app equivalents with defaults for either precedence, label case, and which reference surface the app's panes take |
+| [`references/token-recipes.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/token-recipes.md) | Token layers, runtime themes, the contrast test, and the EnergyAtlas family palette with values tested on app surfaces |
 | [`references/third-party-theming.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/third-party-theming.md) | Docking layouts, data grids, charts, maps, diagrams, component libraries, and editors |
-| [`references/verification.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/verification.md) | The checks, browser snippets, and a screenshot matrix |
+| [`references/verification.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/verification.md) | The checks, browser snippets, a populated state, and a screenshot matrix |
 | [`references/pitfalls.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/pitfalls.md) | Failures met in practice and their fixes |
-| [`scripts/style_audit.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/scripts/style_audit.py) | The styling inventory |
-| [`scripts/contrast.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/scripts/contrast.py) | Contrast of token pairs in every theme, with suggested replacements |
+| [`scripts/style_audit.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/scripts/style_audit.py) | The styling inventory: colour literals, type, borders, radii, shadows, uppercase labels, motion, and font hosts |
+| [`scripts/contrast.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/scripts/contrast.py) | Contrast of token pairs in every theme, with tints, suggested replacements, and one-pair checks |

@@ -36,8 +36,14 @@ The minimum set; add roles only when a component needs one that the set cannot e
 | `tone-{...}-bg` | State tints | — |
 | `shadow-overlay` | The one elevation the app keeps | — |
 
-Font tokens: `font-sans`, `font-mono` (and `font-serif` only if a surface uses it), `font-size-small`, `-base`, `-title`.
-Shape tokens: `radius` (one value), `rule` (1 px), `transition` (150 ms ease).
+Font tokens: `font-sans`, `font-mono` (and `font-serif` only if a surface uses it), `font-size-small`, `-base`, `-title`,
+and `font-size-label` if mono labels need a smaller size than the app's smallest; `label-tracking` for uppercase labels.
+Shape tokens: `radius` (one value), `rule` (`1px solid var(--color-border-subtle)`, so framing edits are one word),
+`transition` (150 ms ease, `0s` under reduced motion).
+
+A custom property reads back as declared: `getPropertyValue('--font-size-small')` returns `0.75rem`, not `12px`.
+Renderers that need numbers (canvas charts, grid parameters) take the pixel value from the token module, or convert
+rem with the root font size.
 
 ## Data palette
 
@@ -88,32 +94,44 @@ Either way:
 - When a theme changes, every canvas renderer must re-read its colours: subscribe to the app's theme state, or observe
   the root attribute with a `MutationObserver`.
 
-## Example: the EnergyAtlas family palette
+## Example: the EnergyAtlas family palette, tested for apps
 
-The values the `wiki-ui-alignment` sites use after their contrast pass (dev-skills, BEMGen docs). Use them when the
-reference is that family; re-check them on the app's surfaces.
+The family's values come from the `wiki-ui-alignment` sites (dev-skills, BEMGen docs), where they were tested on
+documentation pages. On app surfaces some fail: the dark interactive border is 2.69:1 on the raised surface, and the
+tone colours fall below 4.5:1 on their own tints. The table gives the values that passed in the trial apps, with the
+family's value in brackets where it changed, mapped onto app roles (`translation.md`, "Surfaces").
 
-| Role | Dark | Light |
+| App role | Dark | Light |
 | --- | --- | --- |
-| `bg` | `#000000` | `#ffffff` |
-| `surface` | `#1a1a1a` | `#f8fafc` |
-| `surface-raised` | `#2a2a2a` | `#f4f7fb` |
-| `surface-overlay` | `#3a3a3a` | `#e7edf5` |
-| `text` | `#e5e5e5` | `#18202c` |
-| `text-secondary` | `#b0b0b0` | `#3f4b5b` |
-| `text-muted` | `#999999` | `#5f6b7a` |
-| `border-subtle` | `#404040` | `#cfd8e5` |
-| `border-interactive` | `#6b6b6b` | `#768599` |
-| `accent` | `#4da3ff` | `#125dae` |
-| `success` | `#28a745` | `#188038` |
-| `warning` | `#ffc107` | `#9a6700` |
-| `danger` | `#f44336` | `#c5221f` |
-| brand fill | `#003978` | `#003978` |
+| Pane (family base) | `#000000` | `#ffffff` |
+| Background behind panes, strips, status bar (surface 1) | `#1a1a1a` | `#f8fafc` |
+| Raised: headers, toolbars, hover (surface 2) | `#2a2a2a` | `#f4f7fb` |
+| Overlay: menus, popovers, dialogs (with a rule) | `#1a1a1a` | `#ffffff` |
+| Non-text fill only (surface 3) | `#3a3a3a` | `#e7edf5` |
+| Text | `#e5e5e5` | `#18202c` |
+| Secondary text | `#b0b0b0` | `#3f4b5b` |
+| Muted text | `#999999` | `#5f6b7a` |
+| Border, decorative | `#404040` | `#cfd8e5` |
+| Border, interactive | `#747474` (`#6b6b6b`) | `#768599` |
+| Accent, accent text, focus | `#4da3ff` | `#125dae` |
+| Text on accent | `#000000` | `#ffffff` |
+| Selection tint | `#112438` | `#e3ecf5` |
+| Success | `#31ab4c` (`#28a745`) | `#187d37` (`#188038`) |
+| Warning | `#ffc107` | `#956400` (`#9a6700`) |
+| Danger | `#f65d52` (`#f44336`) | `#c5221f` |
+| Success / info / warning / danger tint | `#1d3322` / `#233343` / `#433817` / `#41211f` | `#e8f2eb` / `#e7eff7` / `#f5f0e6` / `#f9e9e9` |
+| Brand fill (fills only) | `#003978` | `#003978` |
+
+Every text colour above passes 4.5:1 on the pane, the background, the raised surface, and its own tint; the interactive
+border passes 3:1 on those three surfaces; none of them is meant for surface 3. The tints are roughly 16–22 % of the
+tone over the dark pane and 8–10 % over the light one; derive others with `contrast.py mix` and check them.
 
 Fonts: Geist (interface), Geist Mono (labels and code), Cormorant Garamond italic 500 (sparse editorial accent). The
 brand fill fails as text on dark (1.86:1 on black): fills only, with white or `#e5e5e5` text on it. Red only for
-errors, destructive actions, and failures. The family has no tint values: derive tone tints for an app (for example
-the tone colour at 12–16 % over the surface, `color-mix(in srgb, <tone> 14%, <surface>)`) and test tone text on them.
+errors, destructive actions, and failures.
+
+The family's inverted active tab puts a `#e5e5e5` (`#18202c` in light) fill next to the accent: 2.08:1 in dark, 2.50:1
+in light. Draw the outline on the strip colour behind a gap, never on the fill (pitfalls).
 
 ## Contrast test
 
@@ -135,7 +153,7 @@ function ratio(a: string, b: string): number {
   return (hi + 0.05) / (lo + 0.05)
 }
 
-const SURFACES = ['bg', 'surface', 'surfaceRaised'] as const
+const SURFACES = ['bg', 'surface', 'surfaceRaised', 'surfaceOverlay', 'selectedBg'] as const
 
 describe.each(Object.values(THEMES))('$id', (theme) => {
   it.each(SURFACES)('text and muted text pass 4.5:1 on %s', (surface) => {
@@ -150,6 +168,15 @@ describe.each(Object.values(THEMES))('$id', (theme) => {
   })
   it('text on accent passes 4.5:1', () => {
     expect(ratio(theme.onAccent, theme.accent)).toBeGreaterThanOrEqual(4.5)
+  })
+  it('tone text passes 4.5:1 on its tint', () => {
+    for (const tone of ['Success', 'Info', 'Warning', 'Danger'] as const) {
+      expect(ratio(theme[`tone${tone}Text`], theme[`tone${tone}Bg`])).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+  // Only with an inverted active tab: its outline sits on the strip, never on the fill.
+  it('the active-tab outline passes 3:1 on the strip', () => {
+    expect(ratio(theme.accent, theme.surfaceStrip)).toBeGreaterThanOrEqual(3)
   })
 })
 ```
