@@ -44,6 +44,15 @@ Failures met while aligning a Material for MkDocs site, with their causes and fi
 - **Renaming a heading breaks a link.** Grep for `page.md#anchor` before changing heading text; prefer adding a strip
   class to an existing `##` heading.
 
+## Brand mark
+
+- **The knockout E disappears on dark.** The energyatlas.io file cuts the E out of the hexagon, so on a dark scheme the
+  E shows the black page. Use the white-E file on any site with a dark scheme.
+- **Opacity on the logo.** A stylesheet that dims `.md-logo` (a common restyle touch) dims the mark; draw it at full
+  strength.
+- **The logo does not change.** `theme.logo` and `theme.favicon` are theme settings: restart `mkdocs serve` after
+  setting them.
+
 ## Tooling
 
 - **Config changes do not appear.** Restart `mkdocs serve` after changing `custom_dir`, `plugins`, or `theme.features`.

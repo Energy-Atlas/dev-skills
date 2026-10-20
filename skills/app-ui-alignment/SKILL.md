@@ -30,7 +30,9 @@ pins.
 
 ## Hard rules
 
-1. Keep the app's identity: name, logo, favicon, and wording stay unless the owner says otherwise.
+1. Keep the app's identity: name, logo, favicon, and wording stay unless the owner says otherwise. The EnergyAtlas
+   mark (`references/brand/`) replaces a missing logo or favicon only when the owner chooses it (intake question 3a),
+   and is never recoloured or redrawn.
 2. Change appearance, not behaviour. No feature, data, workflow, or keyboard change rides along with a restyle; record
    any you find necessary and ask. Change case with CSS (`text-transform`), never by rewriting strings.
 3. Settle precedence before implementing: where the reference conflicts with the app's own design rules, the owner
@@ -138,7 +140,9 @@ Follow `references/token-recipes.md`:
 In layers, checking the app after each one (`references/third-party-theming.md` for the libraries):
 
 1. **Fonts**: from the bundle (npm font packages, or vendored WOFF2 with licences); one family token per role; tabular
-   numerals where numbers align.
+   numerals where numbers align. **Brand mark**, if chosen: the favicons in the bundler's public folder, linked from
+   `index.html` under the base path, and the mark before the product name in the title bar
+   (`references/brand/README.md`, "Web applications").
 2. **Tokens**: palette values per theme; the first-frame fallback; the theme switch writes the same names. A shared
    rule token (`--rule: 1px solid var(--color-border-subtle)`) keeps framing edits to one word each, and the label
    tokens keep the label style one decision.
@@ -200,6 +204,9 @@ Fix and re-verify before reporting. Read `references/pitfalls.md` when a check f
 - `references/third-party-theming.md`: docking layouts, data grids, charts, maps, diagrams, component libraries.
 - `references/verification.md`: checks, browser snippets, a screenshot matrix, and a populated state.
 - `references/pitfalls.md`: failures met in practice and their fixes.
+- `references/brand/`: the EnergyAtlas mark (white-E and knockout SVGs, favicons) and its README: use, placement, and
+  the MkDocs and web-app recipes.
+- `scripts/brand_assets.py`: renders the PNG and ICO favicons from the mark's SVG with a headless browser.
 - `scripts/style_audit.py`: styling inventory (`python style_audit.py SRC --tokens GLOB ... --exclude GLOB ...`).
 - `scripts/contrast.py`: contrast of token pairs per theme with suggestions (`check PAIRS.json --suggest
   [--failures-only]`), one pair (`ratio FG BG`), tints (`mix A B AMOUNT`), and stylesheet tokens (`css-tokens FILE`).

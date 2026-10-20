@@ -57,7 +57,8 @@ working rules) by reading the project and asking.
 6. **Implement in layers:** fonts, tokens, shell chrome, controls, panels and docking, data surfaces, overlays and
    states, and reduced motion, each a reviewable commit. Titles inside panels keep the app's design unless the owner
    asks for strips, every interactive state (hover, selected, pressed, focus) is designed rather than inherited
-   from a library, and fields, selects, and buttons are told apart by fill, edge, and content.
+   from a library, and fields, selects, and buttons are told apart by fill, edge, and content. When the owner chooses
+   it, the EnergyAtlas mark goes before the product name and becomes the favicon, served under the app's base path.
 7. **Verify in a browser:** the app's checks, every theme at two desktop sizes, fonts from the app's own origin, theme
    switches that restyle canvases without a reload, no first-frame flash, visible focus, every hover, selected, and
    pressed state measured and told apart (labels 4.5:1, indicators 3:1), control kinds named in greyscale screenshots,
@@ -78,3 +79,5 @@ working rules) by reading the project and asking.
 | [`references/pitfalls.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/pitfalls.md) | Failures met in practice and their fixes |
 | [`scripts/style_audit.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/scripts/style_audit.py) | The styling inventory: colour literals, type, borders, radii, shadows, uppercase labels, motion, and font hosts |
 | [`scripts/contrast.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/scripts/contrast.py) | Contrast of token pairs in every theme, with tints, suggested replacements, and one-pair checks |
+| [`references/brand/`](https://github.com/Energy-Atlas/dev-skills/tree/main/skills/app-ui-alignment/references/brand) | The EnergyAtlas mark (a white-E version for any surface, a knockout for known-light ones), its favicons, and a README on its use, placement, and recipes |
+| [`scripts/brand_assets.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/scripts/brand_assets.py) | Renders the PNG and ICO favicons from the mark's SVG with a headless browser |

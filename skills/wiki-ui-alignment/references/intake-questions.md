@@ -10,6 +10,11 @@ others have a sensible default: state it and go ahead unless the owner objects.
    repository? If not, it will be described in words in the spec.
 2. **Brand.** Is this a visual-family alignment (keep the site's name, logo, favicon) or a rename? Is there an official
    logo or favicon to use? *Default: alignment, keep the identity.*
+   - **2a. Brand mark.** Does the site carry the EnergyAtlas mark (`references/brand/`)? (a) in the header and as the
+     favicon, (b) as the favicon only, or (c) not at all, keeping the site's own identity. *Default: (a) for
+     EnergyAtlas's own sites and products that have no logo of their own; ask for a product with its own name and mark;
+     never replace an existing logo without a yes.* Copying the mark into a repository needs the owner's agreement; use
+     the white-E version on any surface that can be dark and the knockout only on known-light ones.
 3. **Palette source of truth.** Is the spec's palette final, or should the live sister site's CSS be authoritative? What is
    its URL? Where are the semantic state colours (success, warning, error, info), which specs often omit?
    *Default: the live CSS is authoritative; contrast fixes override it.*

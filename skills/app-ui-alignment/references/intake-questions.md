@@ -13,6 +13,11 @@ ahead unless the owner objects.
    owner wants to see both, build them as variants (SKILL.md, phase 3).
 2. **Reference UI.** Is it attached? May a screenshot be committed, or must it be described in words?
 3. **Brand.** Visual-family alignment (keep the app's name, logo, favicon, wording) or a rename? *Default: alignment.*
+   - **3a. Brand mark.** Does the app carry the EnergyAtlas mark (`references/brand/`)? (a) in the header and as the
+     favicon, (b) as the favicon only, or (c) not at all, keeping the app's own identity. *Default: (a) for
+     EnergyAtlas's own sites and products that have no logo of their own; ask for a product with its own name and mark;
+     never replace an existing logo without a yes.* Copying the mark into a repository needs the owner's agreement; use
+     the white-E version on any surface that can be dark and the knockout only on known-light ones.
 4. **Palette source of truth.** Which file or URL is authoritative? Where are the semantic state colours (success, info,
    warning, danger), which specs often omit? *Default: the sister site's live CSS; contrast fixes override it.*
 5. **Pane surface.** Which reference surface do the app's content panes take: the reference's page base (black or

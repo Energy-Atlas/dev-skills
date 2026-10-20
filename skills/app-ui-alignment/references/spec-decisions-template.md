@@ -36,6 +36,9 @@ which wins.
 ## 2. Brand
 
 - The app stays **<app name>**: name, logo, favicon, and wording unchanged.
+- *(If chosen)* **Brand mark:** the EnergyAtlas mark (from the skill's `references/brand/`), the <white-E / knockout>
+  version, as <the title-bar mark and the favicon / the favicon only>, decided by <owner> on <date>; where the files
+  live and how the base path reaches them. Never recoloured.
 
 ## 3. Themes and surfaces
 

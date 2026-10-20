@@ -215,3 +215,6 @@ span.remove();
 - [ ] Every clickable cell closed on four sides; hover, click, and keyboard focus work; inner links keep their targets.
 - [ ] Page changes keep the same document; no flicker; the progress bar shows.
 - [ ] Muted text, interactive borders, and state colours meet the contrast targets on the surfaces they use.
+- [ ] If the brand mark is used: the logo beside the title in both schemes and in the phone drawer, the favicon at 16 and
+      32 px, and every file of `assets/brand/` served from the site's origin with status 200
+      (`references/brand/README.md`, "Checks").
