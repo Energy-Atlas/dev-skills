@@ -89,3 +89,55 @@ def test_cli_exit_status_and_suggestions(tmp_path, capsys):
     spec["themes"]["dark"]["muted"] = "#999999"
     path.write_text(json.dumps(spec), encoding="utf-8")
     assert main(["check", str(path)]) == 0
+
+
+def test_mix_color_mix_and_over_expressions():
+    theme = {"bg": "#000000", "success": "#28a745", "tint": "mix(success, bg, 0.16)",
+             "css-tint": "color-mix(in srgb, var(--success) 16%, var(--bg))",
+             "veil": "rgba(77, 163, 255, 0.08) over bg"}
+    from contrast import evaluate, to_hex
+    assert to_hex(evaluate(theme, "tint")) == to_hex(evaluate(theme, "css-tint")) == "#061b0b"
+    assert to_hex(evaluate(theme, "veil")) == "#060d14"
+    assert to_hex(evaluate(theme, "color-mix(in srgb, #ffffff 50%, #000000 50%)")) == "#808080"
+
+
+def test_translucent_background_needs_over():
+    spec = {"themes": {"dark": {"bg": "#000000", "veil": "rgba(77, 163, 255, 0.08)", "text": "#e5e5e5"}},
+            "pairs": [{"fg": "text", "bg": "veil over bg"}]}
+    assert check(spec)[0]["pass"]
+    with pytest.raises(ValueError):
+        check({**spec, "pairs": [{"fg": "text", "bg": "veil"}]})
+
+
+def test_themes_from_a_json_dump(tmp_path):
+    dump = {"light": {"chrome": {"bg": "#ffffff", "text": "#1b1f24"}}, "dark": {"chrome": {"bg": "#15181c"}}}
+    (tmp_path / "themes.json").write_text(json.dumps(dump), encoding="utf-8")
+    rows = check({"themes_file": "themes.json", "themes_key": "chrome", "pairs": [{"fg": "text", "bg": "bg"}]},
+                 tmp_path)
+    assert [(r["theme"], r["pass"]) for r in rows] == [("light", True)]
+
+
+def test_hue_and_background_suggestions():
+    from contrast import suggest_background, suggest_hue
+    value = suggest_hue("#d6dde4", ["#ffffff"], 3.0)
+    r, g, b, _ = parse_colour(value)
+    assert ratio(value, "#ffffff") >= 3.0 and b > r          # still blue-grey, not neutral
+    background = suggest_background("#188038", "#e1efe5", 4.5)
+    assert ratio("#188038", background) >= 4.5
+    assert parse_colour(background)[1] > parse_colour("#e1efe5")[1]   # a lighter tint, not a darker one
+
+
+def test_cli_failures_only_ratio_and_mix(tmp_path, capsys):
+    spec = {"themes": {"dark": {"bg": "#000000", "muted": "#555555", "text": "#ffffff", "rule": "#222222"}},
+            "pairs": [{"fg": "muted", "bg": "bg"}, {"fg": "text", "bg": "bg"},
+                      {"fg": "rule", "bg": "bg", "min": "decorative"}]}
+    path = tmp_path / "pairs.json"
+    path.write_text(json.dumps(spec), encoding="utf-8")
+    assert main(["check", str(path), "--failures-only"]) == 1
+    out = capsys.readouterr().out
+    assert "muted" in out and "| dark | text" not in out
+    assert "1 of 2 pairs pass; 1 decorative pairs not checked." in out
+    assert main(["ratio", "#000000", "#ffffff"]) == 0
+    assert capsys.readouterr().out.strip() == "21.00"
+    assert main(["mix", "#ffffff", "#000000", "50%"]) == 0
+    assert capsys.readouterr().out.strip() == "#808080"
