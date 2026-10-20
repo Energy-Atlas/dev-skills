@@ -1,6 +1,6 @@
 ---
 name: wiki-ui-alignment
-description: Restyle an MkDocs (Material for MkDocs) documentation site so it follows a reference UI and a brand's palette, typography, and grid language, from intake questions through a recorded design spec, implementation, browser verification, and merge. Use when someone hands over a UI design spec, a reference screenshot, or a sister site whose look an MkDocs wiki or docs site should adopt; when they ask to "align the UI", "restyle the docs", "make the wiki look like X", or to apply a design system to MkDocs; and when later UI fixes on such a site must stay consistent with its recorded spec.
+description: Restyle an MkDocs (Material for MkDocs) documentation site so it follows a reference UI and a brand's palette, typography, and grid language, from intake questions through a recorded design spec, implementation, browser verification, and merge. Use when someone hands over a UI design spec, a reference screenshot, or a sister site whose look an MkDocs wiki or docs site should adopt; when they ask to "align the UI", "restyle the docs", "make the wiki look like X", or to apply a design system to MkDocs; and when later UI fixes on such a site must stay consistent with its recorded spec. For web applications and dashboards use app-ui-alignment instead.
 ---
 
 # Wiki UI alignment
