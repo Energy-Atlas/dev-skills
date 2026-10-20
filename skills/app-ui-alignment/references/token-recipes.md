@@ -37,7 +37,9 @@ The minimum set; add roles only when a component needs one that the set cannot e
 | `shadow-overlay` | The one elevation the app keeps | — |
 
 Font tokens: `font-sans`, `font-mono` (and `font-serif` only if a surface uses it), `font-size-small`, `-base`, `-title`,
-and `font-size-label` if mono labels need a smaller size than the app's smallest; `label-tracking` for uppercase labels.
+and `font-size-label` if a mono caps label style needs a smaller size than the app's smallest. Label tokens:
+`label-font`, `label-case`, `label-size`, `label-tracking`, `label-weight`, read by every label rule so the label style
+is decided in one place (`translation.md`, "Label style").
 Shape tokens: `radius` (one value), `rule` (`1px solid var(--color-border-subtle)`, so framing edits are one word),
 `transition` (150 ms ease, `0s` under reduced motion).
 
@@ -126,7 +128,7 @@ Every text colour above passes 4.5:1 on the pane, the background, the raised sur
 border passes 3:1 on those three surfaces; none of them is meant for surface 3. The tints are roughly 16–22 % of the
 tone over the dark pane and 8–10 % over the light one; derive others with `contrast.py mix` and check them.
 
-Fonts: Geist (interface), Geist Mono (labels and code), Cormorant Garamond italic 500 (sparse editorial accent). The
+Fonts: Geist (interface and, by default, labels), Geist Mono (code, identifiers, and labels only with mono caps), Cormorant Garamond italic 500 (sparse editorial accent). The
 brand fill fails as text on dark (1.86:1 on black): fills only, with white or `#e5e5e5` text on it. Red only for
 errors, destructive actions, and failures.
 

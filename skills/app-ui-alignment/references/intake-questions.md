@@ -26,25 +26,29 @@ ahead unless the owner objects.
 7. **Default theme.** Follow the system preference, or force one? *Default: system preference with the app's switch; the
    dark theme may get the strongest expression of the reference, but is never forced.*
 8. **Fonts.** The reference's families, the app's families, or a mix? A second monospace family (the reference's label
-   font) next to the app's code font? Does the app limit its monospace to code? *Default: keep a font the owner chose
+   font) next to the app's code font? Does the app limit its monospace to code? Labels are question 9, not this one.
+   *Default: keep a font the owner chose
    deliberately (a decision record says so); otherwise adopt the reference's families, delivered from the bundle. If
    new font files are vendored rather than installed as a package, ask whether the package policy allows it.*
-9. **Label case.** Which labels become uppercase? *Default: per precedence, as in `translation.md`, "Label case";
-   never a label that carries a unit, an identifier, a name, or a data value.*
+9. **Label style.** Labels keep the places precedence gives them (tab strips, strips, grid headers, the status bar);
+   their font and case are a separate question, answered through the label tokens (`translation.md`, "Label style").
+   *Default: as written, in the interface sans, in either precedence; offer the reference's mono caps as an opt-in and
+   show both on the running app before deciding. Never change the case of a label that carries a unit, an identifier,
+   a name, or a data value.*
 
 ## Defaults to confirm
 
 10. **Type scale.** Dense apps need fewer, smaller sizes than a documentation site. Keep the app's scale (often two or
     three sizes around 12–15 px) and map the reference's roles onto it, rather than importing editorial sizes; if the
-    reference's labels need a smaller mono size, add one label role. *Default: yes; the reference's display sizes and
+    label style needs a smaller size (mono caps), add one label size. *Default: yes; the reference's display sizes and
     serif accent are dropped or kept for one empty or welcome state.*
 11. **Borders and framing.** A grid-framed reference rules every section; an app with docked panes already has many
     edges. *Default (app wins): rules on pane boundaries, tab strips, and the shell; group inside panels by spacing and
     surface tone. Reference wins: also between panel sections and around tiles.*
 12. **Minimum size.** What must still fit at the minimum supported size, for example every page tab visible at
-    1280 × 800 with both side panels open? Wider labels (uppercase, mono, tracking) are traded against padding and
+    1280 × 800 with both side panels open? Wider labels (mono caps, tracking) are traded against padding and
     tracking until it does. *Default: everything that fitted before still fits.*
-13. **Wider labels in fixed layouts.** When headers grow (mono, uppercase), may the restyle change component
+13. **Wider labels in fixed layouts.** When headers grow (mono caps, longer text), may the restyle change component
     configuration (grid header wrapping) rather than column widths or the label treatment? *Default: yes, wrapping;
     column widths stay.*
 14. **Corners and elevation.** Square corners (0–2 px) and no shadows, except one overlay treatment (a lighter surface

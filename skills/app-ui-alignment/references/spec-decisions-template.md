@@ -30,7 +30,7 @@ which wins.
 | Type sizes | <display and editorial sizes> | <N sizes> | <...> |
 | Monospace | <label font> | <code font> | <...> |
 | Theme set | <light and dark> | <the app's themes> | <...> |
-| Label case | <uppercase labels> | <sentence case> | <which kinds, per translation.md "Label case"> |
+| Label style | <mono caps labels> | <the interface sans> | <as written / mono caps, with the label token values> |
 | <...> | | | |
 
 ## 2. Brand
@@ -45,7 +45,7 @@ which wins.
 
 ## 4. Fonts
 
-- Families: <sans> (interface), <mono> (code, identifiers, labels?), <serif?> (<where, or not used>).
+- Families: <sans> (interface, labels), <mono> (code, identifiers; labels only with mono caps), <serif?> (<where, or not used>).
 - Delivered by <package and version / vendored files with licences and their source>; no font host at runtime.
   <Package-policy note if files are vendored rather than installed.>
 - Tabular numerals in <grids, meters, axes>.
@@ -57,7 +57,7 @@ which wins.
 | `<--font-size-small>` | <12px> | metadata, labels, table headers |
 | `<--font-size-base>` | <13px> | content, controls |
 | `<--font-size-title>` | <15px> | page, panel, and dialog titles |
-| `<--font-size-label>` | <11px> | <mono labels, if the reference needs a smaller one> |
+| `<--font-size-label>` | <11px> | <only with mono caps labels> |
 
 ## 6. Colour roles and contrast
 
@@ -78,7 +78,8 @@ New tokens this alignment adds, defined in every theme (curated ones included, w
 | --- | --- | --- |
 | `<--color-border-interactive>` | edges of controls, 3:1 on every surface | <per theme> |
 | `<--color-surface-overlay>` | menus, popovers, dialogs | <per theme> |
-| `<--rule>`, `<--transition>`, `<--label-tracking>` | <...> | <...> |
+| `<--rule>`, `<--transition>` | <...> | <...> |
+| `<--label-font>`, `<--label-case>`, `<--label-size>`, `<--label-tracking>`, `<--label-weight>` | the label style | <values> |
 
 The contrast test is `<path>`; it covers every theme, tone text on its tint, and any outline drawn on a fill.
 

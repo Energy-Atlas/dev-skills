@@ -23,14 +23,18 @@ Failures met while aligning an application's UI, with their causes and fixes. Mo
   `MWh` as `MWH`, `kVA` as `KVA`. Chart titles, legend titles, grid headers, and row headers often carry units, names,
   or values; keep them as written, or wrap the unit in a child with `text-transform: none`. Read the audit's uppercase
   list for them.
-- **Uppercase and mono widen labels past the minimum width.** Uppercase semibold labels at the small size are about
+- **Mono caps widen labels past the minimum width.** Uppercase semibold labels at the small size are about
   10 % wider than sentence-case sans; with tracking, the last page tab left the centre tab strip at 1280 px with both
   side panels open. Measure the tab bars' `scrollWidth` before and after at the minimum size and trade tracking
   (0.04–0.06 em) and padding until they fit as before.
-- **Mono uppercase grid headers truncate.** Headers ellipsize at the app's column widths ("YEAR BU…"). Enable header
+- **Mono caps grid headers truncate.** Headers ellipsize at the app's column widths ("YEAR BU…"). Enable header
   wrapping (AG Grid `wrapHeaderText`, `autoHeaderHeight`) and tighten tracking rather than widening columns.
-- **Uppercase mono everywhere.** On every button, menu item, and message, uppercase tracked labels slow scanning. Keep
-  them to the kinds in `translation.md`, "Label case".
+- **Mono caps labels wear on the owner.** In the trial the owner chose the reference-wins variant but found its mono
+  uppercase tab titles and header labels tiresome once they used it, and kept the rest. Default to labels as written in
+  the interface sans, put the label style in tokens so it changes in one place, and show the opt-in on the running app.
+- **Label styles hard-coded rule by rule.** Thirty-five label rules each setting `font-family: var(--font-mono)` and
+  `text-transform: uppercase` turned a one-word decision into a sweep across twelve stylesheets. Every label rule reads
+  the label tokens.
 
 ## Tokens and themes
 

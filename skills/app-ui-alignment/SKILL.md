@@ -39,7 +39,9 @@ pins.
 4. Every colour, font, size, radius, and shadow comes from a token. No literals in components; canvas renderers read the
    resolved tokens.
 5. Contrast is tested, not eyeballed: text 4.5:1, large text and control borders 3:1, in every theme the app ships.
-6. Labels that carry units, identifiers, or data keep their case: uppercase turns `m²` into `M²` and `kWh` into `KWH`.
+6. Labels are set through label tokens (font, case, size, tracking, weight), and by default as written in the
+   interface sans; the reference's mono caps are an opt-in the owner sees on the running app. Labels that carry units,
+   identifiers, or data keep their case whatever the style: uppercase turns `m²` into `M²` and `kWh` into `KWH`.
 7. No runtime requests to font hosts or CDNs: fonts come from the app's own bundle. Data services the app already uses
    (map tiles, APIs) are not part of this rule.
 8. The app's own checks pass before every commit you hand back: typecheck, lint, format, unit, browser, and
@@ -88,7 +90,8 @@ pins.
 Ask the owner the questions in `references/intake-questions.md` that the inputs leave open, each with a recommendation
 and the evidence from phase 2. Precedence comes first: for each conflict, does the app's rule or the reference win?
 Typical conflicts: border density, the number of type sizes, a second monospace family, the theme set (a reference
-light/dark pair against several curated appearances), uppercase mono labels at high density, and corner radii.
+light/dark pair against several curated appearances), and corner radii. The label style is decided separately from
+precedence: the reference may win on where labels go and still lose on how they are set.
 
 If the owner cannot choose without seeing it, build the options as variants: one branch (or worktree) per option from
 the same base, the same review surfaces screenshotted in each, presented side by side. Merge none of them until the
@@ -129,7 +132,8 @@ In layers, checking the app after each one (`references/third-party-theming.md` 
 1. **Fonts**: from the bundle (npm font packages, or vendored WOFF2 with licences); one family token per role; tabular
    numerals where numbers align.
 2. **Tokens**: palette values per theme; the first-frame fallback; the theme switch writes the same names. A shared
-   rule token (`--rule: 1px solid var(--color-border-subtle)`) keeps framing edits to one word each.
+   rule token (`--rule: 1px solid var(--color-border-subtle)`) keeps framing edits to one word each, and the label
+   tokens keep the label style one decision.
 3. **Shell chrome**: title bar, menu bar or ribbon, tab strips, status bar, pane boundaries and splitters. This is where
    most of the reference's identity lands: the active-tab treatment, label typography, rules. Check after this layer
    that every tab still fits at the minimum size with side panels open.
@@ -179,7 +183,7 @@ Fix and re-verify before reporting. Read `references/pitfalls.md` when a check f
 
 - `references/intake-questions.md`: decision questions, precedence first, with recommended defaults.
 - `references/spec-decisions-template.md`: the decisions section of the spec or decision record.
-- `references/translation.md`: reference elements and their app equivalents, label case, and pane mapping.
+- `references/translation.md`: reference elements and their app equivalents, the label style, and pane mapping.
 - `references/token-recipes.md`: token layers, runtime themes, the contrast test, the family palette tested for apps.
 - `references/third-party-theming.md`: docking layouts, data grids, charts, maps, diagrams, component libraries.
 - `references/verification.md`: checks, browser snippets, a screenshot matrix, and a populated state.

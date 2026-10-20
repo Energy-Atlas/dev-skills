@@ -6,7 +6,9 @@ design rules, and take the conflicts to the owner (phase 3).
 
 The two right-hand columns are defaults for the two usual precedence decisions: **app wins** (the app's design rules
 stand; the reference supplies palette, typography, and treatments where they leave room) and **reference wins** (the
-reference's language applies across the app; the app's rules are amended by their owner).
+reference's language applies across the app; the app's rules are amended by their owner). In both columns, "label"
+means the label style, a separate decision ("Label style" below): where labels go follows precedence, how they are set
+does not.
 
 ## Elements
 
@@ -19,22 +21,22 @@ The rows use the grid-framed editorial family of `wiki-ui-alignment` as the exam
 | Content column framed by two vertical rules | The shell's outer edge and pane boundaries | Pane boundaries and splitters only, in `border-subtle` | Shell framed; every pane and tab strip ruled; panel sections ruled |
 | Horizontal rules between sections, meeting the frame | Rules under tab strips, toolbars, panel headers | Under tab strips and the shell's bars only; inside panels group by spacing and surface tone | Also between panel sections and dashboard rows |
 | `+` registration marks at rule intersections | Shell corners | Drop | Optional, at the shell's outer corners only; never inside data views |
-| Low one-line header with a bottom rule | Title bar, menu bar, ribbon | Keep the app's bar; adopt the bottom rule | Same, with mono uppercase menu names |
-| Nav labels: small uppercase, widely tracked | Shell tabs, docked panel tabs, ribbon tab names | Uppercase in the app's interface family (or its mono, only if the app allows mono outside code), 11–12 px, tracked 0.04–0.08 em | Uppercase in the reference's mono, tracked 0.04–0.1 em |
+| Low one-line header with a bottom rule | Title bar, menu bar, ribbon | Keep the app's bar; adopt the bottom rule | Same, with menu names in the label style |
+| Nav labels: small uppercase, widely tracked | Shell tabs, docked panel tabs, ribbon tab names | Label style, muted, the active tab in the text colour | Label style, muted; the active tab as below |
 | Thin vertical dividers between nav groups | Toolbar separators | Adopt (1 px `border-subtle`) | Same |
 | Active nav item: inverted block in a thin accent outline | Selected tab in tab strips | Selected tab: text colour and an inset accent edge (works inside overflow containers) | Inverted block (text-coloured fill, background-coloured label) with the accent outline drawn inset behind a strip-coloured gap; the accent never touches the fill (see pitfalls) |
 | Primary action: full-height inverted block | Primary command (Run, Save, Submit) | Accent fill, square, compact | Inverted block (text-coloured fill) with accent on hover and focus |
-| Section strip `02 / OWNERSHIP` with a right-aligned note | Panel header with title and a right-aligned status or count | Panel titles in the app's title size and weight; a right-aligned muted note where useful | Panel headers as strips: mono uppercase muted label, optional index, right-aligned note, ruled above and below, full bleed |
+| Section strip `02 / OWNERSHIP` with a right-aligned note | Panel header with title and a right-aligned status or count | Panel titles in the app's title size and weight; a right-aligned muted note where useful | Panel headers as strips: muted label, optional index, right-aligned note, ruled above and below, full bleed |
 | Hero: very large bold headline with a serif italic phrase | Welcome or empty start screen | Drop | One welcome or empty state at most; never in working views |
-| Feature row: equal cells with shared borders, letter index, bold title | Dashboard tiles, stat tiles, cards | Tiles grouped by spacing and surface tone, no outlines | Shared-border grid of tiles, closed on all four sides; tile labels mono uppercase, values in the interface sans |
-| Small square outlined button, mono uppercase label | Buttons | Square, `border-interactive`, sentence case in the interface family | Toolbar and panel command buttons with short verb labels: mono uppercase; dialog, form, and menu buttons: sentence case |
-| Data-sheet tables: mono uppercase headers, thin rules, accent tint on hover | Data grid | Header labels small and muted, sentence case; row rules; accent-tint hover; selection tint | Mono headers, uppercase only where the header carries no unit or name (see "Label case"); header wrapping instead of truncation; column and row rules |
-| Admonitions with a coloured left edge | Notices, banners, validation summaries, toasts | Left edge or icon in the tone colour on a tint | Same, with a mono uppercase title |
+| Feature row: equal cells with shared borders, letter index, bold title | Dashboard tiles, stat tiles, cards | Tiles grouped by spacing and surface tone, no outlines | Shared-border grid of tiles, closed on all four sides; tile labels in the label style, values in the interface sans |
+| Small square outlined button, mono uppercase label | Buttons | Square, `border-interactive`, sentence case in the interface family | Square, `border-interactive`; toolbar and panel command buttons may take the label style; dialog, form, and menu buttons stay in the interface family as written |
+| Data-sheet tables: mono uppercase headers, thin rules, accent tint on hover | Data grid | Header labels small and muted, sentence case; row rules; accent-tint hover; selection tint | Headers in the label style; header wrapping instead of truncation if the label style is wider; column and row rules |
+| Admonitions with a coloured left edge | Notices, banners, validation summaries, toasts | Left edge or icon in the tone colour on a tint | Same, with the title in the label style |
 | Code blocks in the mono | Logs, identifiers, operation history, expressions | The app's code font | The reference's mono, if the owner adopts it |
-| Small muted metadata labels | Status badges and pills (Simulated, Planned, Complete) | The app's badge style in tone colours, sentence case | Mono uppercase, muted, no fill; tone colour only for attention states |
-| Section titles inside long pages | Form section headers, settings groups | The app's title size and weight | Strips: mono uppercase muted label with a rule |
+| Small muted metadata labels | Status badges and pills (Simulated, Planned, Complete) | The app's badge style in tone colours, sentence case | Label style, muted, no fill; tone colour only for attention states |
+| Section titles inside long pages | Form section headers, settings groups | The app's title size and weight | Strips: muted label with a rule |
 | Breadcrumbs: small muted mono | Location or path indicator, selection path | Only if the app has one | Same |
-| Muted page footer with meta line | Status bar | Status bar text muted, small; tone colours only for state | Status bar labels mono uppercase where they are labels, not messages |
+| Muted page footer with meta line | Status bar | Status bar text muted, small; tone colours only for state | Status bar labels in the label style where they are labels, not messages |
 | Square corners, no shadows | All controls and surfaces | Radii 0–2 px; overlays on a lighter surface with a rule | Radii 0; overlays separated by a rule and the overlay surface |
 | 150 ms colour transitions | Hover and focus | Adopt; none under reduced motion | Same |
 | Scroll ruler, oversized outline section names, page decoration | — | Drop | Drop |
@@ -54,24 +56,33 @@ and hover. An app's content panes are its "page", so in either precedence:
 Check how the app uses its surface tokens (phase 1) before mapping: a token named `surface` may paint every pane, and a
 token named `bg` only the gutters.
 
-## Label case
+## Label style
 
-Uppercase is a property of a few kinds of label, never of data.
+Where labels go (tab strips, panel and section strips, grid headers, tile labels, the status bar, badges) follows
+precedence. How they are set is its own decision, made through tokens so it can change in one place:
 
-| Kind of text | App wins | Reference wins |
+| Token | As written (default) | Mono caps (opt-in) |
 | --- | --- | --- |
-| Shell and panel tab labels | Uppercase | Uppercase, mono |
-| Panel headers and section strips | Sentence case title, or uppercase muted label | Uppercase, mono, muted |
-| Grid and table headers | Sentence case | Uppercase mono, except headers with a unit, symbol, or proper name |
-| Toolbar command buttons (short verbs: Apply, Reset, Inspect) | Sentence case | Uppercase, mono |
-| Dialog, form, and menu buttons; menu items | Sentence case | Sentence case |
-| Form labels, messages, agent text, suggestions, notifications | Sentence case | Sentence case |
-| Metadata badges | Sentence case | Uppercase, mono, muted |
-| Anything with a unit, identifier, file name, place name, or value (`m²`, `kWh`, `kVA`, `B0001`, `Back Bay`) | Keep as written | Keep as written |
+| `--label-font` | `var(--font-sans)` | `var(--font-mono)` |
+| `--label-case` | `none` | `uppercase` |
+| `--label-size` | `var(--font-size-small)` | `var(--font-size-label)` (one step smaller) |
+| `--label-tracking` | `0` | `0.04em` to `0.08em` |
+| `--label-weight` | `600` | `600` |
+
+Every label rule reads these five tokens; no rule sets `text-transform: uppercase` or the mono family itself.
+
+**The default is as written, in the interface sans, in either precedence.** The reference's mono caps make the
+documentation family's strips and navigation read like a technical drawing; on a dense app with dozens of tabs and
+headers on screen, owners have found them tiring once they used them, and they widen labels, truncate grid headers, and
+change units. Offer mono caps as an opt-in, show it on the running app, and decide from that.
+
+With mono caps chosen, these keep their case and the interface font regardless: dialog, form, and menu buttons; menu
+items; form labels; messages, agent text, suggestions, and notifications; and anything with a unit, identifier, file
+name, place name, or value (`m²`, `kWh`, `kVA`, `B0001`, `Back Bay`). A label that mixes a word and a unit, such as
+`Monthly demand (MWh)`, stays as written, or puts the unit in a child element with `text-transform: none`.
 
 Change case with `text-transform` only: accessible names and `textContent` keep the source text, so screen readers and
-tests that read names are unaffected (`innerText` does change). A label that mixes a word and a unit, such as
-`Monthly demand (MWh)`, stays as written, or puts the unit in a child element with `text-transform: none`.
+tests that read names are unaffected (`innerText` does change).
 
 ## What only an app has
 
@@ -95,5 +106,5 @@ spec's section 8.
 
 A documentation page is read; an app is worked. Keep the app's row heights, control heights, and paddings unless the
 owner asks for a looser layout. Adopt the reference's typography by role (label, content, title), not its sizes. Mono
-and uppercase labels are about 10 % wider than sentence-case sans at the same size: check tab strips and headers at the
-minimum size and trade tracking and padding until they fit as before.
+caps labels are about 10 % wider than sentence-case sans at the same size: if they are chosen, check tab strips and
+headers at the minimum size and trade tracking and padding until they fit as before.

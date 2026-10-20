@@ -47,11 +47,13 @@ working rules) by reading the project and asking.
    labels, and font-host URLs; baseline screenshots of a populated app in every theme; a table translating each reference element into its app equivalent,
    with every conflict with the app's own design rules marked.
 3. **Settle the decisions:** the owner rules on each conflict (or picks between variants built side by side), then the
-   remaining intake questions, each with a recommendation.
+   remaining intake questions, each with a recommendation. The label style is its own question: labels are set as
+   written in the interface sans unless the owner opts into the reference's mono caps after seeing them.
 4. **Record the spec:** where the project records design decisions, facts kept apart from decisions, and a rule in the
    agent instructions that UI changes follow it.
-5. **Tokens and contrast:** one semantic token set for every theme, split decorative and interactive borders, a
-   separate data palette, and a contrast test in the app's own test runner.
+5. **Tokens and contrast:** one semantic token set for every theme, split decorative and interactive borders, label
+   tokens that keep the label style one decision, a separate data palette, and a contrast test in the app's own test
+   runner.
 6. **Implement in layers:** fonts, tokens, shell chrome, controls, panels and docking, data surfaces, overlays and
    states, and reduced motion, each a reviewable commit.
 7. **Verify in a browser:** the app's checks, every theme at two desktop sizes, fonts from the app's own origin, theme
@@ -65,7 +67,7 @@ working rules) by reading the project and asking.
 | [`SKILL.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/SKILL.md) | The inputs, hard rules, and the eight phases |
 | [`references/intake-questions.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/intake-questions.md) | The decision questions, precedence first, with recommended defaults |
 | [`references/spec-decisions-template.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/spec-decisions-template.md) | The template for the decision record or the spec's section of decisions |
-| [`references/translation.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/translation.md) | Reference elements and their app equivalents with defaults for either precedence, label case, and which reference surface the app's panes take |
+| [`references/translation.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/translation.md) | Reference elements and their app equivalents with defaults for either precedence, the label style and its tokens, and which reference surface the app's panes take |
 | [`references/token-recipes.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/token-recipes.md) | Token layers, runtime themes, the contrast test, and the EnergyAtlas family palette with values tested on app surfaces |
 | [`references/third-party-theming.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/third-party-theming.md) | Docking layouts, data grids, charts, maps, diagrams, component libraries, and editors |
 | [`references/verification.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/verification.md) | The checks, browser snippets, a populated state, and a screenshot matrix |

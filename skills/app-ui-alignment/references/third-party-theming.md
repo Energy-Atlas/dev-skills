@@ -30,13 +30,13 @@ await document.fonts.load(`12px ${token('--font-sans').split(',')[0]}`)
 
 - **FlexLayout (`flexlayout-react`).** Named CSS variables, `--flexlayout-color-*`, `--flexlayout-font-family`,
   `--flexlayout-font-size`, `--flexlayout-splitter-size`; map each onto a token in one stylesheet. The tab label
-  treatment (mono uppercase, active-tab block) needs class overrides: `.flexlayout__tab_button`,
+  treatment (the label style, the active-tab block) needs class overrides: `.flexlayout__tab_button`,
   `.flexlayout__tab_button--selected`, `.flexlayout__border_button`, `.flexlayout__border_button--selected`,
   `.flexlayout__tabset_tabbar_outer`. Tab bars clip overflow: draw the active outline inset (`outline-offset: -1px` or
   an inset `box-shadow`), not outside the tab. `.flexlayout__tabset-selected` marks the focused tab set, so the active
   edge can be the accent there and a quieter colour elsewhere.
 - **FlexLayout's font variable is also the content font.** `--flexlayout-font-family` sets the font of
-  `.flexlayout__tabset`, so every docked pane inherits it: keep it the interface sans and put a mono label font on
+  `.flexlayout__tabset`, so every docked pane inherits it: keep it the interface sans and put the label tokens on
   `.flexlayout__tab_button` and `.flexlayout__border_button` only.
 - **FlexLayout hard-codes radii and some motion** (0.11): `border-radius` on `.flexlayout__tab_button`,
   `__border_button`, `__tab_toolbar_button`, `__popup_menu`, `__popup_menu_item`, `__drag_rect`, `__outline_rect`,
@@ -54,8 +54,8 @@ await document.fonts.load(`12px ${token('--font-sans').split(',')[0]}`)
   `headerTextColor`, `headerFontFamily`, `headerFontSize`, `headerFontWeight`, `oddRowBackgroundColor`,
   `rowHoverColor`, `selectedRowBackgroundColor`, `accentColor`, `fontFamily`, `fontSize`, `rowHeight`, `headerHeight`,
   `borderRadius`, `wrapperBorderRadius`, `columnBorder`, `rowBorder`. Numeric parameters (font size, heights) do not
-  take variables, and a prefixed size such as `headerFontSize` is easy to miss: use the token's pixel value. Uppercase
-  mono headers need a class override (`.ag-header-cell-text`) and are wider than the sans: set
+  take variables, and a prefixed size such as `headerFontSize` is easy to miss: use the token's pixel value. Header case
+  and tracking need a class override (`.ag-header-cell-text`); mono caps headers are wider than the sans: set
   `defaultColDef: { wrapHeaderText: true, autoHeaderHeight: true }` rather than truncating or widening columns. Drop
   zebra rows with `oddRowBackgroundColor` equal to the pane. The focused cell is drawn with a border, not an outline:
   check it by its border colour or a screenshot.
