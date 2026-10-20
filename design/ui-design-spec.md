@@ -11,8 +11,11 @@ Decided by the owner on 2026-10-11. These are implementation rules, not one-off 
 ### 0.1 Brand
 
 - The site is **EnergyAtlas dev-skills**. Unlike the BEMGen site, it carries the EnergyAtlas name: it is the organisation's own repository.
-- There is no logo or favicon of its own; the header uses Material's default icon. Do not invent a logo.
-- The family resemblance comes from typography, palette, and UI structure.
+- The header and the favicon carry the **EnergyAtlas mark** (decided by the owner on 2026-10-20): the white-E
+  hexagon of `docs/assets/brand/`, copied from the brand pack of the alignment skills (`references/brand/`), whose
+  README sets its use. The knockout version, whose E shows the page, is not used here, because the site has a dark
+  theme. The mark keeps its gradient in both themes and is never recoloured.
+- The family resemblance comes from the mark, typography, palette, and UI structure.
 
 ### 0.2 Sources of truth
 

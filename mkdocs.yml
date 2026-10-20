@@ -16,6 +16,9 @@ theme:
   # overrides/main.html preloads the main fonts, so a full page load draws its first frame with them.
   custom_dir: overrides
   language: en
+  # The EnergyAtlas mark (design/ui-design-spec.md, 0.1); overrides/main.html adds the raster favicons.
+  logo: assets/brand/energyatlas-mark.svg
+  favicon: assets/brand/favicon.svg
   # No font host: docs/assets/stylesheets/fonts.css serves the fonts from the site (design/ui-design-spec.md, 0.4).
   font: false
   features:

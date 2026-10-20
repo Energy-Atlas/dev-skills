@@ -7,4 +7,8 @@
 {% block extrahead %}
   <link rel="preload" href="{{ 'assets/fonts/geist-latin.woff2' | url }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ 'assets/fonts/geist-mono-latin.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+  {#- Raster fallbacks of the EnergyAtlas mark; theme.favicon is the SVG (design/ui-design-spec.md, 0.1). -#}
+  <link rel="icon" href="{{ 'assets/brand/favicon.ico' | url }}" sizes="48x48">
+  <link rel="icon" href="{{ 'assets/brand/favicon-32.png' | url }}" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="{{ 'assets/brand/apple-touch-icon.png' | url }}">
 {% endblock %}

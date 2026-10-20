@@ -50,7 +50,8 @@ asking.
 5. **Implement:** self-hosted fonts, the framed page, chrome, content styles, numbered section strips, shared-border
    grids of clickable cells, a restrained hero, instant navigation, and reduced motion. Optionally, when the owner
    wants them, icon cards: an icon above each cell's title and, on hover, a faint oversized icon backdrop (icons can
-   come from the [`editorial-icons`](editorial-icons.md) skill).
+   come from the [`editorial-icons`](editorial-icons.md) skill). When the owner chooses it, the EnergyAtlas mark as the
+   header logo and the favicon, from the skill's own brand pack, as on this site.
 6. **Build:** `mkdocs build --strict` after every step that changes the configuration or templates.
 7. **Verify in a browser:** light and dark, desktop and phone, fonts from the site's own origin only, no horizontal
    overflow, one left edge for all text, clickable cells, and page changes without reloads.
@@ -66,3 +67,5 @@ asking.
 | [`references/material-recipes.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/material-recipes.md) | Configuration, the template override, CSS recipes (including the optional icon cards), and Markdown markup |
 | [`references/verification.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/verification.md) | The contrast script, the font vendoring script, and the browser checks |
 | [`references/pitfalls.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/references/pitfalls.md) | Failures met in practice and their fixes |
+| [`references/brand/`](https://github.com/Energy-Atlas/dev-skills/tree/main/skills/wiki-ui-alignment/references/brand) | The EnergyAtlas mark (a white-E version for any surface, a knockout for known-light ones), its favicons, and a README on its use, placement, and recipes |
+| [`scripts/brand_assets.py`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/wiki-ui-alignment/scripts/brand_assets.py) | Renders the PNG and ICO favicons from the mark's SVG with a headless browser |
