@@ -96,5 +96,6 @@ nav:
   - Home: index.md
   - Skills:
       - wiki-ui-alignment: skills/wiki-ui-alignment.md
+      - app-ui-alignment: skills/app-ui-alignment.md
       - editorial-icons: skills/editorial-icons.md
       - technical-pptx-design: skills/technical-pptx-design.md
