@@ -26,7 +26,7 @@ The rows use the grid-framed editorial family of `wiki-ui-alignment` as the exam
 | Thin vertical dividers between nav groups | Toolbar separators | Adopt (1 px `border-subtle`) | Same |
 | Active nav item: inverted block in a thin accent outline | Selected tab in tab strips | Selected tab: text colour and an inset accent edge (works inside overflow containers) | Inverted block (text-coloured fill, background-coloured label) with the accent outline drawn inset behind a strip-coloured gap; the accent never touches the fill (see pitfalls) |
 | Primary action: full-height inverted block | Primary command (Run, Save, Submit) | Accent fill, square, compact | Inverted block (text-coloured fill) with accent on hover and focus |
-| Section strip `02 / OWNERSHIP` with a right-aligned note | Panel header with title and a right-aligned status or count | Panel titles in the app's title size and weight; a right-aligned muted note where useful | Panel headers as strips: muted label, optional index, right-aligned note, ruled above and below, full bleed |
+| Section strip `02 / OWNERSHIP` with a right-aligned note | Panel header with title and a right-aligned status or count | The app's panel titles as they are; a right-aligned muted note where useful | The app's panel titles as they are (title style, no backdrop); a rule below only if the panel had one. Strips are opt-in |
 | Hero: very large bold headline with a serif italic phrase | Welcome or empty start screen | Drop | One welcome or empty state at most; never in working views |
 | Feature row: equal cells with shared borders, letter index, bold title | Dashboard tiles, stat tiles, cards | Tiles grouped by spacing and surface tone, no outlines | Shared-border grid of tiles, closed on all four sides; tile labels in the label style, values in the interface sans |
 | Small square outlined button, mono uppercase label | Buttons | Square, `border-interactive`, sentence case in the interface family | Square, `border-interactive`; toolbar and panel command buttons may take the label style; dialog, form, and menu buttons stay in the interface family as written |
@@ -34,7 +34,7 @@ The rows use the grid-framed editorial family of `wiki-ui-alignment` as the exam
 | Admonitions with a coloured left edge | Notices, banners, validation summaries, toasts | Left edge or icon in the tone colour on a tint | Same, with the title in the label style |
 | Code blocks in the mono | Logs, identifiers, operation history, expressions | The app's code font | The reference's mono, if the owner adopts it |
 | Small muted metadata labels | Status badges and pills (Simulated, Planned, Complete) | The app's badge style in tone colours, sentence case | Label style, muted, no fill; tone colour only for attention states |
-| Section titles inside long pages | Form section headers, settings groups | The app's title size and weight | Strips: muted label with a rule |
+| Section titles inside long pages | Form section headers, settings groups, Inspection sections | The app's title size and weight | The app's titles; a rule above the section where the reference rules sections |
 | Breadcrumbs: small muted mono | Location or path indicator, selection path | Only if the app has one | Same |
 | Muted page footer with meta line | Status bar | Status bar text muted, small; tone colours only for state | Status bar labels in the label style where they are labels, not messages |
 | Square corners, no shadows | All controls and surfaces | Radii 0–2 px; overlays on a lighter surface with a rule | Radii 0; overlays separated by a rule and the overlay surface |
@@ -58,8 +58,9 @@ token named `bg` only the gutters.
 
 ## Label style
 
-Where labels go (tab strips, panel and section strips, grid headers, tile labels, the status bar, badges) follows
-precedence. How they are set is its own decision, made through tokens so it can change in one place:
+Where labels go (tab strips, side handles, grid headers, tile labels, the status bar, badges) follows precedence.
+Titles are not labels: page, panel, card, form, dialog, and section titles keep the app's title style (size, weight,
+text colour, no tracking) and no backdrop in either precedence; turning them into strips is an opt-in. How they are set is its own decision, made through tokens so it can change in one place:
 
 | Token | As written (default) | Mono caps (opt-in) |
 | --- | --- | --- |
@@ -83,6 +84,24 @@ name, place name, or value (`m²`, `kWh`, `kVA`, `B0001`, `Back Bay`). A label t
 
 Change case with `text-transform` only: accessible names and `textContent` keep the source text, so screen readers and
 tests that read names are unaffected (`innerText` does change).
+
+## States
+
+The reference shows a page at rest; an app's chrome is used. Every interactive kind needs its states designed, not
+inherited from a library:
+
+| State | Label | Indicator |
+| --- | --- | --- |
+| Rest | muted or text colour, 4.5:1 on the strip | none, or the rest edge |
+| Hover | text colour, 4.5:1 on the hover background | an edge, underline, or fill whose boundary is 3:1 against the strip |
+| Selected | 4.5:1 on the selected background (inverted: the surface colour on the text-coloured fill) | the fill, or an accent edge at 3:1 on the strip, never on the fill |
+| Pressed | as hover | as hover, plus the fill of the next state |
+| Focus | unchanged | a 2 px focus ring at 3:1, inset where the container clips |
+| Disabled | muted, still legible | none; a reason on hover or beside it |
+
+Hover and selected must also differ from each other. With an inverted selected tab, a hover that only lightens the
+background is lost against the strip; a 1 px interactive edge with the text colour reads at once. Fade only the hover;
+selection changes at once.
 
 ## What only an app has
 

@@ -156,6 +156,27 @@ const el = document.activeElement, s = getComputedStyle(el);
    shadow: s.boxShadow, border: s.borderColor })
 ```
 
+### States
+
+Hover, select, and press each interactive kind (a tab, a side handle, a toolbar button, a menu item, a grid row, a tree
+item) in every theme and measure the label against the state's background and the indicator against the strip. The
+label's own colour must not come from a library's "selected" variable that the restyle repurposed.
+
+```js
+// Run while the pointer is over the element (Playwright: await locator.hover(), then page.evaluate).
+const el = document.querySelector("<selector of the hovered element>");
+const s = getComputedStyle(el);
+let strip = el.parentElement;
+while (strip && getComputedStyle(strip).backgroundColor === "rgba(0, 0, 0, 0)") strip = strip.parentElement;
+({ label: s.color, background: s.backgroundColor, edge: s.boxShadow || s.borderColor || s.outlineColor,
+   strip: strip && getComputedStyle(strip).backgroundColor })
+// then: python contrast.py ratio <label> <background or strip>  (4.5)
+//       python contrast.py ratio <edge colour> <strip>            (3)
+```
+
+Screenshot each state next to rest at the minimum size: hover must be visible at a glance, and hover and selected must
+not be confused.
+
 ### Clipped labels
 
 Find text that overflows its box, ellipsized text included (that is how grid headers truncate), and skip visually
@@ -194,4 +215,7 @@ axe on it again: hard-coded colours that axe skipped on a translucent background
 - [ ] Theme switch restyles every surface, canvases and maps included, without a reload; no first-frame flash on the
       production build.
 - [ ] Focus visible and unclipped in shell, panels, grid, menus, and dialogs; no clipped, ellipsized, or vanished labels.
+- [ ] Hover, selected, and pressed states of every interactive kind measured in every theme: labels 4.5:1, indicators 3:1,
+      states told apart.
+- [ ] Titles inside panels keep the app's design unless the owner chose strips.
 - [ ] Reduced motion honoured, libraries included; axe clean in every theme, pre-existing findings logged.

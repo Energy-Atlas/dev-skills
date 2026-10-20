@@ -55,9 +55,12 @@ working rules) by reading the project and asking.
    tokens that keep the label style one decision, a separate data palette, and a contrast test in the app's own test
    runner.
 6. **Implement in layers:** fonts, tokens, shell chrome, controls, panels and docking, data surfaces, overlays and
-   states, and reduced motion, each a reviewable commit.
+   states, and reduced motion, each a reviewable commit. Titles inside panels keep the app's design unless the owner
+   asks for strips, and every interactive state (hover, selected, pressed, focus) is designed rather than inherited
+   from a library.
 7. **Verify in a browser:** the app's checks, every theme at two desktop sizes, fonts from the app's own origin, theme
-   switches that restyle canvases without a reload, no first-frame flash, visible focus, and accessibility checks.
+   switches that restyle canvases without a reload, no first-frame flash, visible focus, every hover, selected, and
+   pressed state measured and told apart (labels 4.5:1, indicators 3:1), and accessibility checks.
 8. **Hand back and ship:** the alignment record with evidence; push, merge, and tag only with the owner's yes for each.
 
 ## Files

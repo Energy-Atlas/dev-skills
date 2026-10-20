@@ -39,9 +39,15 @@ pins.
 4. Every colour, font, size, radius, and shadow comes from a token. No literals in components; canvas renderers read the
    resolved tokens.
 5. Contrast is tested, not eyeballed: text 4.5:1, large text and control borders 3:1, in every theme the app ships.
+   That holds in every state, not only at rest: a hovered, selected, pressed, or focused tab, handle, button, row, or
+   menu item keeps its label at 4.5:1 against the state's own background and shows the state with an indicator (edge,
+   underline, outline, or fill boundary) of at least 3:1 against what surrounds it, so each state is told apart from
+   rest and from the others. A colour change alone, or a tint a step away from the strip, is not enough.
 6. Labels are set through label tokens (font, case, size, tracking, weight), and by default as written in the
    interface sans; the reference's mono caps are an opt-in the owner sees on the running app. Labels that carry units,
    identifiers, or data keep their case whatever the style: uppercase turns `m²` into `M²` and `kWh` into `KWH`.
+   Titles are not labels: page, panel, card, form, dialog, and section titles inside a panel's content keep the app's
+   title style and sit on the pane without a backdrop strip, unless the owner asks for strips.
 7. No runtime requests to font hosts or CDNs: fonts come from the app's own bundle. Data services the app already uses
    (map tiles, APIs) are not part of this rule.
 8. The app's own checks pass before every commit you hand back: typecheck, lint, format, unit, browser, and
@@ -160,6 +166,8 @@ Run the project's checks, then the checks in `references/verification.md`:
 - no horizontal page overflow; panes scroll inside themselves; no clipped or ellipsized labels in tab strips, ribbons,
   headers, or grid headers;
 - focus is visible on every control in tab order, including inside docked panels and the grid;
+- every interactive kind (tabs, side handles, buttons, menu items, rows, tree items) is hovered, selected, and pressed
+  in every theme, and each state passes the state check in `verification.md`;
 - switching theme at runtime restyles every surface, canvases included, without a reload or a stale colour;
 - the first frame after a reload shows the stored theme, not a flash of the default (check against a production build);
 - accessibility checks (axe or the project's equivalent) report no serious or critical violation in any theme; a

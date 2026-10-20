@@ -38,31 +38,35 @@ ahead unless the owner objects.
 
 ## Defaults to confirm
 
-10. **Type scale.** Dense apps need fewer, smaller sizes than a documentation site. Keep the app's scale (often two or
+10. **Titles.** Do page, panel, card, form, dialog, and section titles keep the app's design, or become the
+    reference's strips (a raised backdrop, a muted label)? *Default: they keep the app's design in either precedence;
+    strips only where the owner asks after seeing them.*
+
+11. **Type scale.** Dense apps need fewer, smaller sizes than a documentation site. Keep the app's scale (often two or
     three sizes around 12–15 px) and map the reference's roles onto it, rather than importing editorial sizes; if the
     label style needs a smaller size (mono caps), add one label size. *Default: yes; the reference's display sizes and
     serif accent are dropped or kept for one empty or welcome state.*
-11. **Borders and framing.** A grid-framed reference rules every section; an app with docked panes already has many
+12. **Borders and framing.** A grid-framed reference rules every section; an app with docked panes already has many
     edges. *Default (app wins): rules on pane boundaries, tab strips, and the shell; group inside panels by spacing and
     surface tone. Reference wins: also between panel sections and around tiles.*
-12. **Minimum size.** What must still fit at the minimum supported size, for example every page tab visible at
+13. **Minimum size.** What must still fit at the minimum supported size, for example every page tab visible at
     1280 × 800 with both side panels open? Wider labels (mono caps, tracking) are traded against padding and
     tracking until it does. *Default: everything that fitted before still fits.*
-13. **Wider labels in fixed layouts.** When headers grow (mono caps, longer text), may the restyle change component
+14. **Wider labels in fixed layouts.** When headers grow (mono caps, longer text), may the restyle change component
     configuration (grid header wrapping) rather than column widths or the label treatment? *Default: yes, wrapping;
     column widths stay.*
-14. **Corners and elevation.** Square corners (0–2 px) and no shadows, except one overlay treatment (a lighter surface
+15. **Corners and elevation.** Square corners (0–2 px) and no shadows, except one overlay treatment (a lighter surface
     and a rule, or a shadow where it shows) for menus, popovers, and dialogs. *Default: yes.*
-15. **Contrast.** Adjust colours that fail WCAG AA (give the ratios), split decorative and interactive borders, use a
+16. **Contrast.** Adjust colours that fail WCAG AA (give the ratios), split decorative and interactive borders, use a
     deep brand colour that fails on dark only as a fill. *Default: yes.*
-16. **Red.** Red only for errors, destructive actions, and failures; amber warnings, green success, blue links,
+17. **Red.** Red only for errors, destructive actions, and failures; amber warnings, green success, blue links,
     information, focus, and selection. *Default: yes.*
-17. **Data colours.** Keep the app's chart and map palettes (they encode meaning and were validated), or derive new ones
+18. **Data colours.** Keep the app's chart and map palettes (they encode meaning and were validated), or derive new ones
     from the brand? *Default: keep them; re-check them at 3:1 against the new chart surfaces.*
-18. **First frame.** May the restyle add an inline script to `index.html` that applies the stored theme before the first
+19. **First frame.** May the restyle add an inline script to `index.html` that applies the stored theme before the first
     paint (a content security policy or the host may forbid inline scripts)? *Default: yes, unless a CSP forbids it;
     then a CSS media-query fallback for the system preference.*
-19. **Agent rule.** Add a rule to `AGENTS.md` (or equivalent) that UI changes follow the recorded spec. *Default: yes.*
+20. **Agent rule.** Add a rule to `AGENTS.md` (or equivalent) that UI changes follow the recorded spec. *Default: yes.*
 
 ## Questions that come up later
 

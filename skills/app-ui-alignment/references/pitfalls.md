@@ -36,6 +36,9 @@ Failures met while aligning an application's UI, with their causes and fixes. Mo
   `text-transform: uppercase` turned a one-word decision into a sweep across twelve stylesheets. Every label rule reads
   the label tokens.
 
+- **Titles turned into labels.** The first build made every page and panel title a raised strip with a muted, small
+  label. Titles carry hierarchy; the owner wanted them back as they were. Restyle labels, not titles, unless asked.
+
 ## Tokens and themes
 
 - **The reference's surfaces land on the wrong app roles.** Mapping the reference's first surface onto the token named
@@ -73,6 +76,12 @@ Failures met while aligning an application's UI, with their causes and fixes. Mo
 
 ## Libraries
 
+- **A library's hover reuses the selected colours.** FlexLayout's hover rule sets an unselected tab's label to the
+  selected-tab colour. After the selected tab was inverted, that colour was the strip's own, so a hovered side handle
+  turned into an empty box. Override hover explicitly for every interactive kind and measure it (`verification.md`,
+  "States").
+- **Transitions on selection fail accessibility checks.** A 150 ms colour transition on the tab base rule made axe sample
+  a tab halfway between selected and unselected (2.6:1). Fade only the hover; selection changes at once.
 - **Libraries hard-code radii, focus glows, and transitions.** FlexLayout (tabs, popups, drag rectangles), MapLibre
   (control groups, a fixed blue focus glow), and ECharts (bars, tooltips) round corners with literal values; FlexLayout's
   splitter hover sets its own transition. Override each one, list the overrides in the record, and run
