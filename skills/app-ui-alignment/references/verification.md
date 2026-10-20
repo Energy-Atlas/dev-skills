@@ -177,6 +177,17 @@ while (strip && getComputedStyle(strip).backgroundColor === "rgba(0, 0, 0, 0)") 
 Screenshot each state next to rest at the minimum size: hover must be visible at a glance, and hover and selected must
 not be confused.
 
+### Control kinds
+
+Screenshot a form (fields, a select, steppers, a primary and a secondary button) and a toolbar (a search field, quiet
+buttons, a split button) in each theme, convert them to greyscale, and name every control without colour:
+
+```bash
+python -c "from PIL import Image; Image.open('form-dark.png').convert('L').save('form-dark-grey.png')"
+```
+
+A field and a secondary button that differ only in their label fail; so does a select that reads as a button.
+
 ### Clipped labels
 
 Find text that overflows its box, ellipsized text included (that is how grid headers truncate), and skip visually
@@ -218,4 +229,5 @@ axe on it again: hard-coded colours that axe skipped on a translucent background
 - [ ] Hover, selected, and pressed states of every interactive kind measured in every theme: labels 4.5:1, indicators 3:1,
       states told apart.
 - [ ] Titles inside panels keep the app's design unless the owner chose strips.
+- [ ] Fields, selects, and buttons told apart in greyscale screenshots of a form and a toolbar.
 - [ ] Reduced motion honoured, libraries included; axe clean in every theme, pre-existing findings logged.

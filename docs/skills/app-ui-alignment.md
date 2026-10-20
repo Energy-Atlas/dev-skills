@@ -56,11 +56,12 @@ working rules) by reading the project and asking.
    runner.
 6. **Implement in layers:** fonts, tokens, shell chrome, controls, panels and docking, data surfaces, overlays and
    states, and reduced motion, each a reviewable commit. Titles inside panels keep the app's design unless the owner
-   asks for strips, and every interactive state (hover, selected, pressed, focus) is designed rather than inherited
-   from a library.
+   asks for strips, every interactive state (hover, selected, pressed, focus) is designed rather than inherited
+   from a library, and fields, selects, and buttons are told apart by fill, edge, and content.
 7. **Verify in a browser:** the app's checks, every theme at two desktop sizes, fonts from the app's own origin, theme
    switches that restyle canvases without a reload, no first-frame flash, visible focus, every hover, selected, and
-   pressed state measured and told apart (labels 4.5:1, indicators 3:1), and accessibility checks.
+   pressed state measured and told apart (labels 4.5:1, indicators 3:1), control kinds named in greyscale screenshots,
+   and accessibility checks.
 8. **Hand back and ship:** the alignment record with evidence; push, merge, and tag only with the owner's yes for each.
 
 ## Files
@@ -70,7 +71,7 @@ working rules) by reading the project and asking.
 | [`SKILL.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/SKILL.md) | The inputs, hard rules, and the eight phases |
 | [`references/intake-questions.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/intake-questions.md) | The decision questions, precedence first, with recommended defaults |
 | [`references/spec-decisions-template.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/spec-decisions-template.md) | The template for the decision record or the spec's section of decisions |
-| [`references/translation.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/translation.md) | Reference elements and their app equivalents with defaults for either precedence, the label style and its tokens, and which reference surface the app's panes take |
+| [`references/translation.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/translation.md) | Reference elements and their app equivalents with defaults for either precedence, the label style, states, the control grammar, and which reference surface the app's panes take |
 | [`references/token-recipes.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/token-recipes.md) | Token layers, runtime themes, the contrast test, and the EnergyAtlas family palette with values tested on app surfaces |
 | [`references/third-party-theming.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/third-party-theming.md) | Docking layouts, data grids, charts, maps, diagrams, component libraries, and editors |
 | [`references/verification.md`](https://github.com/Energy-Atlas/dev-skills/blob/main/skills/app-ui-alignment/references/verification.md) | The checks, browser snippets, a populated state, and a screenshot matrix |

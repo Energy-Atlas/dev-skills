@@ -43,6 +43,8 @@ pins.
    menu item keeps its label at 4.5:1 against the state's own background and shows the state with an indicator (edge,
    underline, outline, or fill boundary) of at least 3:1 against what surrounds it, so each state is told apart from
    rest and from the others. A colour change alone, or a tint a step away from the strip, is not enough.
+   Control kinds are told apart too: text fields, selects, and buttons differ in at least two of fill, edge, and
+   content (`references/translation.md`, "Controls"), so a square, flat reference does not turn them into one box.
 6. Labels are set through label tokens (font, case, size, tracking, weight), and by default as written in the
    interface sans; the reference's mono caps are an opt-in the owner sees on the running app. Labels that carry units,
    identifiers, or data keep their case whatever the style: uppercase turns `m²` into `M²` and `kWh` into `KWH`.
@@ -144,7 +146,8 @@ In layers, checking the app after each one (`references/third-party-theming.md` 
    most of the reference's identity lands: the active-tab treatment, label typography, rules. Check after this layer
    that every tab still fits at the minimum size with side panels open.
 4. **Controls**: buttons (primary, secondary, quiet, destructive), inputs, selects, checkboxes, radios, switches,
-   sliders, split buttons; hover, focus-visible, pressed, selected, disabled-with-reason, and invalid states.
+   sliders, split buttons; hover, focus-visible, pressed, selected, disabled-with-reason, and invalid states. Apply the
+   control grammar (fields are wells, buttons are raised blocks) through control tokens.
 5. **Panels and docking**: panel headers, toolbars, trees and lists, the docking library's tabs, borders, popouts, and
    drop indicators. Full-bleed header strips inside padded panels need negative margins equal to the padding.
 6. **Data surfaces**: data grid, charts (scaffolding, labels, tooltips, legends), map (basemap colours, overlays,
@@ -168,6 +171,7 @@ Run the project's checks, then the checks in `references/verification.md`:
 - focus is visible on every control in tab order, including inside docked panels and the grid;
 - every interactive kind (tabs, side handles, buttons, menu items, rows, tree items) is hovered, selected, and pressed
   in every theme, and each state passes the state check in `verification.md`;
+- in a greyscale screenshot of a form and a toolbar, every field, select, and button is identified without colour;
 - switching theme at runtime restyles every surface, canvases included, without a reload or a stale colour;
 - the first frame after a reload shows the stored theme, not a flash of the default (check against a production build);
 - accessibility checks (axe or the project's equivalent) report no serious or critical violation in any theme; a

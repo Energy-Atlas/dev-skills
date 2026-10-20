@@ -39,6 +39,12 @@ Failures met while aligning an application's UI, with their causes and fixes. Mo
 - **Titles turned into labels.** The first build made every page and panel title a raised strip with a muted, small
   label. Titles carry hierarchy; the owner wanted them back as they were. Restyle labels, not titles, unless asked.
 
+- **One box for every control.** Square corners, one edge colour, and the pane fill made text inputs, selects, and
+  secondary buttons identical; only their labels told them apart. Give fields a well and a heavier bottom edge,
+  selects a chevron cell, and buttons a raised fill (`translation.md`, "Controls").
+- **A quiet hover one step from the strip.** Ribbon icon buttons hovered to the raised surface, about 1.2:1 from the
+  ribbon: invisible. Quiet controls need an edge on hover as well as a fill.
+
 ## Tokens and themes
 
 - **The reference's surfaces land on the wrong app roles.** Mapping the reference's first surface onto the token named

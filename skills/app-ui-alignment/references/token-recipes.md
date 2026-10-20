@@ -32,6 +32,8 @@ The minimum set; add roles only when a component needs one that the set cannot e
 | `on-accent` | Text on an accent fill | 4.5:1 on `accent` |
 | `focus` | Focus ring | 3:1 on every surface |
 | `selected-bg` | Selection tint in lists, grids, trees | `text` 4.5:1 on it |
+| `field-bg`, `field-edge`, `field-edge-bottom` | The well of inputs, search fields, and selects; its even edge and heavier bottom edge | edges 3:1 on the surfaces fields sit on |
+| `button-bg`, `button-bg-hover`, `button-bg-pressed` | Raised secondary buttons and steppers, by state (`color-mix(in srgb, var(--color-text) 8% / 14% / 20%, var(--color-surface))`) | text 4.5:1 on each; muted text 4.5:1 on the rest fill |
 | `hover-bg` | Hovered tabs, handles, rows (often the pane surface under a raised strip) | label 4.5:1 on it; with an edge at 3:1 against the strip |
 | `tone-{success,info,warning,danger,neutral}-text` | State text and icons | 4.5:1 on its tint and on surfaces |
 | `tone-{...}-bg` | State tints | — |

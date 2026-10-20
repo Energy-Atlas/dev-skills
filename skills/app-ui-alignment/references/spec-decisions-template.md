@@ -93,6 +93,8 @@ The contrast test is `<path>`; it covers every theme, tone text on its tint, and
 - **Titles** (page, panel, card, form, dialog, section): <the app's design / strips, with what changes>.
 - **States** per interactive kind (tab, side handle, button, menu item, row): <rest / hover / selected / pressed /
   focus / disabled, with the label colour and the indicator of each>.
+- **Control grammar:** <fill, edge, and content of text fields, selects, secondary, primary, quiet, and split
+  buttons, steppers, segmented controls; the control tokens>.
 - **Buttons:** <primary, secondary, quiet, destructive; case and font>.
 - **Inputs and selection controls:** <...>.
 - **Data grid:** <header style, rules, row hover and selection>.

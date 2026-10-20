@@ -103,6 +103,28 @@ Hover and selected must also differ from each other. With an inverted selected t
 background is lost against the strip; a 1 px interactive edge with the text colour reads at once. Fade only the hover;
 selection changes at once.
 
+## Controls
+
+A flat, square reference makes every control the same box: a 1 px edge around the pane colour. An app needs its
+controls told apart by what they do: **fields hold a value, buttons act.** Each kind differs from the others in at
+least two of fill, edge, and content, so it reads at a glance and in greyscale.
+
+| Kind | Fill | Edge | Content | Hover / focus |
+| --- | --- | --- | --- | --- |
+| Text input, search field | A well: `--field-bg`, the pane colour (recessed on raised strips) | Even 1 px interactive edge with a 2 px bottom edge | Value left; muted placeholder; text cursor | No fill change; the edge turns accent on focus |
+| Select, value picker | The same well | The same edges | Value left, then a chevron in its own cell behind a 1 px rule | As the input; the open picker inverts the chevron cell |
+| Secondary button | Raised: `--button-bg` (the text colour at about 8 % over the surface) | Even 1 px interactive edge | Centred verb, optional leading icon | Fill steps up (`--button-bg-hover`), edge turns accent; pressed steps further |
+| Primary button | Inverted block or accent fill | None needed | Centred verb | Accent fill |
+| Quiet and icon buttons | None at rest | None at rest | Icon or short verb | An interactive edge and the hover fill appear (the state rule) |
+| Split button | As primary or secondary | A rule before the chevron part | Verb, then chevron | Each part on its own |
+| Segmented control, toggle group | Shared-border cells | Shared rules | Short labels | Selected cell inverted, as with tabs |
+| Stepper buttons inside a number field | `--button-bg` | On the field's bottom line | Minus, plus | As secondary buttons |
+
+- A dashed edge means disabled, and nothing else; a disabled button loses its fill.
+- Every control keeps one height, so a toolbar of fields and buttons shares a baseline.
+- The well and the raised fill are only a step apart; the edges carry the 3:1. Keep muted text off hover and pressed
+  fills, and check it on the rest fill.
+
 ## What only an app has
 
 The reference does not say how to style these; derive them from its tokens and treatments and record the result in the
