@@ -60,6 +60,10 @@ Failures met while aligning an application's UI, with their causes and fixes. Mo
   with the app script held back (`verification.md`).
 - **Portals miss the theme.** Menus, tooltips, and toasts rendered into `document.body` outside the themed element keep
   the fallback tokens; put the theme attribute and tokens on `<html>`.
+- **Colours derived from tokens collapse when two tokens get one value.** A map style recoloured from chrome roles
+  (roads from the pane surface, land from the background) lost its roads when the restyle gave panes and gutters the
+  same black. Before giving two roles one value, grep where each is read, derived renderers included, and give the
+  derived colours their own tokens if needed.
 - **A stored preference hides the default.** The app remembers the last theme; clear its storage key before judging the
   default for a system preference.
 
@@ -84,6 +88,9 @@ Failures met while aligning an application's UI, with their causes and fixes. Mo
 - **Verification snippets lie on some libraries.** ECharts canvases are transparent (a corner pixel is `rgba(0 0 0 0)`
   in every theme); AG Grid shows cell focus with a border, not an outline; visually hidden labels look clipped, and
   ellipsized headers look fine. Use the snippets in `verification.md` and confirm doubtful cases by screenshot.
+- **Network stubs hide the real basemap.** Browser-test fixtures that stub map tiles keep screenshots offline, but the
+  map then shows a plain background, so a restyle of the basemap is never seen. Take at least one screenshot per theme
+  of the map with the real tiles.
 - **Empty screenshots hide the restyle.** Without data, grids, charts, tiles, and legends do not render. Build a
   populated state once (a setup project and `storageState`) and reuse it.
 - **A screenshot matrix in one file runs serially.** Playwright runs the tests of one file in one worker unless the file
@@ -96,6 +103,9 @@ Failures met while aligning an application's UI, with their causes and fixes. Mo
 - **A harness outside the repository cannot import the app's fixtures.** Playwright resolves `@playwright/test` and the
   app's fixture (network stubs) from the repository. Put the harness in an ignored folder inside it, or link the
   repository's `node_modules` next to it.
+- **Deleting a junction can delete its target.** A harness folder that links the repository's `node_modules` with a
+  junction, removed with a recursive delete, can empty the repository's `node_modules`. Remove the junction itself
+  (`rmdir <link>` on Windows) before deleting the folder.
 - **Local-only files break the project's checks.** ESLint with typed linting reports any `.ts` outside a tsconfig, and
   `prettier --check .` scans untracked files; keep local configs and harnesses in ignored folders or pass ignore
   patterns, and do not commit them.
