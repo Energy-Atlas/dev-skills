@@ -42,6 +42,9 @@ Failures met while aligning an application's UI, with their causes and fixes. Mo
 - **One box for every control.** Square corners, one edge colour, and the pane fill made text inputs, selects, and
   secondary buttons identical; only their labels told them apart. Give fields a well and a heavier bottom edge,
   selects a chevron cell, and buttons a raised fill (`translation.md`, "Controls").
+- **A state fill painted on an icon.** The open state of a select filled its 12 px chevron icon, not the chevron cell,
+  so the cell turned dark only around the glyph. An SVG keeps its intrinsic height even when stretched in a flex row.
+  Draw the cell as its own box (an absolutely positioned `::after` at full height) and centre the icon over it.
 - **A quiet hover one step from the strip.** Ribbon icon buttons hovered to the raised surface, about 1.2:1 from the
   ribbon: invisible. Quiet controls need an edge on hover as well as a fill.
 

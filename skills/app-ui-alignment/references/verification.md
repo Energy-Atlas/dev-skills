@@ -187,6 +187,7 @@ python -c "from PIL import Image; Image.open('form-dark.png').convert('L').save(
 ```
 
 A field and a secondary button that differ only in their label fail; so does a select that reads as a button.
+Open every select and menu trigger as well: an open or selected fill must cover its whole cell, edge to edge.
 
 ### Clipped labels
 

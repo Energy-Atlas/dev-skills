@@ -112,7 +112,7 @@ least two of fill, edge, and content, so it reads at a glance and in greyscale.
 | Kind | Fill | Edge | Content | Hover / focus |
 | --- | --- | --- | --- | --- |
 | Text input, search field | A well: `--field-bg`, the pane colour (recessed on raised strips) | Even 1 px interactive edge with a 2 px bottom edge | Value left; muted placeholder; text cursor | No fill change; the edge turns accent on focus |
-| Select, value picker | The same well | The same edges | Value left, then a chevron in its own cell behind a 1 px rule | As the input; the open picker inverts the chevron cell |
+| Select, value picker | The same well | The same edges | Value left, then a chevron in its own full-height cell behind a 1 px rule | As the input; the open picker inverts the whole chevron cell |
 | Secondary button | Raised: `--button-bg` (the text colour at about 8 % over the surface) | Even 1 px interactive edge | Centred verb, optional leading icon | Fill steps up (`--button-bg-hover`), edge turns accent; pressed steps further |
 | Primary button | Inverted block or accent fill | None needed | Centred verb | Accent fill |
 | Quiet and icon buttons | None at rest | None at rest | Icon or short verb | An interactive edge and the hover fill appear (the state rule) |
@@ -120,6 +120,8 @@ least two of fill, edge, and content, so it reads at a glance and in greyscale.
 | Segmented control, toggle group | Shared-border cells | Shared rules | Short labels | Selected cell inverted, as with tabs |
 | Stepper buttons inside a number field | `--button-bg` | On the field's bottom line | Minus, plus | As secondary buttons |
 
+- A state fill belongs to a box, not to an icon: draw a chevron or icon cell as its own full-height box (a
+  positioned pseudo-element) and centre the icon over it, so its open or selected fill covers the cell edge to edge.
 - A dashed edge means disabled, and nothing else; a disabled button loses its fill.
 - Every control keeps one height, so a toolbar of fields and buttons shares a baseline.
 - The well and the raised fill are only a step apart; the edges carry the 3:1. Keep muted text off hover and pressed
