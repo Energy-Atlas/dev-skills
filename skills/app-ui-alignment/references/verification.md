@@ -230,5 +230,8 @@ axe on it again: hard-coded colours that axe skipped on a translucent background
 - [ ] Hover, selected, and pressed states of every interactive kind measured in every theme: labels 4.5:1, indicators 3:1,
       states told apart.
 - [ ] Titles inside panels keep the app's design unless the owner chose strips.
+- [ ] If the brand mark is used: the title-bar mark in every theme, the favicon at 16 and 32 px, and every favicon
+      resolving to an image under the deployed base path in the production build (`references/brand/README.md`,
+      "Checks").
 - [ ] Fields, selects, and buttons told apart in greyscale screenshots of a form and a toolbar.
 - [ ] Reduced motion honoured, libraries included; axe clean in every theme, pre-existing findings logged.

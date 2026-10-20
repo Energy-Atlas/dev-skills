@@ -26,7 +26,8 @@ Material version the target site pins.
 ## Hard rules
 
 1. Keep the site's identity. Visual-family alignment is not a rename: keep the site name, logo, and favicon unless the
-   owner says otherwise.
+   owner says otherwise. The EnergyAtlas mark (`references/brand/`) replaces a missing logo or favicon only when the
+   owner chooses it (intake question 2a), and is never recoloured or redrawn.
 2. Never commit the reference image if the owner says not to. Describe it in words in the spec instead (phase 3).
 3. Never hand-edit generated pages. Style them through CSS only; change layout only on hand-written pages.
 4. `mkdocs build --strict` passes before every commit you hand back. Keep the site's `validation:` block.
@@ -90,6 +91,9 @@ Follow `references/material-recipes.md` section by section. In order:
    declare them in `fonts.css`, set `theme.font: false`, and preload the two most-used files from
    `overrides/main.html`. Do not rely on Material's `privacy` plugin on Windows: it creates symbolic links, Windows refuses
    them, and its warning fails the strict build.
+   **Brand mark**, if chosen: copy the files of `references/brand/` to `docs/assets/brand/`, set `theme.logo` and
+   `theme.favicon`, add the raster favicons to `overrides/main.html`, and size the logo to the title
+   (`references/brand/README.md`, "MkDocs").
 2. **Page frame**: wider `.md-grid`, the content column bounded by two thin vertical rules, `scrollbar-gutter: stable`.
 3. **Gutter and insets**: one `--ui-gutter` variable equal to Material's article margin, and `--ui-inset-left/right`
    equal to a hidden sidebar's width, so a page that hides its sidebars (the landing page) keeps their width as empty
@@ -148,3 +152,6 @@ Fix and re-verify before reporting. Read `references/pitfalls.md` when a check f
 - `references/material-recipes.md`: configuration, template override, CSS recipes, and Markdown markup.
 - `references/verification.md`: contrast script, font vendoring script, and browser checks.
 - `references/pitfalls.md`: failures met in practice and their fixes.
+- `references/brand/`: the EnergyAtlas mark (white-E and knockout SVGs, favicons) and its README: use, placement, and
+  the MkDocs and web-app recipes.
+- `scripts/brand_assets.py`: renders the PNG and ICO favicons from the mark's SVG with a headless browser.

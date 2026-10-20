@@ -48,6 +48,17 @@ Failures met while aligning an application's UI, with their causes and fixes. Mo
 - **A quiet hover one step from the strip.** Ribbon icon buttons hovered to the raised surface, about 1.2:1 from the
   ribbon: invisible. Quiet controls need an edge on hover as well as a fill.
 
+## Brand mark
+
+- **The knockout E disappears on dark.** The energyatlas.io file cuts the E out of the hexagon; on a dark appearance the
+  E shows the surface. Use the white-E file in any app with a dark theme.
+- **A small mark is inlined.** Vite inlines imported assets under 4 KB as data URIs, so the title-bar mark makes no
+  request; a test that expects its URL under the base path fails. Accept a `data:image/svg+xml` source.
+- **A preview server hides missing favicons.** Vite preview answers a missing file with `index.html` and a 200; check
+  the content type is an image, not only the status.
+- **Headless Edge writes no screenshot on Windows.** Its launcher returns before the page is drawn; `brand_assets.py`
+  prefers Chrome.
+
 ## Tokens and themes
 
 - **The reference's surfaces land on the wrong app roles.** Mapping the reference's first surface onto the token named

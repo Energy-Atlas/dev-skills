@@ -20,6 +20,9 @@ Decided by <owner> on <YYYY-MM-DD>. These are implementation rules, not one-off 
 
 - The site stays **<site name>**. This is a visual-family alignment with <brand>, not a rename.
 - Keep the title, identity, logo, and favicon. Do not add "<brand>" branding to the header, title, footer, or pages.
+- *(If chosen)* **Brand mark:** the EnergyAtlas mark (`docs/assets/brand/`, from the skill's `references/brand/`), the
+  <white-E / knockout> version, as <the header logo and the favicon / the favicon only>, decided by <owner> on <date>.
+  Never recoloured.
 
 ### 0.2 Sources of truth
 
